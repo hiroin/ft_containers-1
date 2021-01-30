@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/29 15:51:02 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/30 20:28:06 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ class vector {
   /*** member type definitions ***/
   typedef T value_type;
   typedef Allocator allocator_type;
-  // typedef typename allocator_type::reference reference;
-  // typedef typename allocator_type::const_reference const_reference;
+  typedef typename allocator_type::reference reference;
+  typedef typename allocator_type::const_reference const_reference;
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
   // typedef typename allocator_type::pointer pointer;
@@ -52,6 +52,7 @@ class vector {
   // default constructor
   explicit vector(const allocator_type& alloc = allocator_type()) {
     (void)alloc;
+    values_ = NULL;
     size_ = 0;
     capacity_ = 0;
   }
@@ -59,19 +60,27 @@ class vector {
   // fill constructor
   explicit vector(size_type n, const value_type& value,
                   const allocator_type& alloc = allocator_type()) {
-    // TODO: allocation
-    // TODO: fill with value
-    (void)n;
-    (void)value;
-    (void)alloc;
-    size_ = 0;
-    capacity_ = 0;
+    alloc_ = alloc;
+    values_ = alloc_.allocate(n);
+    for (size_type cnt = 0; cnt < n; ++cnt) {
+      values_[cnt] = value;
+    }
+    size_ = n;
+    capacity_ = n;
   }
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
     (void)x;
     return (*this);
+  }
+
+  reference operator[](size_type n) {
+    return values_[n];
+  }
+
+  const_reference operator[](size_type n) const {
+    return values_[n];
   }
 
   /*** capacity ***/
@@ -87,18 +96,29 @@ class vector {
     return capacity_;
   }
 
-  /*
-    // range constructor
-    template <class InputIterator>
-    vector(InputIterator first, InputIterator last,
-           const allocator_type& alloc = allocator_type()) {
-      alloc_ = alloc;
-      // TODO: allocation and assign value using iterator
+  bool empty() const {
+    return (size_ == 0);
+  }
+
+  void reserve(size_type n) {
+    if (n <= capacity_) {
+      return ;
     }
 
-    // copy constructor
-    vector(const vector& x) { *this = x; }
-    */
+    if (values_) {
+      alloc_.deallocate(values_, capacity_);
+    }
+    values_ = alloc_.allocate(n);
+    capacity_ = n;
+  }
+
+  /*** Element access ***/
+  reference at(size_type n) {
+    if (n >= size_) {
+      throw std::out_of_range("vector");
+    }
+    return values_[n];
+  }
 };
 
 template <class T, class Allocator>
@@ -177,8 +197,8 @@ bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
 
 //   /*** operator overload ***/
 //   vector& operator=(const vector& x);
-//   reference operator[](size_type n);
-//   const_reference operator[](size_type n) const;
+//   reference operator[](size_type n); done
+//   const_reference operator[](size_type n) const; done
 
 //   /*** iterators ***/
 //   iterator begin();
@@ -191,10 +211,10 @@ bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
 //   const_reverse_iterator rend() const;
 
 //   /*** capacity ***/
-//   size_type size() const noexcept;
-//   size_type max_size() const noexcept;
-//   size_type capacity() const noexcept;
-//   bool empty() const noexcept;
+//   size_type size() const noexcept; done
+//   size_type max_size() const noexcept; done
+//   size_type capacity() const noexcept; done
+//   bool empty() const noexcept; done
 //   void reserve(size_type n);
 
 //   /*** Element access ***/
