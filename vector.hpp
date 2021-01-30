@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/30 20:28:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/30 23:49:56 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <memory>
 #include <limits>
+#include <memory>
 
 namespace ft {
 
@@ -71,46 +71,64 @@ class vector {
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
-    (void)x;
-    return (*this);
-  }
-
-  reference operator[](size_type n) {
-    return values_[n];
-  }
-
-  const_reference operator[](size_type n) const {
-    return values_[n];
-  }
-
-  /*** capacity ***/
-  size_type size() const {
-    return size_;
-  }
-
-  size_type max_size() const {
-    return alloc_.max_size();
-  }
-
-  size_type capacity() const {
-    return capacity_;
-  }
-
-  bool empty() const {
-    return (size_ == 0);
-  }
-
-  void reserve(size_type n) {
-    if (n <= capacity_) {
-      return ;
-    }
-
     if (values_) {
       alloc_.deallocate(values_, capacity_);
     }
-    values_ = alloc_.allocate(n);
+    values_ = alloc_.allocate(x.capacity_);
+    for (size_type idx = 0; idx < x.size_; ++idx) {
+      values_[idx] = x.values_[idx];
+    }
+    alloc_ = x.alloc_;
+    size_ = x.size_;
+    capacity_ = x.capacity_;
+    return (*this);
+  }
+
+  reference operator[](size_type n) { return values_[n]; }
+
+  const_reference operator[](size_type n) const { return values_[n]; }
+
+  friend bool operator==(const vector& x, const vector& y) {
+    if ((x.size_ != y.size_)) {
+      return false;
+    }
+    for (size_type idx = 0; idx < x.size_; ++idx) {
+      if (x.values_[idx] != y.values_[idx]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
+
+  /*** capacity ***/
+  size_type size() const { return size_; }
+
+  size_type max_size() const { return alloc_.max_size(); }
+
+  size_type capacity() const { return capacity_; }
+
+  bool empty() const { return (size_ == 0); }
+
+  void reserve(size_type n) {
+    // no need to reserve
+    if (n <= capacity_) {
+      return;
+    }
+
+    value_type* values_new = alloc_.allocate(n);
+    if (values_) {
+      for (size_type idx = 0; idx < n; ++idx) {
+        values_new[idx] = values_[idx];
+      }
+      alloc_.deallocate(values_, capacity_);
+    }
+    values_ = values_new;
     capacity_ = n;
   }
+
+  void resize(size_type sz, const value_type& c);
 
   /*** Element access ***/
   reference at(size_type n) {
@@ -120,13 +138,6 @@ class vector {
     return values_[n];
   }
 };
-
-template <class T, class Allocator>
-bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
-  (void)x;
-  (void)y;
-  return true;
-}
 
 // class vector<T> {
 //  private:
@@ -215,11 +226,11 @@ bool operator==(const vector<T, Allocator>& x, const vector<T, Allocator>& y) {
 //   size_type max_size() const noexcept; done
 //   size_type capacity() const noexcept; done
 //   bool empty() const noexcept; done
-//   void reserve(size_type n);
+//   void reserve(size_type n); done
 
 //   /*** Element access ***/
-//   reference at(size_type n);
-//   const_reference at(size_type n) const;
+//   reference at(size_type n); done
+//   const_reference at(size_type n) const; done
 //   reference front();
 //   const_reference front() const;
 //   reference back();

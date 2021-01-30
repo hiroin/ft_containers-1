@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/30 20:34:01 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/30 23:53:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,72 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
+  putTestInfo(test_no, "vector: check vec1(42,42) == vec2(21,42)");
+  try {
+    ft::vector<int> vec1(42, 42);
+    ft::vector<int> vec2(21, 42);
+    if (vec1 == vec2) {
+      throw std::runtime_error("should not be true");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: check vec1(42,42) == vec2(42,21)");
+  try {
+    ft::vector<int> vec1(42, 42);
+    ft::vector<int> vec2(42, 21);
+    if (vec1 == vec2) {
+      throw std::runtime_error("should not be true");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // case different capacity
+  putTestInfo(test_no, "vector: vec1(42,42) == vec2(42,42) but capacity diffs");
+  try {
+    ft::vector<int> vec1(42, 42);
+    ft::vector<int> vec2(42, 42);
+    vec2.reserve(84);
+    // std::cout << "\nvec1.capacity() = " << vec1.capacity() << std::endl;
+    // std::cout << "vec2.capacity() = " << vec2.capacity() << std::endl;
+    // std::cout << "vec1 == vec2: " << (vec1 == vec2) << std::endl;
+    if (vec1 != vec2) {
+      throw std::runtime_error("should be true");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // case different allocator
+
   putTestInfo(test_no, "vector: check vec1 = vec2(42,42)");
   try {
     ft::vector<int> vec1;
     ft::vector<int> vec2(42, 42);
     vec1 = vec2;
-    if (!(vec1 == vec2)) {
-      throw std::runtime_error("should be equal");
+    if (vec1 != vec2) {
+      throw std::runtime_error("should not be equal");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: check vec1 = vec2(42,42) with 84 capacity");
+  try {
+    ft::vector<int> vec1;
+    ft::vector<int> vec2(42, 42);
+    vec2.reserve(84);
+    vec1 = vec2;
+    // std::cout << "\nvec1.capacity() = " << vec1.capacity() << std::endl;
+    // std::cout << "vec2.capacity() = " << vec2.capacity() << std::endl;
+    if (vec1 != vec2) {
+      throw std::runtime_error("should not be equal");
     }
   } catch (std::exception& e) {
     throw std::runtime_error("failed");
@@ -356,13 +415,13 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "Vector: reserve(63) for default construction");
+  putTestInfo(test_no, "Vector: reserve(42) for default construction");
   flg = 0;
   try {
     std::vector<int> std_vec;
     ft::vector<int> ft_vec;
-    std_vec.reserve(63);
-    ft_vec.reserve(63);
+    std_vec.reserve(42);
+    ft_vec.reserve(42);
     std_vec[21] = 21;
     ft_vec[21] = 21;
     std_vec[41] = 41;
@@ -370,10 +429,10 @@ void test_vector(int& test_no) {
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size() ||
         std_vec.max_size() != ft_vec.max_size() || std_vec[41] != ft_vec[41] ||
-        std_vec[24] != ft_vec[24] || std_vec[21] != ft_vec[21]) {
-      // std::cout << "21: " << std_vec[21] << ", " << ft_vec[21] << std::endl;
-      // std::cout << "24: " << std_vec[24] << ", " << ft_vec[24] << std::endl;
-      // std::cout << "41: " << std_vec[41] << ", " << ft_vec[41] << std::endl;
+        std_vec[21] != ft_vec[21]) {
+      std::cout << "21: " << std_vec[21] << ", " << ft_vec[21] << std::endl;
+      std::cout << "24: " << std_vec[24] << ", " << ft_vec[24] << std::endl;
+      std::cout << "41: " << std_vec[41] << ", " << ft_vec[41] << std::endl;
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
@@ -395,7 +454,34 @@ void test_vector(int& test_no) {
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size() ||
         std_vec.max_size() != ft_vec.max_size() || std_vec[41] != ft_vec[41] ||
-        std_vec[24] != ft_vec[24] || std_vec[21] != ft_vec[21]) {
+        std_vec[21] != ft_vec[21]) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: reserve(84) for construction with 42, 42");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std_vec.reserve(84);
+    ft_vec.reserve(84);
+    std_vec[21] = 21;
+    ft_vec[21] = 21;
+    std_vec[41] = 41;
+    ft_vec[41] = 41;
+    std_vec[83] = 83;
+    ft_vec[83] = 83;
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size() ||
+        std_vec.max_size() != ft_vec.max_size() || std_vec[41] != ft_vec[41] ||
+        std_vec[21] != ft_vec[21] || std_vec[83] != ft_vec[83]) {
+      // std::cout << "24: " << std_vec[24] << ", " << ft_vec[24] << std::endl;
+      // std::cout << "41: " << std_vec[41] << ", " << ft_vec[41] << std::endl;
+      // std::cout << "80: " << std_vec[83] << ", " << ft_vec[83] << std::endl;
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
@@ -416,11 +502,10 @@ void test_vector(int& test_no) {
     ft_vec[41] = 41;
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size() ||
-        std_vec.max_size() != ft_vec.max_size() || std_vec[24] != ft_vec[24] ||
-        std_vec[41] != ft_vec[41] || std_vec[21] != ft_vec[21]) {
+        std_vec.max_size() != ft_vec.max_size() || std_vec[41] != ft_vec[41] ||
+        std_vec[21] != ft_vec[21]) {
       throw std::runtime_error("failed");
     }
-  } catch (std::out_of_range& e) {
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
