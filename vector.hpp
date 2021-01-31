@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 13:46:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:11:17 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ class vector {
 
   virtual ~vector() {
     if (capacity_ == 0) {
+      alloc_.deallocate(values_, capacity_);
       return ;
     }
     for (size_type idx = 0; idx < size_; ++idx) {
@@ -224,9 +225,11 @@ class vector {
   // iterator erase (iterator position);
   // iterator erase (iterator first, iterator last);
 
-  // void swap (vector& x) {
-  //   value_type
-  // }
+  void swap (vector& x) {
+    vector tmp(x);
+    x = *this;
+    *this = tmp;
+  }
 };
 
 // class vector<T> {

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:13 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/30 20:02:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:07:31 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <vector>
 #include <exception>
 #include <iostream>
+#include <cstdlib>
 #include "test.hpp"
 
 int main() {
@@ -26,5 +27,6 @@ int main() {
   } catch (std::exception& e) {
     std::cout << ":  " << e.what() << std::endl;
   }
+  system("leaks test.out | grep 'total leaked bytes'");
   return 0;
 }
