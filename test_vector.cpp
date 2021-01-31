@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 09:48:38 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 11:09:53 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -670,9 +670,6 @@ void test_vector(int& test_no) {
     ft_vec.resize(42, 21);
     for (size_t idx = 0; idx < std_vec.size(); idx++) {
       if (std_vec[idx] != ft_vec[idx]) {
-        std::cout << "\n"
-                  << idx << ", " << std_vec[idx] << ", " << ft_vec[idx]
-                  << std::endl;
         throw std::runtime_error("failed");
       }
     }
@@ -697,9 +694,6 @@ void test_vector(int& test_no) {
     ft_vec.resize(21, 42);
     for (size_t idx = 0; idx < std_vec.size(); idx++) {
       if (std_vec[idx] != ft_vec[idx]) {
-        std::cout << "\n"
-                  << idx << ", " << std_vec[idx] << ", " << ft_vec[idx]
-                  << std::endl;
         throw std::runtime_error("failed");
       }
     }
@@ -839,6 +833,167 @@ void test_vector(int& test_no) {
     std_vec.back() = 21;
     ft_vec.back() = 21;
     if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "push_back(42) to vec()");
+  flg = 0;
+  try {
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "push_back(42) to vec(21, 21)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(21, 21);
+    ft::vector<int> ft_vec(21, 21);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+
+  putTestInfo(test_no, "push_back(42) to vec(1, 1)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 1);
+    ft::vector<int> ft_vec(1, 1);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "push_back(42) to vec(2, 2)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(2, 2);
+    ft::vector<int> ft_vec(2, 2);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      std::cout << std::endl << std_vec.size() << ": " << ft_vec.size() << std::endl;
+      std::cout << std::endl << std_vec.capacity() << ": " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "push_back(42) to vec(4242, 4242)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(4242, 4242);
+    ft::vector<int> ft_vec(4242, 4242);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      std::cout << std::endl << std_vec.size() << ": " << ft_vec.size() << std::endl;
+      std::cout << std::endl << std_vec.capacity() << ": " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // was ok but takes a few minutes
+  // putTestInfo(test_no, "push_back(42) to vec(1234567890, 12345)");
+
+  putTestInfo(test_no, "push_back(42) to vec(12345, 12345)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(12345, 12345);
+    ft::vector<int> ft_vec(12345, 12345);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "push_back(42) to vec(1, 1) after reserve(21)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(4242, 4242);
+    ft::vector<int> ft_vec(4242, 4242);
+    std_vec.reserve(21);
+    ft_vec.reserve(21);
+    std_vec.push_back(42);
+    ft_vec.push_back(42);
+    for (size_t idx = 0; idx < std_vec.size(); idx++) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx: " << idx << ": " << std_vec[idx] << ": " << std_vec[idx] << std::endl;
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.capacity() != ft_vec.capacity() ||
+        std_vec.size() != ft_vec.size()) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {

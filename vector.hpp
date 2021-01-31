@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 09:46:46 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 10:55:42 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,23 @@ class vector {
 
   const_reference back() const {
     return values_[size_ - 1];
+  }
+
+  /*** modifiers ***/
+  void assign (size_type n, const value_type& val);
+  template <class InputIterator>
+  void assign (InputIterator first, InputIterator last);
+
+  void push_back (const value_type& val) {
+    if (size_ + 1 > capacity_) {
+      if (size_ == 0) {
+        reserve(1);
+      } else {
+        reserve(size_ * 2);
+      }
+    }
+    values_[size_] = val;
+    ++size_;
   }
 };
 
