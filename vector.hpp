@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/30 23:49:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 09:08:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ class vector {
 
     value_type* values_new = alloc_.allocate(n);
     if (values_) {
-      for (size_type idx = 0; idx < n; ++idx) {
+      for (size_type idx = 0; idx < size_; ++idx) {
         values_new[idx] = values_[idx];
       }
       alloc_.deallocate(values_, capacity_);
@@ -128,7 +128,25 @@ class vector {
     capacity_ = n;
   }
 
-  void resize(size_type sz, const value_type& c);
+  void resize(size_type n, value_type val = value_type()) {
+    if (n <= size_) {
+      size_ = n;
+      return ;
+    }
+    if (n > capacity_) {
+      value_type* values_new = alloc_.allocate(n);
+      for (size_type idx = 0; idx < size_; ++idx) {
+        values_new[idx] = values_[idx];
+      }
+      alloc_.deallocate(values_, capacity_);
+      values_ = values_new;
+      capacity_ = n;
+    }
+    for (size_type idx = size_; idx < n; ++idx) {
+      values_[idx] = val;
+    }
+    size_ = n;
+  }
 
   /*** Element access ***/
   reference at(size_type n) {
