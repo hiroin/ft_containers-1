@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 20:53:25 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/01 08:08:04 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ class vector {
   const_iterator begin() const { return values_; }
   iterator end() { return values_ + size_; }
   const_iterator end() const { return values_ + size_; }
-
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
 
   const_reverse_iterator rbegin() const {
@@ -217,9 +216,23 @@ class vector {
   const_reference back() const { return values_[size_ - 1]; }
 
   /*** modifiers ***/
-  void assign(size_type n, const value_type& val);
-  template <class InputIterator>
-  void assign(InputIterator first, InputIterator last);
+  void assign(size_type n, const value_type& val) {
+    if (n > capacity_) {
+      for (size_type idx = 0; idx < size_; ++idx) {
+        alloc_.destroy(&values_[idx]);
+      }
+      delete[] values_;
+      values_ = alloc_.allocate(n);
+      capacity_ = n;
+    }
+    for (size_type idx = 0; idx < n; ++idx) {
+      values_[idx] = val;
+    }
+    size_ = n;
+  }
+
+  // template <class InputIterator>
+  // void assign(InputIterator first, InputIterator last);
 
   void push_back(const value_type& val) {
     if (size_ + 1 > capacity_) {
