@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:13 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 15:07:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:24:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int main() {
   try {
     test_vector(test_no);
     std::cout << "=== PASSED ALL TEST ===" << std::endl;
+    system("leaks test.out | grep 'total leaked bytes'");
   } catch (std::exception& e) {
     std::cout << ":  " << e.what() << std::endl;
   }
-  system("leaks test.out | grep 'total leaked bytes'");
   return 0;
 }

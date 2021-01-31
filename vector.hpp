@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 15:11:17 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 15:25:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,13 @@ class vector {
     vector tmp(x);
     x = *this;
     *this = tmp;
+  }
+
+  void clear() {
+    for (size_type idx = 0; idx < size_; ++idx) {
+      alloc_.destroy(&values_[idx]);
+    }
+    size_ = 0;
   }
 };
 
