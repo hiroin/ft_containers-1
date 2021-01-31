@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 09:10:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 09:48:38 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -705,6 +705,140 @@ void test_vector(int& test_no) {
     }
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // case segv
+  // putTestInfo(test_no, "Vector: front() for default construction");
+
+  putTestInfo(test_no, "Vector: front() of vec(1, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    if (std_vec.front() != ft_vec.front()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: front() = 21 of vec(1, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    std_vec.front() = 21;
+    ft_vec.front() = 21;
+    if (std_vec.front() != ft_vec.front()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: front() of vec(42, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    if (std_vec.front() != ft_vec.front()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: front() = 21 of vec(42, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std_vec.front() = 21;
+    ft_vec.front() = 21;
+    if (std_vec.front() != ft_vec.front()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // segv
+  // putTestInfo(test_no, "Vector: front() of vec()");
+
+  putTestInfo(test_no, "Vector: back() of vec(1, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: back() = 21 of vec(1, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    std_vec.back() = 21;
+    ft_vec.back() = 21;
+    if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: back() of vec(42, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+    if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: back() of vec(42, 42) (rewrite vec[41]");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(1, 42);
+    ft::vector<int> ft_vec(1, 42);
+
+    std_vec[41] = 21;
+    ft_vec[41] = 21;
+    if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector: back() = 21 of vec(42, 42)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std_vec.back() = 21;
+    ft_vec.back() = 21;
+    if (std_vec.back() != ft_vec.back()) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {

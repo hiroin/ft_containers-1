@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 09:08:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 09:46:46 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,10 @@ class vector {
     }
     size_ = n;
     capacity_ = n;
+  }
+
+  virtual ~vector() {
+    alloc_.deallocate(values_, capacity_);
   }
 
   /*** operator overload ***/
@@ -154,6 +158,22 @@ class vector {
       throw std::out_of_range("vector");
     }
     return values_[n];
+  }
+
+  reference front() {
+    return values_[0];
+  }
+
+  const_reference front() const {
+    return values_[0];
+  }
+
+  reference back() {
+    return values_[size_ - 1];
+  }
+
+  const_reference back() const {
+    return values_[size_ - 1];
   }
 };
 
