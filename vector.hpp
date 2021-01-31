@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 10:55:42 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 11:34:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,13 @@ class vector {
     }
     values_[size_] = val;
     ++size_;
+  }
+
+  void pop_back() {
+    if (size_ != 0) {
+      alloc_.destroy(&values_[size_ - 1]);
+    }
+    --size_;
   }
 };
 
