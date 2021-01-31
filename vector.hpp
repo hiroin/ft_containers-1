@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 15:25:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 20:53:25 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
+#include <iterator>
 #include <limits>
 #include <memory>
 
@@ -38,8 +39,12 @@ class vector {
   typedef typename allocator_type::const_reference const_reference;
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
-  // typedef typename allocator_type::pointer pointer;
-  // typedef typename allocator_type::const_pointer const_pointer;
+  typedef typename allocator_type::pointer pointer;
+  typedef typename allocator_type::const_pointer const_pointer;
+  typedef pointer iterator;
+  typedef const_pointer const_iterator;
+  typedef std::reverse_iterator<iterator> reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
   value_type* values_;
@@ -69,6 +74,11 @@ class vector {
     capacity_ = n;
   }
 
+  // range constructor
+  // template <class InputIterator>
+  // vector(InputIterator first, InputIterator last,
+  //        const allocator_type& alloc = allocator_type());
+
   // copy constructor
   vector(const vector& x) {
     alloc_ = x.alloc_;
@@ -88,7 +98,7 @@ class vector {
   virtual ~vector() {
     if (capacity_ == 0) {
       alloc_.deallocate(values_, capacity_);
-      return ;
+      return;
     }
     for (size_type idx = 0; idx < size_; ++idx) {
       alloc_.destroy(&values_[idx]);
@@ -132,13 +142,28 @@ class vector {
 
   friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
 
+  /*** iterators ***/
+  iterator begin() { return values_; }
+  const_iterator begin() const { return values_; }
+  iterator end() { return values_ + size_; }
+  const_iterator end() const { return values_ + size_; }
+
+  reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
+
+  const_reverse_iterator rbegin() const {
+    return std::reverse_iterator<const_iterator>(end());
+  }
+
+  reverse_iterator rend() { return std::reverse_iterator<iterator>(begin()); }
+
+  const_reverse_iterator rend() const {
+    return std::reverse_iterator<const_iterator>(begin());
+  }
+
   /*** capacity ***/
   size_type size() const { return size_; }
-
   size_type max_size() const { return alloc_.max_size(); }
-
   size_type capacity() const { return capacity_; }
-
   bool empty() const { return (size_ == 0); }
 
   void reserve(size_type n) {
@@ -187,11 +212,8 @@ class vector {
   }
 
   reference front() { return values_[0]; }
-
   const_reference front() const { return values_[0]; }
-
   reference back() { return values_[size_ - 1]; }
-
   const_reference back() const { return values_[size_ - 1]; }
 
   /*** modifiers ***/
@@ -225,7 +247,7 @@ class vector {
   // iterator erase (iterator position);
   // iterator erase (iterator first, iterator last);
 
-  void swap (vector& x) {
+  void swap(vector& x) {
     vector tmp(x);
     x = *this;
     *this = tmp;

@@ -6,12 +6,12 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 17:34:06 by dnakano           #+#    #+#              #
-#    Updated: 2021/01/30 19:41:48 by dnakano          ###   ########.fr        #
+#    Updated: 2021/01/31 20:51:27 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX			:=	clang++
-CPPFLAGS	:=	-Wall -Wextra -Werror
+CPPFLAGS	:=	-Wall -Wextra -Werror -std=c++98
 
 SRCS		:=	main.cpp test_util.cpp test_vector.cpp 
 OBJS		:=	$(SRCS:%.cpp=%.o)

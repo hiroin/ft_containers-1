@@ -6,13 +6,18 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 15:28:58 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 21:03:13 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#define ALLOW_USE_CPP03
 
 #include <exception>
 #include <iostream>
 #include <vector>
+#ifdef ALLOW_USE_CPP03
+#include <algorithm>
+#endif /* ALLOW_USE_CPP03 */
 
 #include "test.hpp"
 #include "vector.hpp"
@@ -1253,9 +1258,6 @@ void test_vector(int& test_no) {
     ft::vector<int> ft_vec(1, 42);
     std_vec.clear();
     ft_vec.clear();
-    // std::cout << std::endl;
-    // std::cout << "size = " << std_vec.size() << std::endl;
-    // std::cout << "capacity = " << std_vec.capacity() << std::endl;
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size()) {
       throw std::runtime_error("failed");
@@ -1271,13 +1273,10 @@ void test_vector(int& test_no) {
   putTestInfo(test_no, "clear with vec(12345, 42)");
   flg = 0;
   try {
-    std::vector<int> std_vec(12345,42);
-    ft::vector<int> ft_vec(12345,42);
+    std::vector<int> std_vec(12345, 42);
+    ft::vector<int> ft_vec(12345, 42);
     std_vec.clear();
     ft_vec.clear();
-    // std::cout << std::endl;
-    // std::cout << "size = " << std_vec.size() << std::endl;
-    // std::cout << "capacity = " << std_vec.capacity() << std::endl;
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size()) {
       throw std::runtime_error("failed");
@@ -1286,6 +1285,268 @@ void test_vector(int& test_no) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      ++std_iter;
+      ++ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(), cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      ++std_iter;
+      ++ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), set seq and cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    int i = 0;
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      *std_iter = i;
+      *ft_iter = i;
+      std_iter++;
+      ft_iter++;
+      i++;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      ++std_iter;
+      ++ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+#ifdef ALLOW_USE_CPP03
+  putTestInfo(test_no,
+              "itarator of vec(42,42), set 21 using for_each algorithm and "
+              "cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::for_each(std_vec.begin(), std_vec.end(), divByTwo<int>);
+    std::for_each(ft_vec.begin(), ft_vec.end(), divByTwo<int>);
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      ++std_iter;
+      ++ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+#endif /* ALLOW_USE_CPP03 */
+
+  putTestInfo(test_no, "reverse itarator of vec(42,42), cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_riter = std_vec.rbegin();
+    ft::vector<int>::reverse_iterator ft_riter = ft_vec.rbegin();
+    while (ft_riter != ft_vec.rend()) {
+      if (*std_riter != *ft_riter) {
+        throw std::runtime_error("riter.begin not match");
+      }
+      ++std_riter;
+      ++ft_riter;
+    }
+    if (std_riter != std_vec.rend()) {
+      throw std::runtime_error("riter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "reverse itarator of vec(), cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std::vector<int>::reverse_iterator std_riter = std_vec.rbegin();
+    ft::vector<int>::reverse_iterator ft_riter = ft_vec.rbegin();
+    while (ft_riter != ft_vec.rend()) {
+      if (*std_riter != *ft_riter) {
+        throw std::runtime_error("riter.begin not match");
+      }
+      ++std_riter;
+      ++ft_riter;
+    }
+    if (std_riter != std_vec.rend()) {
+      throw std::runtime_error("riter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "reverse itarator of vec(42,42), set inverse, cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    std::vector<int>::reverse_iterator std_riter = std_vec.rbegin();
+    ft::vector<int>::reverse_iterator ft_riter = ft_vec.rbegin();
+    int i = 0;
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      *std_iter = i;
+      *ft_iter = i;
+      std_iter++;
+      ft_iter++;
+      i++;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+    while (ft_riter != ft_vec.rend()) {
+      if (*std_riter != *ft_riter) {
+        throw std::runtime_error("riter.begin not match");
+      }
+      ++std_riter;
+      ++ft_riter;
+    }
+    if (std_riter != std_vec.rend()) {
+      throw std::runtime_error("riter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "reverse itarator of vec(42,42), set inverse seq, cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_riter = std_vec.rbegin();
+    ft::vector<int>::reverse_iterator ft_riter = ft_vec.rbegin();
+    int i = 0;
+    while (ft_riter != ft_vec.rend()) {
+      if (*std_riter != *ft_riter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      *std_riter = i;
+      *ft_riter = i;
+      std_riter++;
+      ft_riter++;
+      i++;
+    }
+    if (std_riter != std_vec.rend()) {
+      throw std::runtime_error("riter.end not match");
+    }
+    while (ft_riter != ft_vec.rend()) {
+      if (*std_riter != *ft_riter) {
+        throw std::runtime_error("riter.begin not match");
+      }
+      ++std_riter;
+      ++ft_riter;
+    }
+    if (std_riter != std_vec.rend()) {
+      throw std::runtime_error("riter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+#ifdef ALLOW_USE_CPP03
+  putTestInfo(test_no,
+              "reverse itarator of vec(42,42), set 21 using for_each algorithm "
+              "and cmp with std");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::for_each(std_vec.rbegin(), std_vec.rend(), divByTwo<int>);
+    std::for_each(ft_vec.rbegin(), ft_vec.rend(), divByTwo<int>);
+    std::vector<int>::iterator std_iter = std_vec.begin();
+    ft::vector<int>::iterator ft_iter = ft_vec.begin();
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      ++std_iter;
+      ++ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+#endif /* ALLOW_USE_CPP03 */
 
   return;
 }
