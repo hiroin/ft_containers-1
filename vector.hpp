@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 11:34:12 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 13:46:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ class vector {
   /*** constuctors ***/
   // default constructor
   explicit vector(const allocator_type& alloc = allocator_type()) {
-    (void)alloc;
+    alloc_ = alloc;
     values_ = NULL;
     size_ = 0;
     capacity_ = 0;
@@ -62,27 +62,52 @@ class vector {
                   const allocator_type& alloc = allocator_type()) {
     alloc_ = alloc;
     values_ = alloc_.allocate(n);
-    for (size_type cnt = 0; cnt < n; ++cnt) {
-      values_[cnt] = value;
+    for (size_type idx = 0; idx < n; ++idx) {
+      values_[idx] = value;
     }
     size_ = n;
     capacity_ = n;
   }
 
+  // copy constructor
+  vector(const vector& x) {
+    alloc_ = x.alloc_;
+    if (x.capacity_ != 0) {
+      values_ = alloc_.allocate(x.size_);
+      for (size_type idx = 0; idx < x.size_; ++idx) {
+        values_[idx] = x.values_[idx];
+      }
+      capacity_ = x.size_;
+    } else {
+      values_ = NULL;
+      capacity_ = 0;
+    }
+    size_ = x.size_;
+  }
+
   virtual ~vector() {
+    if (capacity_ == 0) {
+      return ;
+    }
+    for (size_type idx = 0; idx < size_; ++idx) {
+      alloc_.destroy(&values_[idx]);
+    }
     alloc_.deallocate(values_, capacity_);
   }
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
-    if (values_) {
+    if (size_ > 0) {
+      for (size_type idx = 0; idx < size_; ++idx) {
+        alloc_.destroy(&values_[idx]);
+      }
       alloc_.deallocate(values_, capacity_);
     }
+    alloc_ = x.alloc_;
     values_ = alloc_.allocate(x.capacity_);
     for (size_type idx = 0; idx < x.size_; ++idx) {
       values_[idx] = x.values_[idx];
     }
-    alloc_ = x.alloc_;
     size_ = x.size_;
     capacity_ = x.capacity_;
     return (*this);
@@ -135,7 +160,7 @@ class vector {
   void resize(size_type n, value_type val = value_type()) {
     if (n <= size_) {
       size_ = n;
-      return ;
+      return;
     }
     if (n > capacity_) {
       value_type* values_new = alloc_.allocate(n);
@@ -160,28 +185,20 @@ class vector {
     return values_[n];
   }
 
-  reference front() {
-    return values_[0];
-  }
+  reference front() { return values_[0]; }
 
-  const_reference front() const {
-    return values_[0];
-  }
+  const_reference front() const { return values_[0]; }
 
-  reference back() {
-    return values_[size_ - 1];
-  }
+  reference back() { return values_[size_ - 1]; }
 
-  const_reference back() const {
-    return values_[size_ - 1];
-  }
+  const_reference back() const { return values_[size_ - 1]; }
 
   /*** modifiers ***/
-  void assign (size_type n, const value_type& val);
+  void assign(size_type n, const value_type& val);
   template <class InputIterator>
-  void assign (InputIterator first, InputIterator last);
+  void assign(InputIterator first, InputIterator last);
 
-  void push_back (const value_type& val) {
+  void push_back(const value_type& val) {
     if (size_ + 1 > capacity_) {
       if (size_ == 0) {
         reserve(1);
@@ -199,6 +216,17 @@ class vector {
     }
     --size_;
   }
+
+  // iterator insert(iterator position, const value_type& val);
+  // void insert(iterator position, size_type n, const value_type& val);
+  // template <class InputIterator>
+  // void insert(iterator position, InputIterator first, InputIterator last);
+  // iterator erase (iterator position);
+  // iterator erase (iterator first, iterator last);
+
+  // void swap (vector& x) {
+  //   value_type
+  // }
 };
 
 // class vector<T> {

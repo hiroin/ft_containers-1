@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/01/31 11:36:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/01/31 13:42:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,64 @@ void test_vector(int& test_no) {
   putTestInfo(test_no, "vector: fill construction with 42, 42");
   try {
     ft::vector<int> vec(42, 42);
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: copy construction with default");
+  try {
+    std::vector<int> vec_std1;
+    std::vector<int> vec_std2(vec_std1);
+    ft::vector<int> vec_ft1;
+    ft::vector<int> vec_ft2(vec_ft1);
+    if (vec_ft1 != vec_ft2 || vec_ft2.capacity() != vec_std2.capacity() ||
+        vec_ft2.size() != vec_std2.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: copy construction with vec(42,42)");
+  try {
+    std::vector<int> vec_std1(42, 42);
+    std::vector<int> vec_std2(vec_std1);
+    ft::vector<int> vec_ft1(42, 42);
+    ft::vector<int> vec_ft2(vec_ft1);
+    for (size_t idx = 0; idx < vec_std2.size(); idx++) {
+      if (vec_std2[idx] != vec_ft2[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (vec_ft1 != vec_ft2 || vec_ft2.capacity() != vec_std2.capacity() ||
+        vec_ft2.size() != vec_std2.size()) {
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: copy construction with vec(42,42) with cap(84)");
+  try {
+    std::vector<int> vec_std1(42, 42);
+    vec_std1.reserve(84);
+    std::vector<int> vec_std2(vec_std1);
+    ft::vector<int> vec_ft1(42, 42);
+    vec_ft1.reserve(84);
+    ft::vector<int> vec_ft2(vec_ft1);
+    for (size_t idx = 0; idx < vec_std2.size(); idx++) {
+      if (vec_std2[idx] != vec_ft2[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (vec_ft1 != vec_ft2 || vec_ft2.capacity() != vec_std2.capacity() ||
+        vec_ft2.size() != vec_std2.size()) {
+      throw std::runtime_error("failed");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error("failed");
   }
@@ -86,7 +144,6 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  // case different capacity
   putTestInfo(test_no, "vector: vec1(42,42) == vec2(42,42) but capacity diffs");
   try {
     ft::vector<int> vec1(42, 42);
@@ -937,8 +994,10 @@ void test_vector(int& test_no) {
     }
     if (std_vec.capacity() != ft_vec.capacity() ||
         std_vec.size() != ft_vec.size()) {
-      std::cout << std::endl << std_vec.size() << ": " << ft_vec.size() << std::endl;
-      std::cout << std::endl << std_vec.capacity() << ": " << ft_vec.capacity() << std::endl;
+      std::cout << std::endl
+                << std_vec.size() << ": " << ft_vec.size() << std::endl;
+      std::cout << std::endl
+                << std_vec.capacity() << ": " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
@@ -1058,4 +1117,34 @@ void test_vector(int& test_no) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  // putTestInfo(test_no, "swap vec(42, 42) and vec(21, 21)");
+  // flg = 0;
+  // try {
+  //   std::vector<int> std_vec1(42, 42);
+  //   std::vector<int> std_vec2(21, 21);
+  //   ft::vector<int> ft_vec1(42, 42);
+  //   ft::vector<int> ft_vec2(21, 21);
+  //   std_vec1.swap(std_vec2);
+  //   ft_vec1.swap(ft_vec2);
+  //   for (size_t idx = 0; idx < std_vec1.size(); idx++) {
+  //     if (std_vec1[idx] != ft_vec1[idx]) {
+  //       throw std::runtime_error("failed");
+  //     }
+  //   }
+  //   for (size_t idx = 0; idx < std_vec2.size(); idx++) {
+  //     if (std_vec2[idx] != ft_vec2[idx]) {
+  //       throw std::runtime_error("failed");
+  //     }
+  //   }
+  //   if (std_vec1.capacity() != ft_vec1.capacity() ||
+  //       std_vec1.size() != ft_vec1.size() ||
+  //       std_vec2.capacity() != ft_vec2.capacity() ||
+  //       std_vec2.size() != ft_vec2.size()) {
+  //     throw std::runtime_error("failed");
+  //   }
+  // } catch (std::exception& e) {
+  //   throw std::runtime_error(e.what());
+  // }
+  // std::cout << " => OK :)" << std::endl;
 }
