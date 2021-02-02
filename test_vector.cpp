@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/02 16:08:48 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 18:09:52 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <exception>
 #include <iostream>
 #include <vector>
+#include <list>
+#include <forward_list>
 #ifdef ALLOW_USE_CPP03
 #include <algorithm>
 #endif /* ALLOW_USE_CPP03 */
@@ -1869,6 +1871,78 @@ void test_vector(int& test_no) {
     ft::vector<int> ft_vec;
     std_vec.assign(src_vec.begin(), src_vec.end());
     ft_vec.assign(src_vec.begin(), src_vec.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      std::cout << "\ncapacity = " << std_vec.capacity() << std::endl;
+      std::cout << "capacity = " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "assign vec(42, 21) to vec() by list_iter");
+  flg = 0;
+  try {
+    std::list<int> src_lst(42, 21);
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std_vec.assign(src_lst.begin(), src_lst.end());
+    ft_vec.assign(src_lst.begin(), src_lst.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      std::cout << "\ncapacity = " << std_vec.capacity() << std::endl;
+      std::cout << "capacity = " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "assign vec(42, 21) to vec() by forwardlist_iter");
+  flg = 0;
+  try {
+    std::forward_list<int> src_lst(42, 21);
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std_vec.assign(src_lst.begin(), src_lst.end());
+    ft_vec.assign(src_lst.begin(), src_lst.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      std::cout << "\ncapacity = " << std_vec.capacity() << std::endl;
+      std::cout << "capacity = " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "assign vec(42, 21) to vec() by int array pointer");
+  flg = 0;
+  try {
+    int array[42] = {21};
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std_vec.assign(&array[0], &array[41]);
+    ft_vec.assign(&array[0], &array[41]);
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("failed");

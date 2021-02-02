@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/02 11:53:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 18:08:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ class vector {
 
   /*** iterators ***/
  public:
-  typedef ft::random_access_iterator_base_<
-      value_type, difference_type, pointer, reference>
+  typedef ft::random_access_iterator_base_<value_type, difference_type, pointer,
+                                           reference>
       iterator;
 
-  typedef ft::random_access_iterator_base_<
-      const value_type, difference_type, pointer, reference>
+  typedef ft::random_access_iterator_base_<const value_type, difference_type,
+                                           pointer, reference>
       const_iterator;
 
   typedef std::reverse_iterator<iterator> reverse_iterator;
@@ -244,15 +244,46 @@ class vector {
     size_ = n;
   }
 
-  // template <class InputIterator>
-  // typename std::enable_if<std::__is_input_iterator<InputIterator>::value,
-  // void>::type
-
   template <class InputIterator>
-  typename std::enable_if<std::__is_input_iterator<InputIterator>::value,
-                          void>::type
+  typename ft::enable_if<
+      ft::is_same<std::input_iterator_tag,
+                  typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::forward_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::bidirectional_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::random_access_iterator_tag,
+                      typename InputIterator::iterator_category>::value,
+      void>::type
   assign(InputIterator first, InputIterator last) {
     InputIterator iter = first;
+    size_type n = 0;
+    while (iter != last) {
+      ++n;
+      ++iter;
+    }
+    for (size_type idx = 0; idx < size_; ++idx) {
+      alloc_.destroy(&values_[idx]);
+    }
+    if (n > capacity_) {
+      delete[] values_;
+      values_ = alloc_.allocate(n);
+      capacity_ = n;
+    }
+    n = 0;
+    iter = first;
+    while (iter != last) {
+      values_[n] = *iter;
+      ++n;
+      ++iter;
+    }
+    size_ = n;
+  }
+
+  template <class Pointer>
+  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type assign(
+      Pointer first, Pointer last) {
+    Pointer iter = first;
     size_type n = 0;
     while (iter != last) {
       ++n;
