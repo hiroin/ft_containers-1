@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/02 11:43:29 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 16:03:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ class random_access_iterator_base_
 
   friend random_access_iterator_base_ operator+(
       const random_access_iterator_base_& lhs, distance_ rhs) {
-    return lhs += rhs;
+    return random_access_iterator_base_(lhs.ptr_ + rhs);
   }
 
   friend random_access_iterator_base_ operator+(
       distance_ lhs, const random_access_iterator_base_& rhs) {
-    return rhs += lhs;
+    return random_access_iterator_base_(rhs.ptr_ + lhs);
   }
 
   friend distance_ operator-(const random_access_iterator_base_& lhs,
@@ -108,12 +108,12 @@ class random_access_iterator_base_
 
   friend random_access_iterator_base_ operator-(
       const random_access_iterator_base_& lhs, distance_ rhs) {
-    return lhs -= rhs;
+    return random_access_iterator_base_(lhs.ptr_ - rhs);
   }
 
   friend random_access_iterator_base_ operator-(
       distance_ lhs, const random_access_iterator_base_& rhs) {
-    return rhs -= lhs;
+    return random_access_iterator_base_(rhs.ptr_ - lhs);
   }
 
   friend void swap(const random_access_iterator_base_& x,

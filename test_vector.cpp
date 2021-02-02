@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/02 11:45:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 16:08:48 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1336,10 +1336,6 @@ void test_vector(int& test_no) {
     std::vector<int> std_vec(42, 42);
     ft::vector<int> ft_vec(42, 42);
     std::vector<int>::iterator std_iter = std_vec.begin();
-    // ft::vector<int>::iterator::value_type hoge;
-    // ft::vector<int>::const_iterator::value_type const_hoge = 0;
-    // ft::vector<const int>::iterator::value_type fuga = 42;
-    // ft::vector<const int>::const_iterator::value_type const_fuga = 42;
     ft::vector<int>::iterator ft_iter = ft_vec.begin();
     int i = 0;
     while (ft_iter != ft_vec.end()) {
@@ -1365,6 +1361,132 @@ void test_vector(int& test_no) {
       ++ft_iter;
     }
     if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator+ and -)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter;
+    ft::vector<int>::iterator ft_iter;
+    if (ft_vec.end() - ft_vec.begin() != std_vec.end() - std_vec.begin()) {
+      throw std::runtime_error("error operator- iter2 - iter1");
+    }
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      std_iter = std_iter + 2;
+      ft_iter = ft_iter + 2;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator+ and -)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter;
+    ft::vector<int>::iterator ft_iter;
+    if (ft_vec.begin() - ft_vec.end() != std_vec.begin() - std_vec.end()) {
+      throw std::runtime_error("error operator- iter2 - iter1");
+    }
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      std_iter = 2 + std_iter;
+      ft_iter = 2 + ft_iter;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator+=)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter;
+    ft::vector<int>::iterator ft_iter;
+    std_iter = std_vec.begin();
+    ft_iter = ft_vec.begin();
+    while (ft_iter != ft_vec.end()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      std_iter += 2;
+      ft_iter += 2;
+    }
+    if (std_iter != std_vec.end()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator-)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter;
+    ft::vector<int>::iterator ft_iter;
+    std_iter = std_vec.end();
+    ft_iter = ft_vec.end();
+    while (ft_iter != ft_vec.begin()) {
+      if (*(std_iter - 1) != *(ft_iter - 1)) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      std_iter = std_iter - 2;
+      ft_iter = ft_iter - 2;
+    }
+    if (std_iter != std_vec.begin()) {
+      throw std::runtime_error("iter.end not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator-=)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::iterator std_iter;
+    ft::vector<int>::iterator ft_iter;
+    std_iter = std_vec.end();
+    ft_iter = ft_vec.end();
+    while (ft_iter != ft_vec.begin()) {
+      if (*(std_iter - 1) != *(ft_iter - 1)) {
+        throw std::runtime_error("iter.begin not match");
+      }
+      std_iter -= 2;
+      ft_iter -= 2;
+    }
+    if (std_iter != std_vec.begin()) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
@@ -1547,6 +1669,132 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 #endif /* ALLOW_USE_CPP03 */
+
+  putTestInfo(test_no, "reverse itarator of vec(42,42), cmp with std (use operator+ and -)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_iter;
+    ft::vector<int>::reverse_iterator ft_iter;
+    if (ft_vec.rend() - ft_vec.rbegin() != std_vec.rend() - std_vec.rbegin()) {
+      throw std::runtime_error("error operator- iter2 - iter1");
+    }
+    std_iter = std_vec.rbegin();
+    ft_iter = ft_vec.rbegin();
+    while (ft_iter != ft_vec.rend()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.rbegin not match");
+      }
+      std_iter = std_iter + 2;
+      ft_iter = ft_iter + 2;
+    }
+    if (std_iter != std_vec.rend()) {
+      throw std::runtime_error("iter.rend not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator+ and -)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_iter;
+    ft::vector<int>::reverse_iterator ft_iter;
+    if (ft_vec.rbegin() - ft_vec.rend() != std_vec.rbegin() - std_vec.rend()) {
+      throw std::runtime_error("error operator- iter2 - iter1");
+    }
+    std_iter = std_vec.rbegin();
+    ft_iter = ft_vec.rbegin();
+    while (ft_iter != ft_vec.rend()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.rbegin not match");
+      }
+      std_iter = 2 + std_iter;
+      ft_iter = 2 + ft_iter;
+    }
+    if (std_iter != std_vec.rend()) {
+      throw std::runtime_error("iter.rend not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator+=)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_iter;
+    ft::vector<int>::reverse_iterator ft_iter;
+    std_iter = std_vec.rbegin();
+    ft_iter = ft_vec.rbegin();
+    while (ft_iter != ft_vec.rend()) {
+      if (*std_iter != *ft_iter) {
+        throw std::runtime_error("iter.rbegin not match");
+      }
+      std_iter += 2;
+      ft_iter += 2;
+    }
+    if (std_iter != std_vec.rend()) {
+      throw std::runtime_error("iter.rend not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator-)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_iter;
+    ft::vector<int>::reverse_iterator ft_iter;
+    std_iter = std_vec.rend();
+    ft_iter = ft_vec.rend();
+    while (ft_iter != ft_vec.rbegin()) {
+      if (*(std_iter - 1) != *(ft_iter - 1)) {
+        throw std::runtime_error("iter.rbegin not match");
+      }
+      std_iter = std_iter - 2;
+      ft_iter = ft_iter - 2;
+    }
+    if (std_iter != std_vec.rbegin()) {
+      throw std::runtime_error("iter.rend not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "itarator of vec(42,42), cmp with std (use operator-=)");
+  flg = 0;
+  try {
+    std::vector<int> std_vec(42, 42);
+    ft::vector<int> ft_vec(42, 42);
+    std::vector<int>::reverse_iterator std_iter;
+    ft::vector<int>::reverse_iterator ft_iter;
+    std_iter = std_vec.rend();
+    ft_iter = ft_vec.rend();
+    while (ft_iter != ft_vec.rbegin()) {
+      if (*(std_iter - 1) != *(ft_iter - 1)) {
+        throw std::runtime_error("iter.rbegin not match");
+      }
+      std_iter -= 2;
+      ft_iter -= 2;
+    }
+    if (std_iter != std_vec.rbegin()) {
+      throw std::runtime_error("iter.rend not match");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no, "assign(42, 21) to vec()");
   flg = 0;
