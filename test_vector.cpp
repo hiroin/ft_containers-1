@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/01 08:05:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 11:45:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1336,6 +1336,10 @@ void test_vector(int& test_no) {
     std::vector<int> std_vec(42, 42);
     ft::vector<int> ft_vec(42, 42);
     std::vector<int>::iterator std_iter = std_vec.begin();
+    // ft::vector<int>::iterator::value_type hoge;
+    // ft::vector<int>::const_iterator::value_type const_hoge = 0;
+    // ft::vector<const int>::iterator::value_type fuga = 42;
+    // ft::vector<const int>::const_iterator::value_type const_fuga = 42;
     ft::vector<int>::iterator ft_iter = ft_vec.begin();
     int i = 0;
     while (ft_iter != ft_vec.end()) {
@@ -1526,12 +1530,8 @@ void test_vector(int& test_no) {
   try {
     std::vector<int> std_vec(42, 42);
     ft::vector<int> ft_vec(42, 42);
-    std::for_each(std_vec.rbegin(), std_vec.rend(), divByTwo<int>);
-    std::for_each(ft_vec.rbegin(), ft_vec.rend(), divByTwo<int>);
-    std::vector<int>::iterator std_iter = std_vec.begin();
+    std::vector<int>::iterator std_iter  = std_vec.begin();
     ft::vector<int>::iterator ft_iter = ft_vec.begin();
-    std_iter = std_vec.begin();
-    ft_iter = ft_vec.begin();
     while (ft_iter != ft_vec.end()) {
       if (*std_iter != *ft_iter) {
         throw std::runtime_error("iter.begin not match");
@@ -1597,6 +1597,30 @@ void test_vector(int& test_no) {
     ft::vector<int> ft_vec(84, 42);
     std_vec.assign(42, 21);
     ft_vec.assign(42, 21);
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("failed");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      std::cout << "\ncapacity = " << std_vec.capacity() << std::endl;
+      std::cout << "capacity = " << ft_vec.capacity() << std::endl;
+      throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "assign vec(42, 21) to vec() by iter");
+  flg = 0;
+  try {
+    ft::vector<int> src_vec(42, 21);
+    std::vector<int> std_vec;
+    ft::vector<int> ft_vec;
+    std_vec.assign(src_vec.begin(), src_vec.end());
+    ft_vec.assign(src_vec.begin(), src_vec.end());
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("failed");

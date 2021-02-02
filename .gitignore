@@ -34,3 +34,4 @@
 # Hidden files
 .*
 !.gitignore
+test.cpp

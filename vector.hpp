@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/01 08:08:04 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/02 11:53:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 #include <limits>
 #include <memory>
 
+// self-made headers (rekkaban copy)
+#include "iterator.hpp"
+#include "type_traits.hpp"
+
 namespace ft {
 
 template <class T, class Allocator = std::allocator<T> >
@@ -41,9 +45,19 @@ class vector {
   typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::pointer pointer;
   typedef typename allocator_type::const_pointer const_pointer;
-  typedef pointer iterator;
-  typedef const_pointer const_iterator;
+
+  /*** iterators ***/
+ public:
+  typedef ft::random_access_iterator_base_<
+      value_type, difference_type, pointer, reference>
+      iterator;
+
+  typedef ft::random_access_iterator_base_<
+      const value_type, difference_type, pointer, reference>
+      const_iterator;
+
   typedef std::reverse_iterator<iterator> reverse_iterator;
+
   typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
@@ -143,10 +157,10 @@ class vector {
   friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
 
   /*** iterators ***/
-  iterator begin() { return values_; }
-  const_iterator begin() const { return values_; }
-  iterator end() { return values_ + size_; }
-  const_iterator end() const { return values_ + size_; }
+  iterator begin() { return iterator(values_); }
+  const_iterator begin() const { return const_iterator(values_); }
+  iterator end() { return iterator(values_ + size_); }
+  const_iterator end() const { return iterator(values_ + size_); }
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
 
   const_reverse_iterator rbegin() const {
@@ -170,7 +184,6 @@ class vector {
     if (n <= capacity_) {
       return;
     }
-
     value_type* values_new = alloc_.allocate(n);
     if (values_) {
       for (size_type idx = 0; idx < size_; ++idx) {
@@ -217,10 +230,10 @@ class vector {
 
   /*** modifiers ***/
   void assign(size_type n, const value_type& val) {
+    for (size_type idx = 0; idx < size_; ++idx) {
+      alloc_.destroy(&values_[idx]);
+    }
     if (n > capacity_) {
-      for (size_type idx = 0; idx < size_; ++idx) {
-        alloc_.destroy(&values_[idx]);
-      }
       delete[] values_;
       values_ = alloc_.allocate(n);
       capacity_ = n;
@@ -232,7 +245,36 @@ class vector {
   }
 
   // template <class InputIterator>
-  // void assign(InputIterator first, InputIterator last);
+  // typename std::enable_if<std::__is_input_iterator<InputIterator>::value,
+  // void>::type
+
+  template <class InputIterator>
+  typename std::enable_if<std::__is_input_iterator<InputIterator>::value,
+                          void>::type
+  assign(InputIterator first, InputIterator last) {
+    InputIterator iter = first;
+    size_type n = 0;
+    while (iter != last) {
+      ++n;
+      ++iter;
+    }
+    for (size_type idx = 0; idx < size_; ++idx) {
+      alloc_.destroy(&values_[idx]);
+    }
+    if (n > capacity_) {
+      delete[] values_;
+      values_ = alloc_.allocate(n);
+      capacity_ = n;
+    }
+    n = 0;
+    iter = first;
+    while (iter != last) {
+      values_[n] = *iter;
+      ++n;
+      ++iter;
+    }
+    size_ = n;
+  }
 
   void push_back(const value_type& val) {
     if (size_ + 1 > capacity_) {
