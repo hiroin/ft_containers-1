@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 11:30:02 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/03 15:51:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,43 @@ class vector {
     }
   }
 
+  template <class InputIterator>
+  typename ft::enable_if<
+      ft::is_same<std::input_iterator_tag,
+                  typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::forward_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::bidirectional_iterator_tag,
+                      typename InputIterator::iterator_category>::value,
+      size_type>::type
+  getSizeFromIterator(InputIterator first, InputIterator last) {
+    // TODO: add check function if first < last
+    InputIterator iter = first;
+    size_type n = 0;
+    while (iter != last) {
+      ++iter;
+      ++n;
+    }
+    return n;
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<
+      ft::is_same<std::random_access_iterator_tag,
+                  typename InputIterator::iterator_category>::value,
+      size_type>::type
+  getSizeFromIterator(InputIterator first, InputIterator last) {
+    // TODO: add check function if first < last
+    return last - first;
+  }
+
+  template <class Pointer>
+  typename ft::enable_if<ft::is_pointer<Pointer>::value, size_type>::type
+  getSizeFromIterator(Pointer first, Pointer last) {
+    // TODO: add check function if first < last
+    return last - first;
+  }
+
   /*** capacity ***/
  public:
   size_type size() const { return size_; }
@@ -271,11 +308,7 @@ class vector {
       void>::type
   assign(InputIterator first, InputIterator last) {
     InputIterator iter = first;
-    size_type n = 0;
-    while (iter != last) {
-      ++n;
-      ++iter;
-    }
+    size_type n = getSizeFromIterator(first, last);
     for (size_type idx = 0; idx < size_; ++idx) {
       alloc_.destroy(&values_[idx]);
     }
@@ -298,11 +331,7 @@ class vector {
   typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type assign(
       Pointer first, Pointer last) {
     Pointer iter = first;
-    size_type n = 0;
-    while (iter != last) {
-      ++n;
-      ++iter;
-    }
+    size_type n = getSizeFromIterator(first, last);
     for (size_type idx = 0; idx < size_; ++idx) {
       alloc_.destroy(&values_[idx]);
     }
@@ -369,10 +398,10 @@ class vector {
   }
 
  public:
-  void insert (iterator position, size_type n, const value_type& val) {
+  void insert(iterator position, size_type n, const value_type& val) {
     if (position == iterator(NULL)) {
       assign(n, val);
-      return ;
+      return;
     }
 
     value_type* new_values;
@@ -393,6 +422,95 @@ class vector {
     }
     for (size_type idx = offset; idx < offset + n; ++idx) {
       new_values[idx] = val;
+    }
+    if (new_values != values_) {
+      alloc_.deallocate(values_, capacity_);
+      capacity_ = new_capacity;
+      values_ = new_values;
+    }
+    size_ += n;
+    return;
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<
+      ft::is_same<std::input_iterator_tag,
+                  typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::forward_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::bidirectional_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::random_access_iterator_tag,
+                      typename InputIterator::iterator_category>::value,
+      void>::type
+  insert(iterator position, InputIterator first, InputIterator last) {
+    if (position == iterator(NULL)) {
+      assign(first, last);
+      return;
+    }
+
+    size_type n = getSizeFromIterator(first, last);
+    value_type* new_values;
+    size_type new_capacity;
+    size_type idx;
+    InputIterator iter;
+    const size_type offset = position - begin();
+
+    if (size_ + n > capacity_) {
+      new_capacity = getNewCapacity_(capacity_, size_ + n);
+      new_values = alloc_.allocate(new_capacity);
+      for (idx = 0; idx < offset; ++idx) {
+        new_values[idx] = values_[idx];
+      }
+    } else {
+      new_values = values_;
+    }
+    for (idx = size_; idx > offset; --idx) {
+      new_values[idx + n - 1] = values_[idx - 1];
+    }
+
+    for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+      new_values[idx] = *iter;
+    }
+    if (new_values != values_) {
+      alloc_.deallocate(values_, capacity_);
+      capacity_ = new_capacity;
+      values_ = new_values;
+    }
+    size_ += n;
+    return;
+  }
+
+  template <class Pointer>
+  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type
+  insert(iterator position, Pointer first, Pointer last) {
+    if (position == iterator(NULL)) {
+      assign(first, last);
+      return;
+    }
+
+    size_type n = getSizeFromIterator(first, last);
+    value_type* new_values;
+    size_type new_capacity;
+    size_type idx;
+    Pointer iter;
+    const size_type offset = position - begin();
+
+    if (size_ + n > capacity_) {
+      new_capacity = getNewCapacity_(capacity_, size_ + n);
+      new_values = alloc_.allocate(new_capacity);
+      for (idx = 0; idx < offset; ++idx) {
+        new_values[idx] = values_[idx];
+      }
+    } else {
+      new_values = values_;
+    }
+    for (idx = size_; idx > offset; --idx) {
+      new_values[idx + n - 1] = values_[idx - 1];
+    }
+
+    for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+      new_values[idx] = *iter;
     }
     if (new_values != values_) {
       alloc_.deallocate(values_, capacity_);
