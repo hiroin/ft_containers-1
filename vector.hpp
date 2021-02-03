@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 09:38:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/03 11:30:02 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,20 @@ class vector {
     return std::reverse_iterator<const_iterator>(begin());
   }
 
+  /*** private functions ***/
+ private:
+  size_type getNewCapacity_(size_type cap_prev, size_type cap_req) {
+    if (cap_prev == 0) {
+      return cap_req;
+    } else if (cap_prev * 2 >= cap_req) {
+      return cap_prev * 2;
+    } else {
+      return cap_req;
+    }
+  }
+
   /*** capacity ***/
+ public:
   size_type size() const { return size_; }
   size_type max_size() const { return alloc_.max_size(); }
   size_type capacity() const { return capacity_; }
@@ -324,25 +337,27 @@ class vector {
   }
 
   iterator insert(iterator position, const value_type& val) {
-    if (position < begin() || position > end()) {
-      return position;
-    } else if (position == iterator(NULL)) {
+    if (position == iterator(NULL)) {
       assign(1, val);
       return begin();
     }
 
     value_type* new_values;
-    size_type new_capacity = 0 ? 1 : size_ * 2;
-    size_type offset = position - begin();
+    size_type new_capacity;
+    const size_type offset = position - begin();
 
     if (size_ + 1 > capacity_) {
+      new_capacity = getNewCapacity_(capacity_, size_ + 1);
       new_values = alloc_.allocate(new_capacity);
-      memcpy(new_values, values_, sizeof(value_type) * (position - begin()));
+      for (size_type idx = 0; idx < offset; ++idx) {
+        new_values[idx] = values_[idx];
+      }
     } else {
       new_values = values_;
     }
-    memmove(new_values + offset + 1, values_ + offset,
-            sizeof(value_type) * (end() - position));
+    for (size_type idx = size_; idx > offset; --idx) {
+      new_values[idx] = values_[idx - 1];
+    }
     new_values[offset] = val;
     if (new_values != values_) {
       alloc_.deallocate(values_, capacity_);
@@ -351,6 +366,41 @@ class vector {
     }
     ++size_;
     return begin() + offset;
+  }
+
+ public:
+  void insert (iterator position, size_type n, const value_type& val) {
+    if (position == iterator(NULL)) {
+      assign(n, val);
+      return ;
+    }
+
+    value_type* new_values;
+    size_type new_capacity;
+    const size_type offset = position - begin();
+
+    if (size_ + n > capacity_) {
+      new_capacity = getNewCapacity_(capacity_, size_ + n);
+      new_values = alloc_.allocate(new_capacity);
+      for (size_type idx = 0; idx < offset; ++idx) {
+        new_values[idx] = values_[idx];
+      }
+    } else {
+      new_values = values_;
+    }
+    for (size_type idx = size_; idx > offset; --idx) {
+      new_values[idx + n - 1] = values_[idx - 1];
+    }
+    for (size_type idx = offset; idx < offset + n; ++idx) {
+      new_values[idx] = val;
+    }
+    if (new_values != values_) {
+      alloc_.deallocate(values_, capacity_);
+      capacity_ = new_capacity;
+      values_ = new_values;
+    }
+    size_ += n;
+    return;
   }
 
   // void insert(iterator position, size_type n, const value_type& val);
