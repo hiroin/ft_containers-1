@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 15:51:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/03 16:11:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,54 @@ class vector {
   size_type size_;
   size_type capacity_;
 
+  /*** private functions ***/
+  size_type getNewCapacity_(size_type cap_prev, size_type cap_req) {
+    if (cap_prev == 0) {
+      return cap_req;
+    } else if (cap_prev * 2 >= cap_req) {
+      return cap_prev * 2;
+    } else {
+      return cap_req;
+    }
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<
+      ft::is_same<std::input_iterator_tag,
+                  typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::forward_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+          ft::is_same<std::bidirectional_iterator_tag,
+                      typename InputIterator::iterator_category>::value,
+      size_type>::type
+  getSizeFromIterator(InputIterator first, InputIterator last) {
+    // TODO: add check function if first < last
+    InputIterator iter = first;
+    size_type n = 0;
+    while (iter != last) {
+      ++iter;
+      ++n;
+    }
+    return n;
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<
+      ft::is_same<std::random_access_iterator_tag,
+                  typename InputIterator::iterator_category>::value,
+      size_type>::type
+  getSizeFromIterator(InputIterator first, InputIterator last) {
+    // TODO: add check function if first < last
+    return last - first;
+  }
+
+  template <class Pointer>
+  typename ft::enable_if<ft::is_pointer<Pointer>::value, size_type>::type
+  getSizeFromIterator(Pointer first, Pointer last) {
+    // TODO: add check function if first < last
+    return last - first;
+  }
+
  public:
   /*** constuctors ***/
   // default constructor
@@ -90,9 +138,15 @@ class vector {
   }
 
   // range constructor
-  // template <class InputIterator>
-  // vector(InputIterator first, InputIterator last,
-  //        const allocator_type& alloc = allocator_type());
+  template <class InputIterator>
+  vector(InputIterator first, InputIterator last,
+         const allocator_type& alloc = allocator_type()) {
+    alloc_ = alloc;
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    assign(first, last);
+  }
 
   // copy constructor
   vector(const vector& x) {
@@ -174,57 +228,7 @@ class vector {
     return std::reverse_iterator<const_iterator>(begin());
   }
 
-  /*** private functions ***/
- private:
-  size_type getNewCapacity_(size_type cap_prev, size_type cap_req) {
-    if (cap_prev == 0) {
-      return cap_req;
-    } else if (cap_prev * 2 >= cap_req) {
-      return cap_prev * 2;
-    } else {
-      return cap_req;
-    }
-  }
-
-  template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::input_iterator_tag,
-                  typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::forward_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::bidirectional_iterator_tag,
-                      typename InputIterator::iterator_category>::value,
-      size_type>::type
-  getSizeFromIterator(InputIterator first, InputIterator last) {
-    // TODO: add check function if first < last
-    InputIterator iter = first;
-    size_type n = 0;
-    while (iter != last) {
-      ++iter;
-      ++n;
-    }
-    return n;
-  }
-
-  template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::random_access_iterator_tag,
-                  typename InputIterator::iterator_category>::value,
-      size_type>::type
-  getSizeFromIterator(InputIterator first, InputIterator last) {
-    // TODO: add check function if first < last
-    return last - first;
-  }
-
-  template <class Pointer>
-  typename ft::enable_if<ft::is_pointer<Pointer>::value, size_type>::type
-  getSizeFromIterator(Pointer first, Pointer last) {
-    // TODO: add check function if first < last
-    return last - first;
-  }
-
   /*** capacity ***/
- public:
   size_type size() const { return size_; }
   size_type max_size() const { return alloc_.max_size(); }
   size_type capacity() const { return capacity_; }

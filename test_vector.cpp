@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 15:53:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/03 16:22:03 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,140 @@ void test_vector(int& test_no) {
     if (vec_ft1 != vec_ft2 || vec_ft2.capacity() != vec_std2.capacity() ||
         vec_ft2.size() != vec_std2.size()) {
       throw std::runtime_error("failed");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of vec(42,42)");
+  try {
+    std::vector<int> src(42, 21);
+    std::vector<int> std_vec(src.begin(), src.end());
+    ft::vector<int> ft_vec(src.begin(), src.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of lst(42,21)");
+  try {
+    std::list<int> src(42, 21);
+    std::vector<int> std_vec(src.begin(), src.end());
+    ft::vector<int> ft_vec(src.begin(), src.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of flst(42,21)");
+  try {
+    std::forward_list<int> src(42, 21);
+    std::vector<int> std_vec(src.begin(), src.end());
+    ft::vector<int> ft_vec(src.begin(), src.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of flst(42,21)");
+  try {
+    int src[10] = {0, 1, 2, 3, 42, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of vec(42,42) (between "
+              "begin() + 20 and end()");
+  try {
+    std::vector<int> src(42, 21);
+    std::vector<int> std_vec(src.begin() + 20, src.end());
+    ft::vector<int> ft_vec(src.begin() + 20, src.end());
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error("failed");
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "vector: range construction with iterator of vec(42,42) (between "
+              "begin() + 10 and end() - 10");
+  try {
+    std::vector<int> src(42, 21);
+    std::vector<int> std_vec(src.begin() + 10, src.end() - 10);
+    ft::vector<int> ft_vec(src.begin() + 10, src.end() - 10);
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      if (std_vec[idx] != ft_vec[idx]) {
+        std::cout << "\nidx = " << idx << ": " << std_vec[idx] << ": "
+                  << ft_vec[idx] << std::endl;
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
     throw std::runtime_error("failed");
