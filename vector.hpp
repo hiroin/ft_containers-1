@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 17:47:14 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/04 19:48:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,16 @@ class vector {
     }
   }
 
+  void allClear_() {
+    if (capacity_ == 0) {
+      return;
+    }
+    clear();
+    alloc_.deallocate(values_, capacity_);
+    values_ = NULL;
+    capacity_ = 0;
+  }
+
   template <class InputIterator>
   typename ft::enable_if<
       ft::is_same<std::input_iterator_tag,
@@ -85,7 +95,6 @@ class vector {
                       typename InputIterator::iterator_category>::value,
       size_type>::type
   getSizeFromIterator(InputIterator first, InputIterator last) {
-    // TODO: add check function if first < last
     InputIterator iter = first;
     size_type n = 0;
     while (iter != last) {
@@ -102,14 +111,12 @@ class vector {
                   typename InputIterator::iterator_category>::value,
       size_type>::type
   getSizeFromIterator(InputIterator first, InputIterator last) {
-    // TODO: add check function if first < last
     return last - first;
   }
 
   template <class Pointer>
   typename ft::enable_if<ft::is_pointer<Pointer>::value, size_type>::type
   getSizeFromIterator(Pointer first, Pointer last) {
-    // TODO: add check function if first < last
     return last - first;
   }
 
@@ -152,26 +159,13 @@ class vector {
     *this = x;
   }
 
-  virtual ~vector() {
-    if (capacity_ == 0) {
-      return;
-    }
-    for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(&values_[idx]);
-    }
-    alloc_.deallocate(values_, capacity_);
-  }
+  // destructor
+  virtual ~vector() { allClear_(); }
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
     if (this == &x) {
       return *this;
-    }
-    if (capacity_ > 0) {
-      clear();
-      alloc_.deallocate(values_, size_);
-      values_ = NULL;
-      capacity_ = 0;
     }
     assign(x.begin(), x.end());
     return (*this);
@@ -295,20 +289,23 @@ class vector {
                       typename InputIterator::iterator_category>::value,
       void>::type
   assign(InputIterator first, InputIterator last) {
-    InputIterator iter = first;
+    InputIterator iter;
     size_type n = getSizeFromIterator(first, last);
-    for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(values_ + idx);
-    }
     if (n > capacity_) {
-      alloc_.deallocate(values_, capacity_);
+      allClear_();
       values_ = alloc_.allocate(n);
       capacity_ = n;
+      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
+        alloc_.construct(values_ + size_, *iter);
+      }
+    } else {
+      for (size_type idx = n; idx < size_; ++idx) {
+        alloc_.destroy(values_ + idx);
+      }
+      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
+        values_[size_] = *iter;
+      }
     }
-    for (iter = first, n = 0; iter != last; ++iter, ++n) {
-      alloc_.construct(values_ + n, *iter);
-    }
-    size_ = n;
   }
 
   template <class Pointer>
@@ -316,18 +313,21 @@ class vector {
       Pointer first, Pointer last) {
     Pointer iter = first;
     size_type n = getSizeFromIterator(first, last);
-    for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(values_ + idx);
-    }
     if (n > capacity_) {
-      alloc_.deallocate(values_, capacity_);
+      allClear_();
       values_ = alloc_.allocate(n);
       capacity_ = n;
+      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
+        alloc_.construct(values_ + size_, *iter);
+      }
+    } else {
+      for (size_type idx = n; idx < size_; ++idx) {
+        alloc_.destroy(values_ + idx);
+      }
+      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
+        values_[size_] = *iter;
+      }
     }
-    for (iter = first, n = 0; iter != last; ++iter, ++n) {
-      alloc_.construct(values_ + n, *iter);
-    }
-    size_ = n;
   }
 
   void push_back(const value_type& val) {
@@ -523,7 +523,9 @@ class vector {
 
   void swap(vector& x) {
     vector tmp(*this);
+    allClear_();
     *this = x;
+    x.allClear_();
     x = tmp;
   }
 
