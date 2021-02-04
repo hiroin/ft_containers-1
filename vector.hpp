@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 16:11:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/04 14:52:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,8 +486,8 @@ class vector {
   }
 
   template <class Pointer>
-  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type
-  insert(iterator position, Pointer first, Pointer last) {
+  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type insert(
+      iterator position, Pointer first, Pointer last) {
     if (position == iterator(NULL)) {
       assign(first, last);
       return;
@@ -525,11 +525,25 @@ class vector {
     return;
   }
 
-  // void insert(iterator position, size_type n, const value_type& val);
-  // template <class InputIterator>
-  // void insert(iterator position, InputIterator first, InputIterator last);
-  // iterator erase (iterator position);
-  // iterator erase (iterator first, iterator last);
+  iterator erase(iterator position) {
+    for (iterator iter = position; iter + 1 != end(); ++iter) {
+      *iter = *(iter + 1);
+    }
+    alloc_.destroy(&values_[--size_]);
+    return position;
+  }
+
+  iterator erase (iterator first, iterator last) {
+    size_type offset = last - first;
+    for (iterator iter = first; iter + offset != end(); ++iter) {
+      *iter = *(iter + offset);
+    }
+    size_type new_size = size_ - offset;
+    while (size_ > new_size) {
+      alloc_.destroy(&values_[--size_]);
+    }
+    return first;
+  }
 
   void swap(vector& x) {
     vector tmp(x);
@@ -538,10 +552,9 @@ class vector {
   }
 
   void clear() {
-    for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(&values_[idx]);
+    while (size_ > 0) {
+      alloc_.destroy(&values_[--size_]);
     }
-    size_ = 0;
   }
 };
 

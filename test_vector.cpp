@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/03 16:22:03 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/04 15:15:01 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -3026,6 +3026,263 @@ void test_vector(int& test_no) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin() from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin());
+    ft_vec.erase(ft_vec.begin());
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin() + 1 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 1);
+    ft_vec.erase(ft_vec.begin() + 1);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin() + 5 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 5);
+    ft_vec.erase(ft_vec.begin() + 5);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin() + 9 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 9);
+    ft_vec.erase(ft_vec.begin() + 9);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase 2 ~ 8 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 2, std_vec.begin() + 8);
+    ft_vec.erase(ft_vec.begin() + 2, ft_vec.begin() + 8);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin ~ 8 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin(), std_vec.begin() + 8);
+    ft_vec.erase(ft_vec.begin(), ft_vec.begin() + 8);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin ~ end from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin(), std_vec.end());
+    ft_vec.erase(ft_vec.begin(), ft_vec.end());
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase begin ~ begin from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin(), std_vec.begin());
+    ft_vec.erase(ft_vec.begin(), ft_vec.begin());
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: erase end ~ end from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.end(), std_vec.end());
+    ft_vec.erase(ft_vec.end(), ft_vec.end());
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: begin + 1 ~ begin + 2 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    src[1] = 42;
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 1, std_vec.begin() + 2);
+    ft_vec.erase(ft_vec.begin() + 1, ft_vec.begin() + 2);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "vector: begin + 1 ~ begin + 1 from vec({0..9}");
+  try {
+    int src[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<int> std_vec(src, src + 10);
+    ft::vector<int> ft_vec(src, src + 10);
+    std_vec.erase(std_vec.begin() + 1, std_vec.begin() + 2);
+    ft_vec.erase(ft_vec.begin() + 1, ft_vec.begin() + 2);
+    // std::cout << std::endl;
+    for (size_t idx = 0; idx < std_vec.size(); ++idx) {
+      // std::cout << std_vec[idx] << ": " << ft_vec[idx] << std::endl;
+      if (std_vec[idx] != ft_vec[idx]) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (std_vec.size() != ft_vec.size() ||
+        std_vec.capacity() != ft_vec.capacity()) {
+      throw std::runtime_error("size or capacity");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // case segv
+  // putTestInfo(test_no, "vector: erase begin() + 10 from vec({0..9}");
 
   return;
 }
