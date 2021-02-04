@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.hpp                                           :+:      :+:    :+:   */
+/*   Hoge.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 21:11:44 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 15:47:04 by dnakano          ###   ########.fr       */
+/*   Created: 2021/02/04 15:20:56 by dnakano           #+#    #+#             */
+/*   Updated: 2021/02/04 15:58:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_HPP
-#define TEST_HPP
+#ifndef HOGE_HPP
+#define HOGE_HPP
 
-#include "Hoge.hpp"
+class Hoge {
+ private:
+ public:
+  const int idx_;
+  int* num_;
 
-void putTestInfo(int& test_no, const std::string& outline);
+  Hoge();
+  Hoge(int idx, int num);
+  Hoge(const Hoge& ref);
+  ~Hoge();
+  Hoge& operator=(const Hoge& rhs);
+};
 
-void test_vector(int& test_no);
+bool operator==(const Hoge& lhs, const Hoge& rhs);
+bool operator!=(const Hoge& lhs, const Hoge& rhs);
 
-template <typename T>
-void divByTwo(T& n) {
-  n = n / 2;
-}
-
-#endif /* TEST_HPP */
+#endif /* HOGE_HPP */

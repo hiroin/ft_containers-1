@@ -6,14 +6,14 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 17:34:06 by dnakano           #+#    #+#              #
-#    Updated: 2021/01/31 20:51:27 by dnakano          ###   ########.fr        #
+#    Updated: 2021/02/04 15:29:18 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX			:=	clang++
 CPPFLAGS	:=	-Wall -Wextra -Werror -std=c++98
 
-SRCS		:=	main.cpp test_util.cpp test_vector.cpp 
+SRCS		:=	main.cpp test_util.cpp test_vector.cpp Hoge.cpp
 OBJS		:=	$(SRCS:%.cpp=%.o)
 HEADERS		:=	vector.hpp
 NAME		:=	test.out

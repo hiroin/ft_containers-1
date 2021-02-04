@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 14:52:47 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/04 17:47:14 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,20 @@ class vector {
   typedef Allocator allocator_type;
   typedef typename allocator_type::reference reference;
   typedef typename allocator_type::const_reference const_reference;
-  typedef typename allocator_type::size_type size_type;
-  typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::pointer pointer;
   typedef typename allocator_type::const_pointer const_pointer;
+  typedef typename allocator_type::size_type size_type;
+  typedef typename allocator_type::difference_type difference_type;
 
   /*** iterators ***/
  public:
   typedef ft::random_access_iterator_base_<value_type, difference_type, pointer,
                                            reference>
       iterator;
-
   typedef ft::random_access_iterator_base_<const value_type, difference_type,
                                            pointer, reference>
       const_iterator;
-
   typedef std::reverse_iterator<iterator> reverse_iterator;
-
   typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
@@ -92,6 +89,7 @@ class vector {
     InputIterator iter = first;
     size_type n = 0;
     while (iter != last) {
+      (void)*iter;
       ++iter;
       ++n;
     }
@@ -126,15 +124,13 @@ class vector {
   }
 
   // fill constructor
-  explicit vector(size_type n, const value_type& value,
+  explicit vector(size_type n, const value_type& val = value_type(),
                   const allocator_type& alloc = allocator_type()) {
     alloc_ = alloc;
-    values_ = alloc_.allocate(n);
-    for (size_type idx = 0; idx < n; ++idx) {
-      values_[idx] = value;
-    }
-    size_ = n;
-    capacity_ = n;
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    assign(n, val);
   }
 
   // range constructor
@@ -150,23 +146,14 @@ class vector {
 
   // copy constructor
   vector(const vector& x) {
-    alloc_ = x.alloc_;
-    if (x.capacity_ != 0) {
-      values_ = alloc_.allocate(x.size_);
-      for (size_type idx = 0; idx < x.size_; ++idx) {
-        values_[idx] = x.values_[idx];
-      }
-      capacity_ = x.size_;
-    } else {
-      values_ = NULL;
-      capacity_ = 0;
-    }
-    size_ = x.size_;
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    *this = x;
   }
 
   virtual ~vector() {
     if (capacity_ == 0) {
-      alloc_.deallocate(values_, capacity_);
       return;
     }
     for (size_type idx = 0; idx < size_; ++idx) {
@@ -177,19 +164,16 @@ class vector {
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
-    if (size_ > 0) {
-      for (size_type idx = 0; idx < size_; ++idx) {
-        alloc_.destroy(&values_[idx]);
-      }
-      alloc_.deallocate(values_, capacity_);
+    if (this == &x) {
+      return *this;
     }
-    alloc_ = x.alloc_;
-    values_ = alloc_.allocate(x.capacity_);
-    for (size_type idx = 0; idx < x.size_; ++idx) {
-      values_[idx] = x.values_[idx];
+    if (capacity_ > 0) {
+      clear();
+      alloc_.deallocate(values_, size_);
+      values_ = NULL;
+      capacity_ = 0;
     }
-    size_ = x.size_;
-    capacity_ = x.capacity_;
+    assign(x.begin(), x.end());
     return (*this);
   }
 
@@ -215,7 +199,7 @@ class vector {
   iterator begin() { return iterator(values_); }
   const_iterator begin() const { return const_iterator(values_); }
   iterator end() { return iterator(values_ + size_); }
-  const_iterator end() const { return iterator(values_ + size_); }
+  const_iterator end() const { return const_iterator(values_ + size_); }
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
 
   const_reverse_iterator rbegin() const {
@@ -289,12 +273,12 @@ class vector {
       alloc_.destroy(&values_[idx]);
     }
     if (n > capacity_) {
-      delete[] values_;
+      alloc_.deallocate(values_, capacity_);
       values_ = alloc_.allocate(n);
       capacity_ = n;
     }
     for (size_type idx = 0; idx < n; ++idx) {
-      values_[idx] = val;
+      alloc_.construct(values_ + idx, val);
     }
     size_ = n;
   }
@@ -314,19 +298,15 @@ class vector {
     InputIterator iter = first;
     size_type n = getSizeFromIterator(first, last);
     for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(&values_[idx]);
+      alloc_.destroy(values_ + idx);
     }
     if (n > capacity_) {
-      delete[] values_;
+      alloc_.deallocate(values_, capacity_);
       values_ = alloc_.allocate(n);
       capacity_ = n;
     }
-    n = 0;
-    iter = first;
-    while (iter != last) {
-      values_[n] = *iter;
-      ++n;
-      ++iter;
+    for (iter = first, n = 0; iter != last; ++iter, ++n) {
+      alloc_.construct(values_ + n, *iter);
     }
     size_ = n;
   }
@@ -337,19 +317,15 @@ class vector {
     Pointer iter = first;
     size_type n = getSizeFromIterator(first, last);
     for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(&values_[idx]);
+      alloc_.destroy(values_ + idx);
     }
     if (n > capacity_) {
-      delete[] values_;
+      alloc_.deallocate(values_, capacity_);
       values_ = alloc_.allocate(n);
       capacity_ = n;
     }
-    n = 0;
-    iter = first;
-    while (iter != last) {
-      values_[n] = *iter;
-      ++n;
-      ++iter;
+    for (iter = first, n = 0; iter != last; ++iter, ++n) {
+      alloc_.construct(values_ + n, *iter);
     }
     size_ = n;
   }
@@ -533,7 +509,7 @@ class vector {
     return position;
   }
 
-  iterator erase (iterator first, iterator last) {
+  iterator erase(iterator first, iterator last) {
     size_type offset = last - first;
     for (iterator iter = first; iter + offset != end(); ++iter) {
       *iter = *(iter + offset);
@@ -546,9 +522,9 @@ class vector {
   }
 
   void swap(vector& x) {
-    vector tmp(x);
-    x = *this;
-    *this = tmp;
+    vector tmp(*this);
+    *this = x;
+    x = tmp;
   }
 
   void clear() {
