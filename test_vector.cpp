@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 19:52:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/04 20:16:13 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -3296,7 +3296,7 @@ void test_vector(int& test_no) {
   /*** test using hoge ***/
   Hoge hoge[10] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2), Hoge(3, 3), Hoge(4, 4),
                    Hoge(5, 5), Hoge(6, 6), Hoge(7, 7), Hoge(8, 8), Hoge(9, 9)};
-  std::vector<Hoge> hoge_vec(hoge, &hoge[10]);
+  ft::vector<Hoge> hoge_vec(hoge, &hoge[10]);
   std::list<Hoge> hoge_lst(hoge, &hoge[10]);
   std::forward_list<Hoge> hoge_flst(hoge, &hoge[10]);
 
@@ -3308,6 +3308,9 @@ void test_vector(int& test_no) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
     }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
@@ -3345,6 +3348,9 @@ void test_vector(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
+    }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
       throw std::runtime_error("size or capacity");
@@ -3362,6 +3368,9 @@ void test_vector(int& test_no) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
     }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
@@ -3381,6 +3390,9 @@ void test_vector(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
+    }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
       throw std::runtime_error("size or capacity");
@@ -3398,6 +3410,9 @@ void test_vector(int& test_no) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
     }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
@@ -3417,6 +3432,9 @@ void test_vector(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
+    }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
       throw std::runtime_error("size or capacity");
@@ -3434,6 +3452,9 @@ void test_vector(int& test_no) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
     }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
@@ -3453,6 +3474,9 @@ void test_vector(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
+    }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
       throw std::runtime_error("size or capacity");
@@ -3470,6 +3494,9 @@ void test_vector(int& test_no) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
     }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
@@ -3489,6 +3516,9 @@ void test_vector(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_vec.empty() != ft_vec.empty()) {
+      throw std::runtime_error("empty");
+    }
     if (std_vec.size() != ft_vec.size() ||
         std_vec.capacity() != ft_vec.capacity()) {
       throw std::runtime_error("size or capacity");
@@ -3504,6 +3534,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec_src;
     std::vector<Hoge> std_vec(std_vec_src);
     ft::vector<Hoge> ft_vec(ft_vec_src);
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3524,6 +3558,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec_src(1, hoge[0]);
     std::vector<Hoge> std_vec(std_vec_src);
     ft::vector<Hoge> ft_vec(ft_vec_src);
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3544,6 +3582,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec_src(hoge_vec.begin(), hoge_vec.end());
     std::vector<Hoge> std_vec(std_vec_src);
     ft::vector<Hoge> ft_vec(ft_vec_src);
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3566,6 +3608,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec;
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3588,6 +3634,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec(1, hoge[2]);
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3615,6 +3665,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec(hoge_vec.begin(), hoge_vec.end());
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3642,6 +3696,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec(1, hoge[2]);
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3669,6 +3727,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec(hoge_vec.begin(), hoge_vec.end());
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
@@ -3696,6 +3758,10 @@ void test_vector(int& test_no) {
     ft::vector<Hoge> ft_vec(1, hoge[2]);
     std_vec = std_vec_src;
     ft_vec = ft_vec_src;
+    if ((ft_vec != ft_vec_src || !(ft_vec == ft_vec_src)) !=
+        (std_vec != std_vec_src || !(std_vec == std_vec_src))) {
+      throw std::runtime_error("assignation");
+    }
     for (size_t idx = 0; idx < std_vec.size(); ++idx) {
       if (std_vec[idx] != ft_vec[idx]) {
         throw std::runtime_error("value");
