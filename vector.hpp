@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 19:48:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/05 23:36:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,8 @@ class vector {
     value_type* values_new = alloc_.allocate(n);
     if (values_) {
       for (size_type idx = 0; idx < size_; ++idx) {
-        values_new[idx] = values_[idx];
+        alloc_.construct(values_new + idx, values_[idx]);
+        alloc_.destroy(values_ + idx);
       }
       alloc_.deallocate(values_, capacity_);
     }
@@ -229,21 +230,17 @@ class vector {
   }
 
   void resize(size_type n, value_type val = value_type()) {
-    if (n <= size_) {
-      size_ = n;
+    if (size_ > n) {
+      while (size_ > n) {
+        alloc_.destroy(values_ + --size_);
+      }
       return;
     }
     if (n > capacity_) {
-      value_type* values_new = alloc_.allocate(n);
-      for (size_type idx = 0; idx < size_; ++idx) {
-        values_new[idx] = values_[idx];
-      }
-      alloc_.deallocate(values_, capacity_);
-      values_ = values_new;
-      capacity_ = n;
+      reserve(getNewCapacity_(capacity_, n));
     }
     for (size_type idx = size_; idx < n; ++idx) {
-      values_[idx] = val;
+      alloc_.construct(values_ + idx, val);
     }
     size_ = n;
   }
@@ -393,6 +390,7 @@ class vector {
       new_values = alloc_.allocate(new_capacity);
       for (size_type idx = 0; idx < offset; ++idx) {
         new_values[idx] = values_[idx];
+        alloc_.destroy(values_ + idx);
       }
     } else {
       new_values = values_;
