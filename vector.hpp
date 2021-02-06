@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/06 20:58:12 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/07 07:58:33 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,10 +247,18 @@ class vector {
   friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
 
   /*** iterators ***/
-  iterator begin() { return iterator(values_); }
-  const_iterator begin() const { return const_iterator(values_); }
-  iterator end() { return iterator(values_ + size_); }
-  const_iterator end() const { return const_iterator(values_ + size_); }
+  iterator begin() { return iterator(size_ ? values_ : NULL); }
+
+  const_iterator begin() const {
+    return const_iterator(size_ ? values_ : NULL);
+  }
+
+  iterator end() { return iterator(size_ ? values_ + size_ : NULL); }
+
+  const_iterator end() const {
+    return const_iterator(size_ ? values_ + size_ : NULL);
+  }
+
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
 
   const_reverse_iterator rbegin() const {
@@ -347,7 +355,7 @@ class vector {
                       typename InputIterator::iterator_category>::value,
       void>::type
   assign(InputIterator first, InputIterator last) {
-    InputIterator iter;
+    InputIterator iter = first;
     size_type n = getSizeFromIterator(first, last);
     if (n > capacity_) {
       allClear_();
@@ -357,19 +365,25 @@ class vector {
         alloc_.construct(values_ + size_, *iter);
       }
     } else {
-      for (size_type idx = n; idx < size_; ++idx) {
+      size_type idx;
+      for (iter = first, idx = 0; iter != last; ++iter, ++idx) {
+        if (idx < size_) {
+          values_[idx] = *iter;
+        } else {
+          alloc_.construct(values_ + idx, *iter);
+        }
+      }
+      for (idx = n; idx < size_; ++idx) {
         alloc_.destroy(values_ + idx);
       }
-      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
-        values_[size_] = *iter;
-      }
+      size_ = n;
     }
   }
 
-  template <class Pointer>
-  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type assign(
-      Pointer first, Pointer last) {
-    Pointer iter = first;
+  template <class InputIterator>
+  typename ft::enable_if<ft::is_pointer<InputIterator>::value, void>::type
+  assign(InputIterator first, InputIterator last) {
+    InputIterator iter = first;
     size_type n = getSizeFromIterator(first, last);
     if (n > capacity_) {
       allClear_();
@@ -379,12 +393,18 @@ class vector {
         alloc_.construct(values_ + size_, *iter);
       }
     } else {
-      for (size_type idx = n; idx < size_; ++idx) {
+      size_type idx;
+      for (iter = first, idx = 0; iter != last; ++iter, ++idx) {
+        if (idx < size_) {
+          values_[idx] = *iter;
+        } else {
+          alloc_.construct(values_ + idx, *iter);
+        }
+      }
+      for (idx = n; idx < size_; ++idx) {
         alloc_.destroy(values_ + idx);
       }
-      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
-        values_[size_] = *iter;
-      }
+      size_ = n;
     }
   }
 
@@ -490,36 +510,40 @@ class vector {
       return;
     }
 
-    size_type n = getSizeFromIterator(first, last);
-    value_type* new_values;
-    size_type new_capacity;
+    const size_type n = getSizeFromIterator(first, last);
     size_type idx;
     InputIterator iter;
     const size_type offset = position - begin();
 
     if (size_ + n > capacity_) {
-      new_capacity = getNewCapacity_(capacity_, size_ + n);
-      new_values = alloc_.allocate(new_capacity);
+      const size_type new_capacity = getNewCapacity_(capacity_, size_ + n);
+      value_type* new_values = alloc_.allocate(new_capacity);
       for (idx = 0; idx < offset; ++idx) {
-        new_values[idx] = values_[idx];
+        alloc_.construct(new_values + idx, values_[idx]);
+        alloc_.destroy(&values_[idx]);
       }
-    } else {
-      new_values = values_;
-    }
-    for (idx = size_; idx > offset; --idx) {
-      new_values[idx + n - 1] = values_[idx - 1];
-    }
-
-    for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
-      new_values[idx] = *iter;
-    }
-    if (new_values != values_) {
+      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+        alloc_.construct(new_values + idx, *iter);
+      }
+      for (idx = offset + n; idx < size_ + n; ++idx) {
+        alloc_.construct(new_values + idx, values_[idx - n]);
+        alloc_.destroy(&values_[idx - n]);
+      }
       alloc_.deallocate(values_, capacity_);
-      capacity_ = new_capacity;
       values_ = new_values;
+      capacity_ = new_capacity;
+    } else {
+      for (idx = size_ + n; idx > size_; --idx) {
+        alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
+      }
+      for (idx = size_; idx > offset + n; --idx) {
+        values_[idx - 1] = values_[idx - n - 1];
+      }
+      for (idx = offset, iter = first; idx < offset + n; ++idx) {
+        values_[idx] = *iter;
+      }
     }
     size_ += n;
-    return;
   }
 
   template <class Pointer>
@@ -530,36 +554,40 @@ class vector {
       return;
     }
 
-    size_type n = getSizeFromIterator(first, last);
-    value_type* new_values;
-    size_type new_capacity;
+    const size_type n = getSizeFromIterator(first, last);
     size_type idx;
     Pointer iter;
     const size_type offset = position - begin();
 
     if (size_ + n > capacity_) {
-      new_capacity = getNewCapacity_(capacity_, size_ + n);
-      new_values = alloc_.allocate(new_capacity);
+      const size_type new_capacity = getNewCapacity_(capacity_, size_ + n);
+      value_type* new_values = alloc_.allocate(new_capacity);
       for (idx = 0; idx < offset; ++idx) {
-        new_values[idx] = values_[idx];
+        alloc_.construct(new_values + idx, values_[idx]);
+        alloc_.destroy(&values_[idx]);
       }
-    } else {
-      new_values = values_;
-    }
-    for (idx = size_; idx > offset; --idx) {
-      new_values[idx + n - 1] = values_[idx - 1];
-    }
-
-    for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
-      new_values[idx] = *iter;
-    }
-    if (new_values != values_) {
+      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+        alloc_.construct(new_values + idx, *iter);
+      }
+      for (idx = offset + n; idx < size_ + n; ++idx) {
+        alloc_.construct(new_values + idx, values_[idx - n]);
+        alloc_.destroy(&values_[idx - n]);
+      }
       alloc_.deallocate(values_, capacity_);
-      capacity_ = new_capacity;
       values_ = new_values;
+      capacity_ = new_capacity;
+    } else {
+      for (idx = size_ + n; idx > size_; --idx) {
+        alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
+      }
+      for (idx = size_; idx > offset + n; --idx) {
+        values_[idx - 1] = values_[idx - n - 1];
+      }
+      for (idx = offset, iter = first; idx < offset + n; ++idx) {
+        values_[idx] = *iter;
+      }
     }
     size_ += n;
-    return;
   }
 
   iterator erase(iterator position) {
