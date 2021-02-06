@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/05 23:36:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/06 19:48:30 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,65 @@ class vector {
 
   // range constructor
   template <class InputIterator>
+  vector(
+      InputIterator first,
+      typename ft::enable_if<
+          ft::is_same<std::input_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::forward_iterator_tag,
+                          typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::bidirectional_iterator_tag,
+                          typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::random_access_iterator_tag,
+                          typename InputIterator::iterator_category>::value,
+          InputIterator>::type last) {
+    alloc_ = allocator_type();
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    assign(first, last);
+  }
+
+  // range constructor
+  template <class InputIterator>
+  vector(InputIterator first,
+         typename ft::enable_if<ft::is_pointer<InputIterator>::value,
+                                InputIterator>::type last) {
+    alloc_ = allocator_type();
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    assign(first, last);
+  }
+
+  // range constructor
+  template <class InputIterator>
+  vector(
+      InputIterator first, InputIterator last,
+      const allocator_type& alloc = allocator_type(),
+      typename ft::enable_if<
+          ft::is_same<std::input_iterator_tag,
+                      typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::forward_iterator_tag,
+                          typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::bidirectional_iterator_tag,
+                          typename InputIterator::iterator_category>::value ||
+              ft::is_same<std::random_access_iterator_tag,
+                          typename InputIterator::iterator_category>::value,
+          void>::type* = 0) {
+    alloc_ = alloc;
+    values_ = NULL;
+    size_ = 0;
+    capacity_ = 0;
+    assign(first, last);
+  }
+
+  // range constructor
+  template <class InputIterator>
   vector(InputIterator first, InputIterator last,
-         const allocator_type& alloc = allocator_type()) {
+         const allocator_type& alloc = allocator_type(),
+         typename ft::enable_if<ft::is_pointer<InputIterator>::value,
+                                void>::type* = 0) {
     alloc_ = alloc;
     values_ = NULL;
     size_ = 0;
@@ -260,16 +317,20 @@ class vector {
 
   /*** modifiers ***/
   void assign(size_type n, const value_type& val) {
-    for (size_type idx = 0; idx < size_; ++idx) {
-      alloc_.destroy(&values_[idx]);
-    }
     if (n > capacity_) {
-      alloc_.deallocate(values_, capacity_);
+      allClear_();
       values_ = alloc_.allocate(n);
       capacity_ = n;
-    }
-    for (size_type idx = 0; idx < n; ++idx) {
-      alloc_.construct(values_ + idx, val);
+      for (size_type idx = 0; idx < n; ++idx) {
+        alloc_.construct(values_ + idx, val);
+      }
+    } else {
+      for (size_type idx = n; idx < size_; ++idx) {
+        alloc_.destroy(&values_[idx]);
+      }
+      for (size_type idx = 0; idx < n; ++idx) {
+        values_[idx] = val;
+      }
     }
     size_ = n;
   }
