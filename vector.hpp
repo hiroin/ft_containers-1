@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/06 19:48:30 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/06 20:06:36 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,10 +390,9 @@ class vector {
 
   void push_back(const value_type& val) {
     if (size_ + 1 > capacity_) {
-      reserve(size_ == 0 ? 1 : size_ * 2);
+      reserve(getNewCapacity_(capacity_, size_ + 1));
     }
-    values_[size_] = val;
-    ++size_;
+    alloc_.construct(values_ + size_++, val);
   }
 
   void pop_back() {
