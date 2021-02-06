@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/06 20:06:36 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/06 20:58:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -406,35 +406,38 @@ class vector {
     if (position == iterator(NULL)) {
       assign(1, val);
       return begin();
+    } else if (position == end()) {
+      push_back(val);
+      return end() - 1;
     }
 
-    value_type* new_values;
-    size_type new_capacity;
     const size_type offset = position - begin();
-
     if (size_ + 1 > capacity_) {
-      new_capacity = getNewCapacity_(capacity_, size_ + 1);
-      new_values = alloc_.allocate(new_capacity);
+      const size_type new_capacity = getNewCapacity_(capacity_, size_ + 1);
+      value_type* new_values = alloc_.allocate(new_capacity);
       for (size_type idx = 0; idx < offset; ++idx) {
-        new_values[idx] = values_[idx];
+        alloc_.construct(new_values + idx, values_[idx]);
+        alloc_.destroy(&values_[idx]);
       }
-    } else {
-      new_values = values_;
-    }
-    for (size_type idx = size_; idx > offset; --idx) {
-      new_values[idx] = values_[idx - 1];
-    }
-    new_values[offset] = val;
-    if (new_values != values_) {
+      alloc_.construct(new_values + offset, val);
+      for (size_type idx = offset + 1; idx < size_ + 1; ++idx) {
+        alloc_.construct(new_values + idx, values_[idx - 1]);
+        alloc_.destroy(&values_[idx - 1]);
+      }
       alloc_.deallocate(values_, capacity_);
       capacity_ = new_capacity;
       values_ = new_values;
+    } else {
+      alloc_.construct(values_ + size_, values_[size_ - 1]);
+      for (size_type idx = size_ - 1; idx > offset; --idx) {
+        values_[idx] = values_[idx - 1];
+      }
+      values_[offset] = val;
     }
     ++size_;
     return begin() + offset;
   }
 
- public:
   void insert(iterator position, size_type n, const value_type& val) {
     if (position == iterator(NULL)) {
       assign(n, val);
