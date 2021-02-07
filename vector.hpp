@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/07 07:58:33 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/07 10:31:02 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,11 @@ class vector {
         alloc_.destroy(&values_[idx]);
       }
       for (size_type idx = 0; idx < n; ++idx) {
-        values_[idx] = val;
+        if (idx < size_) {
+          values_[idx] = val;
+        } else {
+          alloc_.construct(values_ + idx, val);
+        }
       }
     }
     size_ = n;
@@ -464,33 +468,43 @@ class vector {
       return;
     }
 
-    value_type* new_values;
-    size_type new_capacity;
+    size_type idx;
     const size_type offset = position - begin();
 
     if (size_ + n > capacity_) {
-      new_capacity = getNewCapacity_(capacity_, size_ + n);
-      new_values = alloc_.allocate(new_capacity);
-      for (size_type idx = 0; idx < offset; ++idx) {
-        new_values[idx] = values_[idx];
+      const size_type new_capacity = getNewCapacity_(capacity_, size_ + n);
+      value_type* new_values = alloc_.allocate(new_capacity);
+      for (idx = 0; idx < offset; ++idx) {
+        alloc_.construct(new_values + idx, values_[idx]);
         alloc_.destroy(values_ + idx);
       }
-    } else {
-      new_values = values_;
-    }
-    for (size_type idx = size_; idx > offset; --idx) {
-      new_values[idx + n - 1] = values_[idx - 1];
-    }
-    for (size_type idx = offset; idx < offset + n; ++idx) {
-      new_values[idx] = val;
-    }
-    if (new_values != values_) {
+      for (idx = offset; idx < offset + n; ++idx) {
+        alloc_.construct(new_values + idx, val);
+      }
+      for (idx = offset + n; idx < size_ + n; ++idx) {
+        alloc_.construct(new_values + idx, values_[idx - n]);
+        alloc_.destroy(values_ + idx - n);
+      }
       alloc_.deallocate(values_, capacity_);
-      capacity_ = new_capacity;
       values_ = new_values;
+      capacity_ = new_capacity;
+    } else {
+      for (idx = size_ + n; idx > size_; --idx) {
+        if (idx > offset + n) {
+          alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
+        } else {
+          alloc_.construct(values_ + idx - 1, val);
+        }
+      }
+      for (idx = size_; idx > offset; --idx) {
+        if (idx > offset + n) {
+          values_[idx - 1] = values_[idx - n - 1];
+        } else {
+          values_[idx - 1] = val;
+        }
+      }
     }
     size_ += n;
-    return;
   }
 
   template <class InputIterator>
@@ -533,14 +547,15 @@ class vector {
       values_ = new_values;
       capacity_ = new_capacity;
     } else {
-      for (idx = size_ + n; idx > size_; --idx) {
+      for (idx = size_ + n; idx > size_ && idx > offset + n; --idx) {
         alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
       }
-      for (idx = size_; idx > offset + n; --idx) {
-        values_[idx - 1] = values_[idx - n - 1];
-      }
-      for (idx = offset, iter = first; idx < offset + n; ++idx) {
-        values_[idx] = *iter;
+      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+        if (idx < size_) {
+          values_[idx] = *iter;
+        } else {
+          alloc_.construct(values_ + idx, *iter);
+        }
       }
     }
     size_ += n;
@@ -577,14 +592,15 @@ class vector {
       values_ = new_values;
       capacity_ = new_capacity;
     } else {
-      for (idx = size_ + n; idx > size_; --idx) {
+      for (idx = size_ + n; idx > size_ && idx > offset + n; --idx) {
         alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
       }
-      for (idx = size_; idx > offset + n; --idx) {
-        values_[idx - 1] = values_[idx - n - 1];
-      }
-      for (idx = offset, iter = first; idx < offset + n; ++idx) {
-        values_[idx] = *iter;
+      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
+        if (idx < size_) {
+          values_[idx] = *iter;
+        } else {
+          alloc_.construct(values_ + idx, *iter);
+        }
       }
     }
     size_ += n;
