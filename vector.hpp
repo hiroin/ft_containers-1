@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/07 10:31:02 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/07 19:23:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,16 +247,20 @@ class vector {
   friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
 
   /*** iterators ***/
-  iterator begin() { return iterator(size_ ? values_ : NULL); }
+  iterator begin() { return iterator(values_); }
+  // iterator begin() { return iterator(size_ ? values_ : NULL); }
 
   const_iterator begin() const {
-    return const_iterator(size_ ? values_ : NULL);
+    return const_iterator(values_);
+    // return const_iterator(size_ ? values_ : NULL);
   }
 
-  iterator end() { return iterator(size_ ? values_ + size_ : NULL); }
+  // iterator end() { return iterator(size_ ? values_ + size_ : NULL); }
+  iterator end() { return iterator(values_ + size_); }
 
   const_iterator end() const {
-    return const_iterator(size_ ? values_ + size_ : NULL);
+    // return const_iterator(size_ ? values_ + size_ : NULL);
+    return const_iterator(values_ + size_);
   }
 
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
@@ -633,6 +637,8 @@ class vector {
     x.allClear_();
     x = tmp;
   }
+
+  // friend swap
 
   void clear() {
     while (size_ > 0) {
