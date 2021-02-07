@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/07 19:23:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/07 22:15:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,28 +248,15 @@ class vector {
 
   /*** iterators ***/
   iterator begin() { return iterator(values_); }
-  // iterator begin() { return iterator(size_ ? values_ : NULL); }
-
-  const_iterator begin() const {
-    return const_iterator(values_);
-    // return const_iterator(size_ ? values_ : NULL);
-  }
-
-  // iterator end() { return iterator(size_ ? values_ + size_ : NULL); }
   iterator end() { return iterator(values_ + size_); }
-
-  const_iterator end() const {
-    // return const_iterator(size_ ? values_ + size_ : NULL);
-    return const_iterator(values_ + size_);
-  }
-
+  const_iterator begin() const { return const_iterator(values_); }
+  const_iterator end() const { return const_iterator(values_ + size_); }
   reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
+  reverse_iterator rend() { return std::reverse_iterator<iterator>(begin()); }
 
   const_reverse_iterator rbegin() const {
     return std::reverse_iterator<const_iterator>(end());
   }
-
-  reverse_iterator rend() { return std::reverse_iterator<iterator>(begin()); }
 
   const_reverse_iterator rend() const {
     return std::reverse_iterator<const_iterator>(begin());
@@ -424,8 +411,8 @@ class vector {
   }
 
   void pop_back() {
-    if (size_ != 0) {
-      alloc_.destroy(&values_[size_ - 1]);
+    if (size_ > 0) {
+      alloc_.destroy(values_ + size_ - 1);
     }
     --size_;
   }
