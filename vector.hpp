@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/07 22:15:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/08 09:06:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -618,14 +618,17 @@ class vector {
   }
 
   void swap(vector& x) {
-    vector tmp(*this);
-    allClear_();
-    *this = x;
-    x.allClear_();
-    x = tmp;
-  }
+    pointer tmp_values = x.values_;
+    size_type tmp_size = x.size_;
+    size_type tmp_capacity = x.capacity_;
 
-  // friend swap
+    x.values_ = values_;
+    x.size_ = size_;
+    x.capacity_ = capacity_;
+    values_ = tmp_values;
+    size_ = tmp_size;
+    capacity_ = tmp_capacity;
+  }
 
   void clear() {
     while (size_ > 0) {
@@ -633,6 +636,11 @@ class vector {
     }
   }
 };
+
+template <class T, class Allocator>
+void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
+  a.swap(b);
+}
 
 }  // namespace ft
 
