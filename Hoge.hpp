@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:20:56 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/04 15:58:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/08 09:38:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,9 @@ class Hoge {
 
 bool operator==(const Hoge& lhs, const Hoge& rhs);
 bool operator!=(const Hoge& lhs, const Hoge& rhs);
+bool operator<(const Hoge& lhs, const Hoge& rhs);
+bool operator<=(const Hoge& lhs, const Hoge& rhs);
+bool operator>(const Hoge& lhs, const Hoge& rhs);
+bool operator>=(const Hoge& lhs, const Hoge& rhs);
 
 #endif /* HOGE_HPP */

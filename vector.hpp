@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/08 09:06:05 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/08 10:11:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <cstring>
 #include <iterator>
-#include <limits>
 #include <memory>
 
 // self-made headers (rekkaban copy)
+#include "algorithm.hpp"
 #include "iterator.hpp"
 #include "type_traits.hpp"
 
@@ -245,6 +244,19 @@ class vector {
   }
 
   friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
+
+  friend bool operator<(const vector& x, const vector& y) {
+    return (
+        ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+  }
+
+  friend bool operator>(const vector& x, const vector& y) {
+    return (
+        ft::lexicographical_compare(y.begin(), y.end(), x.begin(), x.end()));
+  }
+
+  friend bool operator<=(const vector& x, const vector& y) { return !(x > y); }
+  friend bool operator>=(const vector& x, const vector& y) { return !(x < y); }
 
   /*** iterators ***/
   iterator begin() { return iterator(values_); }
