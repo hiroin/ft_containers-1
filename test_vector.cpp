@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/08 10:13:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/08 11:39:17 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -7936,6 +7936,9 @@ void test_vector(int& test_no) {
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
     }
+    if (std_vec.max_size() != ft_vec.max_size()) {
+      throw std::runtime_error("max_size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -8127,6 +8130,9 @@ void test_vector(int& test_no) {
       std::cout << "ft: size = " << ft_vec.size() << ", "
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
+    }
+    if (std_vec.max_size() != std_vec.max_size()) {
+      throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -8373,6 +8379,9 @@ void test_vector(int& test_no) {
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
     }
+    if (std_vec.max_size() != ft_vec.max_size()) {
+      throw std::runtime_error("max_size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -8482,6 +8491,9 @@ void test_vector(int& test_no) {
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
     }
+    if (std_vec.max_size() != std_vec.max_size()) {
+      throw std::runtime_error("max_size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -8509,6 +8521,9 @@ void test_vector(int& test_no) {
       std::cout << "ft: size = " << ft_vec.size() << ", "
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
+    }
+    if (std_vec.max_size() != ft_vec.max_size()) {
+      throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -8566,6 +8581,9 @@ void test_vector(int& test_no) {
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
     }
+    if (std_vec.max_size() != std_vec.max_size()) {
+      throw std::runtime_error("max_size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -8594,6 +8612,9 @@ void test_vector(int& test_no) {
       std::cout << "ft: size = " << ft_vec.size() << ", "
                 << "capacity = " << ft_vec.capacity() << std::endl;
       throw std::runtime_error("size or capacity");
+    }
+    if (std_vec.max_size() != std_vec.max_size()) {
+      throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -10225,7 +10246,7 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "vector<Hoge>: compare by opearators vec() with vec()");
+  putTestInfo(test_no, "vector<Hoge>: compare by operators vec() with vec()");
   try {
     std::vector<Hoge> std_vec1, std_vec2;
     ft::vector<Hoge> ft_vec1, ft_vec2;
@@ -10252,7 +10273,7 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "vector<Hoge>: compare by opearators vec() with vec(1)");
+  putTestInfo(test_no, "vector<Hoge>: compare by operators vec() with vec(1)");
   try {
     std::vector<Hoge> std_vec1, std_vec2(1);
     ft::vector<Hoge> ft_vec1, ft_vec2(1);
@@ -10279,7 +10300,7 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "vector<Hoge>: compare by opearators vec(1) with vec()");
+  putTestInfo(test_no, "vector<Hoge>: compare by operators vec(1) with vec()");
   try {
     std::vector<Hoge> std_vec1(1), std_vec2;
     ft::vector<Hoge> ft_vec1(1), ft_vec2;
@@ -10307,7 +10328,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(1, 1) with vec(1, 1)");
+              "vector<Hoge>: compare by operators vec(1, 1) with vec(1, 1)");
   try {
     std::vector<Hoge> std_vec1(1, hoge[1]), std_vec2(1, hoge[1]);
     ft::vector<Hoge> ft_vec1(1, hoge[1]), ft_vec2(1, hoge[1]);
@@ -10335,7 +10356,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(1, 1) with vec(1, 2)");
+              "vector<Hoge>: compare by operators vec(1, 1) with vec(1, 2)");
   try {
     std::vector<Hoge> std_vec1(1, hoge[1]), std_vec2(1, hoge[2]);
     ft::vector<Hoge> ft_vec1(1, hoge[1]), ft_vec2(1, hoge[2]);
@@ -10363,7 +10384,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~9) with vec(0~9)");
+              "vector<Hoge>: compare by operators vec(0~9) with vec(0~9)");
   try {
     std::vector<Hoge> std_vec1(hoge, hoge + 9), std_vec2(hoge, hoge + 9);
     ft::vector<Hoge> ft_vec1(hoge, hoge + 9), ft_vec2(hoge, hoge + 9);
@@ -10391,7 +10412,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~5) with vec(0~9)");
+              "vector<Hoge>: compare by operators vec(0~5) with vec(0~9)");
   try {
     std::vector<Hoge> std_vec1(hoge, hoge + 5), std_vec2(hoge, hoge + 9);
     ft::vector<Hoge> ft_vec1(hoge, hoge + 5), ft_vec2(hoge, hoge + 9);
@@ -10419,7 +10440,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~9) with vec(0~5)");
+              "vector<Hoge>: compare by operators vec(0~9) with vec(0~5)");
   try {
     std::vector<Hoge> std_vec1(hoge, hoge + 9), std_vec2(hoge, hoge + 5);
     ft::vector<Hoge> ft_vec1(hoge, hoge + 9), ft_vec2(hoge, hoge + 5);
@@ -10447,7 +10468,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~9) with vec(9~0)");
+              "vector<Hoge>: compare by operators vec(0~9) with vec(9~0)");
   try {
     std::vector<Hoge> std_vec1(hoge_vec.begin(), hoge_vec.end()),
         std_vec2(hoge_vec.rbegin(), hoge_vec.rend());
@@ -10477,7 +10498,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~4) with vec(9~0)");
+              "vector<Hoge>: compare by operators vec(0~4) with vec(9~0)");
   try {
     std::vector<Hoge> std_vec1(hoge_vec.begin() + 4, hoge_vec.end()),
         std_vec2(hoge_vec.rbegin(), hoge_vec.rend());
@@ -10507,7 +10528,7 @@ void test_vector(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   putTestInfo(test_no,
-              "vector<Hoge>: compare by opearators vec(0~9) with vec(9~5)");
+              "vector<Hoge>: compare by operators vec(0~9) with vec(9~5)");
   try {
     std::vector<Hoge> std_vec1(hoge_vec.begin(), hoge_vec.end()),
         std_vec2(hoge_vec.rbegin(), hoge_vec.rend());

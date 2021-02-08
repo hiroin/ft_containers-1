@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/08 10:11:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/08 11:43:13 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,7 +224,7 @@ class vector {
       return *this;
     }
     assign(x.begin(), x.end());
-    return (*this);
+    return *this;
   }
 
   reference operator[](size_type n) { return values_[n]; }
@@ -315,6 +315,13 @@ class vector {
 
   /*** Element access ***/
   reference at(size_type n) {
+    if (n >= size_) {
+      throw std::out_of_range("vector");
+    }
+    return values_[n];
+  }
+
+  const_reference at(size_type n) const {
     if (n >= size_) {
       throw std::out_of_range("vector");
     }
@@ -613,7 +620,7 @@ class vector {
     for (iterator iter = position; iter + 1 != end(); ++iter) {
       *iter = *(iter + 1);
     }
-    alloc_.destroy(&values_[--size_]);
+    alloc_.destroy(values_ + --size_);
     return position;
   }
 
@@ -624,7 +631,7 @@ class vector {
     }
     size_type new_size = size_ - offset;
     while (size_ > new_size) {
-      alloc_.destroy(&values_[--size_]);
+      alloc_.destroy(values_ + --size_);
     }
     return first;
   }
@@ -644,9 +651,11 @@ class vector {
 
   void clear() {
     while (size_ > 0) {
-      alloc_.destroy(&values_[--size_]);
+      alloc_.destroy(values_ + --size_);
     }
   }
+
+  void get_allocator() const { return Allocator(); }
 };
 
 template <class T, class Allocator>
