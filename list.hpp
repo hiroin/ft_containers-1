@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 11:59:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 12:46:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,24 @@ class list {
 
   ~list() {
     allClear_();
+  }
+
+  /*** capacity ***/
+  size_type size() const {
+    Node_* node = head_;
+    size_type cnt = 0;
+    while (head_ != node->next_) {
+      node = node->next_;
+      ++cnt;
+    }
+    return cnt;
+  }
+
+  bool empty() const { return head_ == head_->next_; }
+
+  size_type max_size() const {
+    // I don't know why "/2"
+    return alloc_.max_size() / 2;
   }
 
   /*** Element access ***/

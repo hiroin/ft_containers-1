@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 12:03:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 12:48:20 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,21 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no,
-              "list<Hoge>: push_front() 10 times and get it by back()");
+  putTestInfo(
+      test_no,
+      "list<Hoge>: push_front() 10 times and front/back/size/empty/max_size");
   try {
     std::list<Hoge> lst_std;
     ft::list<Hoge> lst_ft;
 
+    if (lst_std.size() != lst_ft.size() ||
+        lst_std.max_size() != lst_ft.max_size() ||
+        lst_std.empty() != lst_ft.empty()) {
+      throw std::runtime_error("size/empty/max_size");
+    }
+    if (lst_std.max_size() != lst_ft.max_size()) {
+      throw std::runtime_error("size");
+    }
     for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
          iter != hoge_vec.end(); ++iter) {
       lst_std.push_front(*iter);
@@ -134,7 +143,12 @@ void test_list(int& test_no) {
         throw std::runtime_error("front");
       }
       if (lst_std.back() != lst_ft.back()) {
-        throw std::runtime_error("value");
+        throw std::runtime_error("back");
+      }
+      if (lst_std.size() != lst_ft.size() ||
+          lst_std.max_size() != lst_ft.max_size() ||
+          lst_std.empty() != lst_ft.empty()) {
+        throw std::runtime_error("size/empty/max_size");
       }
     }
   } catch (std::exception& e) {
