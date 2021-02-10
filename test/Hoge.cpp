@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:21:44 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/08 11:26:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 13:38:53 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,8 @@ bool operator>(const Hoge& lhs, const Hoge& rhs) {
 
 bool operator<=(const Hoge& lhs, const Hoge& rhs) { return !(lhs > rhs); }
 bool operator>=(const Hoge& lhs, const Hoge& rhs) { return !(lhs < rhs); }
+
+std::ostream& operator<<(std::ostream& out, const Hoge& rhs) {
+  out << rhs.idx_ << ": " << *rhs.num_;
+  return out;
+}

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 13:01:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 14:17:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,27 @@ class list {
   /*** Modifier ***/
   void push_front(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
-    head_->next_ = new Node_(val_ptr, head_, head_->next_);
+    Node_* new_node = new Node_(val_ptr, head_, head_->next_);
+    head_->next_->prev_ = new_node;
+    head_->next_ = new_node;
   }
 
   void push_back(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
-    Node_* node = lastNode_();
-    node->next_ = new Node_(val_ptr, node, node->next_);
+    Node_* new_node = new Node_(val_ptr, head_->prev_, head_);
+    head_->prev_->next_ = new_node;
+    head_->prev_ = new_node;
+  }
+
+  void pop_front() {
+    head_->next_ = delOneNode_(head_->next_);
+    head_->next_->prev_ = head_;
+  }
+
+  void pop_back() {
+    Node_* new_last_node = head_->prev_->prev_;
+    new_last_node->next_ = delOneNode_(head_->prev_);
+    head_->prev_ = new_last_node;
   }
 };
 
