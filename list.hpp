@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 12:46:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 13:01:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ class list {
       next_ = next;
     }
 
-    ~Node_() {};
+    ~Node_(){};
   };
 
   /*** private attributes ***/
@@ -78,6 +78,14 @@ class list {
     pointer val_ptr = alloc_.allocate(1);
     alloc_.construct(val_ptr, val);
     return val_ptr;
+  }
+
+  Node_* lastNode_() {
+    Node_* node = head_;
+    while (head_ != node->next_) {
+      node = node->next_;
+    }
+    return node;
   }
 
   Node_* delOneNode_(Node_* node) {
@@ -104,9 +112,7 @@ class list {
     alloc_ = alloc;
   }
 
-  ~list() {
-    allClear_();
-  }
+  ~list() { allClear_(); }
 
   /*** capacity ***/
   size_type size() const {
@@ -129,27 +135,19 @@ class list {
   /*** Element access ***/
   reference front() { return *head_->next_->value_; }
   const_reference front() const { return *head_->next_->value_; };
-
-  reference back() {
-    Node_ *node = head_;
-    while (head_ != node->next_) {
-      node = node->next_;
-    }
-    return *node->value_;
-  }
-
-  const_reference back() const {
-    Node_ *node = head_;
-    while (head_ != node->next_) {
-      node = node->next_;
-    }
-    return *node->value_;
-  }
+  reference back() { return *lastNode_()->value_; }
+  const_reference back() const { return *lastNode_()->value_; }
 
   /*** Modifier ***/
   void push_front(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
     head_->next_ = new Node_(val_ptr, head_, head_->next_);
+  }
+
+  void push_back(const value_type& val) {
+    pointer val_ptr = cloneVal_(val);
+    Node_* node = lastNode_();
+    node->next_ = new Node_(val_ptr, node, node->next_);
   }
 };
 
