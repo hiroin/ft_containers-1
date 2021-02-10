@@ -6,13 +6,13 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 17:34:06 by dnakano           #+#    #+#              #
-#    Updated: 2021/02/10 07:57:34 by dnakano          ###   ########.fr        #
+#    Updated: 2021/02/10 08:47:40 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		:=	main.cpp test_util.cpp test_vector.cpp Hoge.cpp
+SRCS		:=	main.cpp test_util.cpp test_vector.cpp test_list.cpp Hoge.cpp
 OBJS		:=	$(SRCS:%.cpp=%.o)
-HEADERS		:=	vector.hpp
+HEADERS		:=	vector.hpp list.hpp
 HEADERDIR	:=	..
 NAME		:=	test.out
 OUTDIR		:=	.
@@ -23,7 +23,7 @@ CPPFLAGS	:=	-Wall -Wextra -Werror -std=c++98 -I$(HEADERDIR)
 .PHONY:		all
 all:		test
 
-$(NAME):	$(OBJS) $(HEADERDIR)/$(HEADERS)
+$(NAME):	$(OBJS) $(addprefix $(HEADERDIR)/,$(HEADERS))
 			$(CXX) $(CPPFLAGS) $(OBJS) -o $(NAME)
 
 .PHONY:		test

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/08 11:43:13 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/10 08:41:52 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ class vector {
   typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
+  /*** private attributes ***/
   value_type* values_;
   allocator_type alloc_;
   size_type size_;
