@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 09:52:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 12:40:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,133 @@ class bidirectional_iterator_
   friend bool operator!=(const bidirectional_iterator_& x,
                          const bidirectional_iterator_& y) {
     return !(x == y);
+  }
+};
+
+/*
+** reverse_itarator
+*/
+
+template <class Iterator>
+class reverese_iterator
+    : public std::iterator<
+          typename Iterator::iterator_category, typename Iterator::type_name,
+          typename Iterator::distance, typename Iterator::pointer,
+          typename Iterator::reference> {
+ protected:
+  Iterator normal_;
+
+ public:
+  reverse_iterator() { normal_ = Iterator(); };
+
+  reverse_iterator(const Iterator& ref) { normal_ = ref; }
+
+  reverse_iterator(const reverse_iterator& x) { *this = x; }
+
+  ~reverse_iterator(){};
+
+  reverse_iterator& operator=(const reverse_iterator& rhs) {
+    normal_ = rhs.normal_;
+    return *this;
+  }
+
+  reference operator*() const {
+    Iterator tmp = normal_;
+    return *--tmp;
+  }
+
+  pointer operator->() const {
+    Iterator tmp = normal_;
+    return &(*--tmp);
+  }
+
+  reference_ operator[](distance_ idx) const { return *(*this + idx); }
+
+  reverse_iterator& operator++() {
+    --normal_;
+    return *this;
+  }
+
+  reverse_iterator operator++(int) {
+    reverse_iterator tmp(*this);
+    ++(*this);
+    return tmp;
+  }
+
+  reverse_iterator& operator--() {
+    ++normal_;
+    return *this;
+  }
+
+  reverse_iterator operator--(int) {
+    reverse_iterator tmp(*this);
+    --(*this);
+    return tmp;
+  }
+
+  reverse_iterator& operator+=(distance_ diff) {
+    normal_ -= diff;
+    return *this;
+  }
+
+  reverse_iterator& operator-=(distance_ diff) {
+    normal_ += diff;
+    return *this;
+  }
+
+  friend reverse_iterator operator+(const reverse_iterator& lhs,
+                                    distance_ rhs) {
+    return reverse_iterator(lhs.normal_ - rhs)
+  }
+
+  friend reverse_iterator operator+(distance_ lhs,
+                                    const reverse_iterator& rhs) {
+    return reverse_iterator(rhs.normal_ - lhs)
+  }
+
+  friend distance_ operator-(const reverse_iterator& lhs,
+                             const reverse_iterator& rhs) {
+    return rhs.normal_ - lhs.normal_;
+  }
+
+  friend reverse_iterator operator-(const reverse_iterator& lhs,
+                                    distance_ rhs) {
+    return reverse_iterator(lhs.normal_ + rhs);
+  }
+
+  friend reverse_iterator operator-(distance_ lhs,
+                                    const reverse_iterator& rhs) {
+    return reverse_iterator(rhs.normal_ + lhs);
+  }
+
+  friend void swap(const reverse_iterator& x, const reverse_iterator& y) {
+    reverse_iterator tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const reverse_iterator& x, const reverse_iterator& y) {
+    return x.normal_ == y.normal_;
+  }
+
+  friend bool operator!=(const reverse_iterator& x, const reverse_iterator& y) {
+    return !(x == y);
+  }
+
+  friend bool operator<(const reverse_iterator& x, const reverse_iterator& y) {
+    return x.normal_ > y.normal_;
+  }
+
+  friend bool operator<=(const reverse_iterator& x, const reverse_iterator& y) {
+    return !(x > y);
+  }
+
+  friend bool operator>(const reverse_iterator& x, const reverse_iterator& y) {
+    return x.normal_ < y.normal_;
+  }
+
+  friend bool operator>=(const reverse_iterator& x, const reverse_iterator& y) {
+    return !(x < y);
   }
 };
 
