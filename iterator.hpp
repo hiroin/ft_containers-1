@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 12:40:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 13:02:26 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,21 +237,24 @@ class bidirectional_iterator_
 */
 
 template <class Iterator>
-class reverese_iterator
+class reverse_iterator
     : public std::iterator<
-          typename Iterator::iterator_category, typename Iterator::type_name,
-          typename Iterator::distance, typename Iterator::pointer,
+          typename Iterator::iterator_category, typename Iterator::value_type,
+          typename Iterator::difference_type, typename Iterator::pointer,
           typename Iterator::reference> {
  protected:
   Iterator normal_;
 
  public:
+  typedef typename Iterator::value_type value_type;
+  typedef typename Iterator::difference_type difference_type;
+  typedef typename Iterator::pointer pointer;
+  typedef typename Iterator::reference reference;
+  typedef typename Iterator::iterator_category iterator_category;
+
   reverse_iterator() { normal_ = Iterator(); };
-
   reverse_iterator(const Iterator& ref) { normal_ = ref; }
-
   reverse_iterator(const reverse_iterator& x) { *this = x; }
-
   ~reverse_iterator(){};
 
   reverse_iterator& operator=(const reverse_iterator& rhs) {
@@ -269,7 +272,7 @@ class reverese_iterator
     return &(*--tmp);
   }
 
-  reference_ operator[](distance_ idx) const { return *(*this + idx); }
+  reference operator[](difference_type idx) const { return *(*this + idx); }
 
   reverse_iterator& operator++() {
     --normal_;
@@ -293,37 +296,37 @@ class reverese_iterator
     return tmp;
   }
 
-  reverse_iterator& operator+=(distance_ diff) {
+  reverse_iterator& operator+=(difference_type diff) {
     normal_ -= diff;
     return *this;
   }
 
-  reverse_iterator& operator-=(distance_ diff) {
+  reverse_iterator& operator-=(difference_type diff) {
     normal_ += diff;
     return *this;
   }
 
   friend reverse_iterator operator+(const reverse_iterator& lhs,
-                                    distance_ rhs) {
-    return reverse_iterator(lhs.normal_ - rhs)
+                                    difference_type rhs) {
+    return reverse_iterator(lhs.normal_ - rhs);
   }
 
-  friend reverse_iterator operator+(distance_ lhs,
+  friend reverse_iterator operator+(difference_type lhs,
                                     const reverse_iterator& rhs) {
-    return reverse_iterator(rhs.normal_ - lhs)
+    return reverse_iterator(rhs.normal_ - lhs);
   }
 
-  friend distance_ operator-(const reverse_iterator& lhs,
-                             const reverse_iterator& rhs) {
+  friend difference_type operator-(const reverse_iterator& lhs,
+                                   const reverse_iterator& rhs) {
     return rhs.normal_ - lhs.normal_;
   }
 
   friend reverse_iterator operator-(const reverse_iterator& lhs,
-                                    distance_ rhs) {
+                                    difference_type rhs) {
     return reverse_iterator(lhs.normal_ + rhs);
   }
 
-  friend reverse_iterator operator-(distance_ lhs,
+  friend reverse_iterator operator-(difference_type lhs,
                                     const reverse_iterator& rhs) {
     return reverse_iterator(rhs.normal_ + lhs);
   }

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 11:20:37 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 12:55:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <vector>
 
 #include "../list.hpp"
+#include "../vector.hpp"
 #include "Hoge.hpp"
 #include "test.hpp"
 
