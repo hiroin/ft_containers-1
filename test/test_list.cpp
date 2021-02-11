@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 12:55:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 17:41:06 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,6 +499,103 @@ void test_list(int& test_no) {
       if (*itr_std++ != *itr_ft++) {
         throw std::runtime_error("iterator value");
       }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: clear() of default constucted");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+
+    lst_std.clear();
+    lst_ft.clear();
+    if (lst_std.empty() != lst_ft.empty() ||
+           lst_std.size() != lst_ft.size() ||
+           lst_std.max_size() != lst_ft.max_size()) {
+      throw std::runtime_error("error");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: clear() of 1 elem contained");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+
+    lst_std.push_front(hoge[1]);
+    lst_ft.push_front(hoge[1]);
+    lst_std.clear();
+    lst_ft.clear();
+    if (lst_std.empty() != lst_ft.empty() ||
+           lst_std.size() != lst_ft.size() ||
+           lst_std.max_size() != lst_ft.max_size()) {
+      throw std::runtime_error("error");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: push_front 10 times, then clear()");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+      lst_std.push_back(*iter);
+      lst_ft.push_back(*iter);
+    }
+    lst_std.clear();
+    lst_ft.clear();
+    if (lst_std.empty() != lst_ft.empty() ||
+           lst_std.size() != lst_ft.size() ||
+           lst_std.max_size() != lst_ft.max_size()) {
+      throw std::runtime_error("error");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: clear add clear add clear");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+
+    lst_std.clear();
+    lst_ft.clear();
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+      lst_std.push_back(*iter);
+      lst_ft.push_back(*iter);
+    }
+    lst_std.clear();
+    lst_ft.clear();
+    lst_std.push_front(hoge[1]);
+    lst_ft.push_front(hoge[1]);
+    lst_std.clear();
+    lst_ft.clear();
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+    }
+    lst_std.clear();
+    lst_ft.clear();
+    if (lst_std.empty() != lst_ft.empty() ||
+           lst_std.size() != lst_ft.size() ||
+           lst_std.max_size() != lst_ft.max_size()) {
+      throw std::runtime_error("error");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());

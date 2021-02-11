@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 12:44:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 17:35:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,7 @@ class list {
   }
 
   void allClear_() {
-    node_pointer node = head_->next_;
-    while (node != head_) {
-      node = delOnenode_type(node);
-    }
+    clear();
     delete head_;
   }
 
@@ -171,6 +168,13 @@ class list {
   const_reference back() const { return *lastnode_type()->value_; }
 
   /*** Modifier ***/
+  // template <class InputIterator>
+  // void assign (InputIterator first, InputIterator last);
+
+  // void assign (size_type n, const value_type& val) {
+
+  // }
+
   void push_front(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
     node_pointer new_node = new node_type(val_ptr, head_, head_->next_);
@@ -194,6 +198,15 @@ class list {
     node_pointer new_last_node = head_->prev_->prev_;
     new_last_node->next_ = delOnenode_type(head_->prev_);
     head_->prev_ = new_last_node;
+  }
+
+  void clear() {
+    node_pointer node = head_->next_;
+    while (node != head_) {
+      node = delOnenode_type(node);
+    }
+    head_->next_ = head_;
+    head_->prev_ = head_;
   }
 };
 
