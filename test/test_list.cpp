@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 10:34:48 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 11:20:37 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -397,6 +397,104 @@ void test_list(int& test_no) {
     itr_ft = lst_ft.begin();
     itr_std = lst_std.begin();
     while (itr_ft != lst_ft.end()) {
+      if (*itr_std++ != *itr_ft++) {
+        throw std::runtime_error("iterator value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: push_back 10 times and check value using "
+              "iterator (increase by ++iter)");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::reverse_iterator itr_std;
+    ft::list<Hoge>::reverse_iterator itr_ft;
+
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+      lst_std.push_back(*iter);
+      lst_ft.push_back(*iter);
+    }
+    std::cout << std::endl;
+    for (itr_ft = lst_ft.rbegin(), itr_std = lst_std.rbegin();
+         itr_ft != lst_ft.rend(); ++itr_ft, ++itr_std) {
+      if (*itr_ft != *itr_std) {
+        std::cout << "std :: ft = " << *itr_std << " :: " << *itr_ft
+                  << std::endl;
+        throw std::runtime_error("iterator value");
+      }
+    }
+    if (itr_std != lst_std.rend()) {
+      throw std::runtime_error("iteratation");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: push_back 10 times and check value using "
+              "iterator (increase by iter++)");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::reverse_iterator itr_std;
+    ft::list<Hoge>::reverse_iterator itr_ft;
+
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+      lst_std.push_back(*iter);
+      lst_ft.push_back(*iter);
+    }
+    itr_ft = lst_ft.rbegin();
+    itr_std = lst_std.rbegin();
+    while (itr_ft != lst_ft.rend()) {
+      if (*itr_std++ != *itr_ft++) {
+        throw std::runtime_error("iterator value");
+      }
+    }
+    if (itr_std != lst_std.rend()) {
+      throw std::runtime_error("iteratation");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: push_back/front 10 times, then rewrite all value to "
+              "zero and check value using iterator");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::reverse_iterator itr_std;
+    ft::list<Hoge>::reverse_iterator itr_ft;
+
+    for (std::vector<Hoge>::iterator iter = hoge_vec.begin();
+         iter != hoge_vec.end(); ++iter) {
+      lst_std.push_front(*iter);
+      lst_ft.push_front(*iter);
+      lst_std.push_back(*iter);
+      lst_ft.push_back(*iter);
+    }
+    itr_ft = lst_ft.rbegin();
+    itr_std = lst_std.rbegin();
+    while (itr_ft != lst_ft.rend()) {
+      *itr_std++ = hoge[0];
+      *itr_ft++ = hoge[0];
+    }
+    itr_ft = lst_ft.rbegin();
+    itr_std = lst_std.rbegin();
+    while (itr_ft != lst_ft.rend()) {
       if (*itr_std++ != *itr_ft++) {
         throw std::runtime_error("iterator value");
       }

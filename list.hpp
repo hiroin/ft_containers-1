@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 10:16:29 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 11:18:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,17 @@ class list {
   const_iterator begin() const { return const_iterator(head_->next_); }
   iterator end() { return iterator(head_); }
   const_iterator end() const { return const_iterator(head_); }
+  reverse_iterator rbegin() { return reverse_iterator(end()); }
+
+  const_reverse_iterator rbegin() const {
+    return const_reverse_iterator(end());
+  }
+
+  reverse_iterator rend() { return reverse_iterator(begin()); }
+
+  const_reverse_iterator rend() const {
+    return const_reverse_iterator(begin());
+  }
 
   /*** capacity ***/
   size_type size() const {
