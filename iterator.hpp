@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 13:02:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 17:04:44 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,31 @@
 #include <iterator>
 
 namespace ft {
+
+/*
+** iterator
+** base class of ft::iterators
+*/
+
+template <class IteratorCategory, class Type, class DifferenceType = ptrdiff_t,
+          class Pointer = Type*, class Reference = Type&>
+struct iterator {
+  typedef Type value_type;
+  typedef DifferenceType difference_type;
+  typedef Pointer pointer;
+  typedef Reference reference;
+  typedef IteratorCategory iterator_category;
+};
+
+/*
+** iterator tags
+*/
+
+struct input_iterator_tag {};
+struct output_iterator_tag {};
+struct forward_iterator_tag : public input_iterator_tag {};
+struct bidirectional_iterator_tag : public forward_iterator_tag {};
+struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 
 /*
 ** random_access_iterator_base_
@@ -164,6 +189,8 @@ class random_access_iterator_base_
 **  - pointer_* value_: pointer the value is stored
 **  - node_poitner_ prev_: pointer to previous node
 **  - node_poitner_ next_: pointer to next node
+**
+** TODO: exclude STL types
 */
 
 template <class type_name_, class node_pointer_, class distance_ = ptrdiff_t,
@@ -238,7 +265,7 @@ class bidirectional_iterator_
 
 template <class Iterator>
 class reverse_iterator
-    : public std::iterator<
+    : public iterator<
           typename Iterator::iterator_category, typename Iterator::value_type,
           typename Iterator::difference_type, typename Iterator::pointer,
           typename Iterator::reference> {
