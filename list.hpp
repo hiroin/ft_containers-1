@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 09:18:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 10:16:29 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,21 @@ class list {
   typedef typename allocator_type::const_pointer const_pointer;
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
+
  private:
   typedef ListNode<pointer> node_type;
   typedef node_type* node_pointer;
+
+  /*** iterators ***/
+ public:
+  typedef bidirectional_iterator_<value_type, node_pointer, difference_type,
+                                  pointer, reference>
+      iterator;
+  typedef bidirectional_iterator_<const value_type, node_pointer,
+                                  difference_type, pointer, reference>
+      const_iterator;
+  typedef std::reverse_iterator<iterator> reverse_iterator;
+  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
   /*** private attributes ***/
@@ -117,6 +129,12 @@ class list {
 
   ~list() { allClear_(); }
 
+  /*** iterators ***/
+  iterator begin() { return iterator(head_->next_); }
+  const_iterator begin() const { return const_iterator(head_->next_); }
+  iterator end() { return iterator(head_); }
+  const_iterator end() const { return const_iterator(head_); }
+
   /*** capacity ***/
   size_type size() const {
     node_pointer node = head_;
@@ -137,7 +155,7 @@ class list {
 
   /*** Element access ***/
   reference front() { return *head_->next_->value_; }
-  const_reference front() const { return *head_->next_->value_; };
+  const_reference front() const { return *head_->next_->value_; }
   reference back() { return *lastnode_type()->value_; }
   const_reference back() const { return *lastnode_type()->value_; }
 
