@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 14:17:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 09:18:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,32 @@
 
 namespace ft {
 
+// lineked list class template
+template <class Pointer>
+struct ListNode {
+  Pointer value_;
+  ListNode* prev_;
+  ListNode* next_;
+
+  ListNode() {
+    value_ = NULL;
+    prev_ = this;
+    next_ = this;
+  }
+
+  ListNode(Pointer value, ListNode* prev, ListNode* next) {
+    value_ = value;
+    prev_ = prev;
+    next_ = next;
+  }
+
+  ~ListNode(){};
+};
+
 template <class T, class Allocator = std::allocator<T> >
 class list {
- public:
   /*** member type definitions ***/
+ public:
   typedef T value_type;
   typedef Allocator allocator_type;
   typedef typename allocator_type::reference reference;
@@ -44,33 +66,14 @@ class list {
   typedef typename allocator_type::const_pointer const_pointer;
   typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::difference_type difference_type;
+ private:
+  typedef ListNode<pointer> node_type;
+  typedef node_type* node_pointer;
 
  private:
-  /*** node ***/
-  class Node_ {
-   public:
-    pointer value_;
-    Node_* prev_;
-    Node_* next_;
-
-    Node_() {
-      value_ = NULL;
-      prev_ = this;
-      next_ = this;
-    }
-
-    Node_(pointer val_ptr, Node_* prev, Node_* next) {
-      value_ = val_ptr;
-      prev_ = prev;
-      next_ = next;
-    }
-
-    ~Node_(){};
-  };
-
   /*** private attributes ***/
   allocator_type alloc_;
-  Node_* head_;
+  node_pointer head_;
 
   /*** private functions ***/
   pointer cloneVal_(const value_type& val) {
@@ -80,16 +83,16 @@ class list {
     return val_ptr;
   }
 
-  Node_* lastNode_() {
-    Node_* node = head_;
+  node_pointer lastnode_type() {
+    node_pointer node = head_;
     while (head_ != node->next_) {
       node = node->next_;
     }
     return node;
   }
 
-  Node_* delOneNode_(Node_* node) {
-    Node_* next = node->next_;
+  node_pointer delOnenode_type(node_pointer node) {
+    node_pointer next = node->next_;
     alloc_.destroy(node->value_);
     alloc_.deallocate(node->value_, 1);
     delete node;
@@ -97,9 +100,9 @@ class list {
   }
 
   void allClear_() {
-    Node_* node = head_->next_;
+    node_pointer node = head_->next_;
     while (node != head_) {
-      node = delOneNode_(node);
+      node = delOnenode_type(node);
     }
     delete head_;
   }
@@ -108,7 +111,7 @@ class list {
   /*** constructor ***/
   // default constructor
   explicit list(const allocator_type& alloc = allocator_type()) {
-    head_ = new Node_;
+    head_ = new node_type;
     alloc_ = alloc;
   }
 
@@ -116,7 +119,7 @@ class list {
 
   /*** capacity ***/
   size_type size() const {
-    Node_* node = head_;
+    node_pointer node = head_;
     size_type cnt = 0;
     while (head_ != node->next_) {
       node = node->next_;
@@ -135,32 +138,32 @@ class list {
   /*** Element access ***/
   reference front() { return *head_->next_->value_; }
   const_reference front() const { return *head_->next_->value_; };
-  reference back() { return *lastNode_()->value_; }
-  const_reference back() const { return *lastNode_()->value_; }
+  reference back() { return *lastnode_type()->value_; }
+  const_reference back() const { return *lastnode_type()->value_; }
 
   /*** Modifier ***/
   void push_front(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
-    Node_* new_node = new Node_(val_ptr, head_, head_->next_);
+    node_pointer new_node = new node_type(val_ptr, head_, head_->next_);
     head_->next_->prev_ = new_node;
     head_->next_ = new_node;
   }
 
   void push_back(const value_type& val) {
     pointer val_ptr = cloneVal_(val);
-    Node_* new_node = new Node_(val_ptr, head_->prev_, head_);
+    node_pointer new_node = new node_type(val_ptr, head_->prev_, head_);
     head_->prev_->next_ = new_node;
     head_->prev_ = new_node;
   }
 
   void pop_front() {
-    head_->next_ = delOneNode_(head_->next_);
+    head_->next_ = delOnenode_type(head_->next_);
     head_->next_->prev_ = head_;
   }
 
   void pop_back() {
-    Node_* new_last_node = head_->prev_->prev_;
-    new_last_node->next_ = delOneNode_(head_->prev_);
+    node_pointer new_last_node = head_->prev_->prev_;
+    new_last_node->next_ = delOnenode_type(head_->prev_);
     head_->prev_ = new_last_node;
   }
 };
