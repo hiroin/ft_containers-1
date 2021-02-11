@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 17:41:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 18:51:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -512,9 +512,8 @@ void test_list(int& test_no) {
 
     lst_std.clear();
     lst_ft.clear();
-    if (lst_std.empty() != lst_ft.empty() ||
-           lst_std.size() != lst_ft.size() ||
-           lst_std.max_size() != lst_ft.max_size()) {
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size() ||
+        lst_std.max_size() != lst_ft.max_size()) {
       throw std::runtime_error("error");
     }
   } catch (std::exception& e) {
@@ -531,9 +530,8 @@ void test_list(int& test_no) {
     lst_ft.push_front(hoge[1]);
     lst_std.clear();
     lst_ft.clear();
-    if (lst_std.empty() != lst_ft.empty() ||
-           lst_std.size() != lst_ft.size() ||
-           lst_std.max_size() != lst_ft.max_size()) {
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size() ||
+        lst_std.max_size() != lst_ft.max_size()) {
       throw std::runtime_error("error");
     }
   } catch (std::exception& e) {
@@ -555,9 +553,8 @@ void test_list(int& test_no) {
     }
     lst_std.clear();
     lst_ft.clear();
-    if (lst_std.empty() != lst_ft.empty() ||
-           lst_std.size() != lst_ft.size() ||
-           lst_std.max_size() != lst_ft.max_size()) {
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size() ||
+        lst_std.max_size() != lst_ft.max_size()) {
       throw std::runtime_error("error");
     }
   } catch (std::exception& e) {
@@ -592,10 +589,174 @@ void test_list(int& test_no) {
     }
     lst_std.clear();
     lst_ft.clear();
-    if (lst_std.empty() != lst_ft.empty() ||
-           lst_std.size() != lst_ft.size() ||
-           lst_std.max_size() != lst_ft.max_size()) {
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size() ||
+        lst_std.max_size() != lst_ft.max_size()) {
       throw std::runtime_error("error");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // assign(n, val) <int>
+  putTestInfo(test_no, "list<int>: assign(0, 42) to empty");
+  try {
+    std::list<int> lst_std;
+    ft::list<int> lst_ft;
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    lst_std.assign(1, 42);
+    lst_ft.assign(1, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: assign(1, 42) to empty");
+  try {
+    std::list<int> lst_std;
+    ft::list<int> lst_ft;
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    lst_std.assign(1, 42);
+    lst_ft.assign(1, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: assign(42, 42) to empty");
+  try {
+    std::list<int> lst_std;
+    ft::list<int> lst_ft;
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    lst_std.assign(42, 42);
+    lst_ft.assign(42, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: assign 42 -> 0 -> 1 -> 42 -> 1 to empty");
+  try {
+    std::list<int> lst_std;
+    ft::list<int> lst_ft;
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    lst_std.assign(42, 42);
+    lst_ft.assign(42, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+
+    lst_std.assign(0, 42);
+    lst_ft.assign(0, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+
+    lst_std.assign(1, 42);
+    lst_ft.assign(1, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+
+    lst_std.assign(42, 42);
+    lst_ft.assign(42, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+
+    lst_std.assign(1, 42);
+    lst_ft.assign(1, 42);
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());

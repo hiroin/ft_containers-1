@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 17:35:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 18:32:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ class list {
 
   /*** private functions ***/
   pointer cloneVal_(const value_type& val) {
-    // pointer val_ptr;
     pointer val_ptr = alloc_.allocate(1);
     alloc_.construct(val_ptr, val);
     return val_ptr;
@@ -171,13 +170,23 @@ class list {
   // template <class InputIterator>
   // void assign (InputIterator first, InputIterator last);
 
-  // void assign (size_type n, const value_type& val) {
+  void assign (size_type n, const value_type& val) {
+    node_pointer node;
+    node_pointer new_node;
 
-  // }
+    clear();
+    node = head_;
+    while (n > 0) {
+      new_node = new node_type(cloneVal_(val), node, node->next_);
+      node->next_ = new_node;
+      node = new_node;
+      n--;
+    }
+    head_->prev_ = node;
+  }
 
   void push_front(const value_type& val) {
-    pointer val_ptr = cloneVal_(val);
-    node_pointer new_node = new node_type(val_ptr, head_, head_->next_);
+    node_pointer new_node = new node_type(cloneVal_(val), head_, head_->next_);
     head_->next_->prev_ = new_node;
     head_->next_ = new_node;
   }
