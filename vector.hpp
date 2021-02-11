@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 08:41:52 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 08:27:02 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ class vector {
   typedef ft::random_access_iterator_base_<const value_type, difference_type,
                                            pointer, reference>
       const_iterator;
-  typedef std::reverse_iterator<iterator> reverse_iterator;
-  typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+  typedef ft::reverse_iterator<iterator> reverse_iterator;
+  typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
  private:
   /*** private attributes ***/
@@ -86,14 +86,8 @@ class vector {
   }
 
   template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::input_iterator_tag,
-                  typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::forward_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::bidirectional_iterator_tag,
-                      typename InputIterator::iterator_category>::value,
-      size_type>::type
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         size_type>::type
   getSizeFromIterator(InputIterator first, InputIterator last) {
     InputIterator iter = first;
     size_type n = 0;
@@ -103,21 +97,6 @@ class vector {
       ++n;
     }
     return n;
-  }
-
-  template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::random_access_iterator_tag,
-                  typename InputIterator::iterator_category>::value,
-      size_type>::type
-  getSizeFromIterator(InputIterator first, InputIterator last) {
-    return last - first;
-  }
-
-  template <class Pointer>
-  typename ft::enable_if<ft::is_pointer<Pointer>::value, size_type>::type
-  getSizeFromIterator(Pointer first, Pointer last) {
-    return last - first;
   }
 
  public:
@@ -142,66 +121,10 @@ class vector {
 
   // range constructor
   template <class InputIterator>
-  vector(
-      InputIterator first,
-      typename ft::enable_if<
-          ft::is_same<std::input_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::forward_iterator_tag,
-                          typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::bidirectional_iterator_tag,
-                          typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::random_access_iterator_tag,
-                          typename InputIterator::iterator_category>::value,
-          InputIterator>::type last) {
-    alloc_ = allocator_type();
-    values_ = NULL;
-    size_ = 0;
-    capacity_ = 0;
-    assign(first, last);
-  }
-
-  // range constructor
-  template <class InputIterator>
   vector(InputIterator first,
-         typename ft::enable_if<ft::is_pointer<InputIterator>::value,
+         typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
                                 InputIterator>::type last) {
     alloc_ = allocator_type();
-    values_ = NULL;
-    size_ = 0;
-    capacity_ = 0;
-    assign(first, last);
-  }
-
-  // range constructor
-  template <class InputIterator>
-  vector(
-      InputIterator first, InputIterator last,
-      const allocator_type& alloc = allocator_type(),
-      typename ft::enable_if<
-          ft::is_same<std::input_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::forward_iterator_tag,
-                          typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::bidirectional_iterator_tag,
-                          typename InputIterator::iterator_category>::value ||
-              ft::is_same<std::random_access_iterator_tag,
-                          typename InputIterator::iterator_category>::value,
-          void>::type* = 0) {
-    alloc_ = alloc;
-    values_ = NULL;
-    size_ = 0;
-    capacity_ = 0;
-    assign(first, last);
-  }
-
-  // range constructor
-  template <class InputIterator>
-  vector(InputIterator first, InputIterator last,
-         const allocator_type& alloc = allocator_type(),
-         typename ft::enable_if<ft::is_pointer<InputIterator>::value,
-                                void>::type* = 0) {
-    alloc_ = alloc;
     values_ = NULL;
     size_ = 0;
     capacity_ = 0;
@@ -264,8 +187,8 @@ class vector {
   iterator end() { return iterator(values_ + size_); }
   const_iterator begin() const { return const_iterator(values_); }
   const_iterator end() const { return const_iterator(values_ + size_); }
-  reverse_iterator rbegin() { return std::reverse_iterator<iterator>(end()); }
-  reverse_iterator rend() { return std::reverse_iterator<iterator>(begin()); }
+  reverse_iterator rbegin() { return reverse_iterator(end()); }
+  reverse_iterator rend() { return reverse_iterator(begin()); }
 
   const_reverse_iterator rbegin() const {
     return std::reverse_iterator<const_iterator>(end());
@@ -359,44 +282,8 @@ class vector {
   }
 
   template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::input_iterator_tag,
-                  typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::forward_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::bidirectional_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::random_access_iterator_tag,
-                      typename InputIterator::iterator_category>::value,
-      void>::type
-  assign(InputIterator first, InputIterator last) {
-    InputIterator iter = first;
-    size_type n = getSizeFromIterator(first, last);
-    if (n > capacity_) {
-      allClear_();
-      values_ = alloc_.allocate(n);
-      capacity_ = n;
-      for (iter = first, size_ = 0; iter != last; ++iter, ++size_) {
-        alloc_.construct(values_ + size_, *iter);
-      }
-    } else {
-      size_type idx;
-      for (iter = first, idx = 0; iter != last; ++iter, ++idx) {
-        if (idx < size_) {
-          values_[idx] = *iter;
-        } else {
-          alloc_.construct(values_ + idx, *iter);
-        }
-      }
-      for (idx = n; idx < size_; ++idx) {
-        alloc_.destroy(values_ + idx);
-      }
-      size_ = n;
-    }
-  }
-
-  template <class InputIterator>
-  typename ft::enable_if<ft::is_pointer<InputIterator>::value, void>::type
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
   assign(InputIterator first, InputIterator last) {
     InputIterator iter = first;
     size_type n = getSizeFromIterator(first, last);
@@ -519,16 +406,8 @@ class vector {
   }
 
   template <class InputIterator>
-  typename ft::enable_if<
-      ft::is_same<std::input_iterator_tag,
-                  typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::forward_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::bidirectional_iterator_tag,
-                      typename InputIterator::iterator_category>::value ||
-          ft::is_same<std::random_access_iterator_tag,
-                      typename InputIterator::iterator_category>::value,
-      void>::type
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
   insert(iterator position, InputIterator first, InputIterator last) {
     if (position == iterator(NULL)) {
       assign(first, last);
@@ -538,51 +417,6 @@ class vector {
     const size_type n = getSizeFromIterator(first, last);
     size_type idx;
     InputIterator iter;
-    const size_type offset = position - begin();
-
-    if (size_ + n > capacity_) {
-      const size_type new_capacity = getNewCapacity_(capacity_, size_ + n);
-      value_type* new_values = alloc_.allocate(new_capacity);
-      for (idx = 0; idx < offset; ++idx) {
-        alloc_.construct(new_values + idx, values_[idx]);
-        alloc_.destroy(&values_[idx]);
-      }
-      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
-        alloc_.construct(new_values + idx, *iter);
-      }
-      for (idx = offset + n; idx < size_ + n; ++idx) {
-        alloc_.construct(new_values + idx, values_[idx - n]);
-        alloc_.destroy(&values_[idx - n]);
-      }
-      alloc_.deallocate(values_, capacity_);
-      values_ = new_values;
-      capacity_ = new_capacity;
-    } else {
-      for (idx = size_ + n; idx > size_ && idx > offset + n; --idx) {
-        alloc_.construct(values_ + idx - 1, values_[idx - n - 1]);
-      }
-      for (idx = offset, iter = first; idx < offset + n; ++idx, ++iter) {
-        if (idx < size_) {
-          values_[idx] = *iter;
-        } else {
-          alloc_.construct(values_ + idx, *iter);
-        }
-      }
-    }
-    size_ += n;
-  }
-
-  template <class Pointer>
-  typename ft::enable_if<ft::is_pointer<Pointer>::value, void>::type insert(
-      iterator position, Pointer first, Pointer last) {
-    if (position == iterator(NULL)) {
-      assign(first, last);
-      return;
-    }
-
-    const size_type n = getSizeFromIterator(first, last);
-    size_type idx;
-    Pointer iter;
     const size_type offset = position - begin();
 
     if (size_ + n > capacity_) {

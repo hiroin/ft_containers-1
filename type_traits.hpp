@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 21:35:28 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/02 17:43:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/11 20:14:14 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ struct integral_constant {
   enum { value = val };
   typedef T value_type;
   typedef integral_constant type;
-  // operator value_type() const { return value; }
+  operator value_type() const { return value; }
 };
 
 typedef integral_constant<bool, true> true_type;

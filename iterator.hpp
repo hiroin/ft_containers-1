@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 17:04:44 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 08:24:21 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #define ITERATOR_HPP
 
 #include <iterator>
+
+#include "type_traits.hpp"
 
 namespace ft {
 
@@ -57,7 +59,7 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 template <class type_name_, class distance_ = ptrdiff_t,
           class pointer_ = type_name_*, class reference_ = type_name_&>
 class random_access_iterator_base_
-    : public std::iterator<std::random_access_iterator_tag, type_name_,
+    : public ft::iterator<ft::random_access_iterator_tag, type_name_,
                            distance_, pointer_, reference_> {
  private:
   // pointer to data
@@ -196,8 +198,8 @@ class random_access_iterator_base_
 template <class type_name_, class node_pointer_, class distance_ = ptrdiff_t,
           class pointer_ = type_name_*, class reference_ = type_name_&>
 class bidirectional_iterator_
-    : public std::iterator<std::bidirectional_iterator_tag, type_name_,
-                           distance_, pointer_, reference_> {
+    : public ft::iterator<ft::bidirectional_iterator_tag, type_name_,
+                          distance_, pointer_, reference_> {
  private:
   // pointer to data
   node_pointer_ node_;
@@ -388,6 +390,51 @@ class reverse_iterator
     return !(x < y);
   }
 };
+
+template <class InputIterator, typename = void>
+struct is_input_iterator : public ft::false_type {};
+
+template <class InputIterator>
+struct is_input_iterator<
+    InputIterator,
+    typename ft::enable_if<
+        ft::is_same<std::input_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<std::forward_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<std::bidirectional_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<std::random_access_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<ft::input_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<ft::forward_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<ft::bidirectional_iterator_tag,
+                    typename InputIterator::iterator_category>::value ||
+        ft::is_same<ft::random_access_iterator_tag,
+                    typename InputIterator::iterator_category>::value,
+        void>::type> : public ft::true_type {};
+
+// template <class InputIterator>
+// struct is_input_iterator<
+//     InputIterator,
+//     typename ft::enable_if<
+//         ft::is_same<ft::input_iterator_tag,
+//                     typename InputIterator::iterator_category>::value ||
+//         ft::is_same<ft::forward_iterator_tag,
+//                     typename InputIterator::iterator_category>::value ||
+//         ft::is_same<ft::bidirectional_iterator_tag,
+//                     typename InputIterator::iterator_category>::value ||
+//         ft::is_same<ft::random_access_iterator_tag,
+//                     typename InputIterator::iterator_category>::value,
+//         void>::type> : public ft::true_type {};
+
+template <class InputIterator>
+struct is_input_iterator<
+    InputIterator,
+    typename ft::enable_if<ft::is_pointer<InputIterator>::value, void>::type>
+    : public ft::true_type {};
 
 }  // namespace ft
 

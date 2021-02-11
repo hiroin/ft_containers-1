@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 08:07:37 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 08:45:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2014,7 +2014,7 @@ void test_vector(int& test_no) {
   putTestInfo(test_no, "assign vec(42, 21) to vec() by iter");
   flg = 0;
   try {
-    ft::vector<int> src_vec(42, 21);
+    std::vector<int> src_vec(42, 21);
     std::vector<int> std_vec;
     ft::vector<int> ft_vec;
     std_vec.assign(src_vec.begin(), src_vec.end());
@@ -3296,7 +3296,7 @@ void test_vector(int& test_no) {
   /*** test using hoge ***/
   Hoge hoge[10] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2), Hoge(3, 3), Hoge(4, 4),
                    Hoge(5, 5), Hoge(6, 6), Hoge(7, 7), Hoge(8, 8), Hoge(9, 9)};
-  ft::vector<Hoge> hoge_vec(hoge, &hoge[10]);
+  std::vector<Hoge> hoge_vec(hoge, &hoge[10]);
   std::list<Hoge> hoge_lst(hoge, &hoge[10]);
   std::forward_list<Hoge> hoge_flst(hoge, &hoge[10]);
 
@@ -10551,6 +10551,42 @@ void test_vector(int& test_no) {
     }
     if ((std_vec1 <= std_vec2) != (ft_vec1 <= ft_vec2)) {
       throw std::runtime_error("operator<=");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "assign using ft::iterator");
+  try {
+    ft::vector<Hoge> vec1(hoge_vec.begin(), hoge_vec.end());
+    ft::vector<Hoge> vec2;
+    vec2.assign(vec1.begin(), vec1.end());
+    ft::vector<Hoge>::iterator itr1;
+    ft::vector<Hoge>::iterator itr2;
+    for (itr1 = vec1.begin(), itr2 = vec2.begin(); itr1 != vec1.end();
+         ++itr1, ++itr2) {
+      if (*itr1 != *itr2) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "construct using ft::iterator");
+  try {
+    ft::vector<Hoge> vec1(hoge_vec.begin(), hoge_vec.end());
+    ft::vector<Hoge> vec2;
+    vec2.assign(vec1.begin(), vec1.end());
+    ft::vector<Hoge>::iterator itr1;
+    ft::vector<Hoge>::iterator itr2;
+    for (itr1 = vec1.begin(), itr2 = vec2.begin(); itr1 != vec1.end();
+         ++itr1, ++itr2) {
+      if (*itr1 != *itr2) {
+        throw std::runtime_error("value");
+      }
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
