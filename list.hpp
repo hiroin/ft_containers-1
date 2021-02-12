@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 13:00:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 13:48:26 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ class list {
     head_->prev_ = new_last_node;
   }
 
-  iterator insert (iterator position, const value_type& val) {
+  iterator insert(iterator position, const value_type& val) {
     node_pointer node = findNodeFromIterator_(position);
     node_pointer new_node = new node_type(cloneVal_(val), node->prev_, node);
     node->prev_->next_ = new_node;
@@ -265,15 +265,29 @@ class list {
     return iterator(new_node);
   }
 
-  void insert (iterator position, size_type n, const value_type& val) {
+  void insert(iterator position, size_type n, const value_type& val) {
     node_pointer node = findNodeFromIterator_(position);
     node_pointer new_node;
     while (n > 0) {
       new_node = new node_type(cloneVal_(val), node->prev_, node);
       node->prev_->next_ = new_node;
       node->prev_ = new_node;
-      node = new_node;
+      node = new_node->next_;
       --n;
+    }
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
+  insert(iterator position, InputIterator first, InputIterator last) {
+    node_pointer node = findNodeFromIterator_(position);
+    node_pointer new_node;
+    for (InputIterator itr = first; itr != last; ++itr) {
+      new_node = new node_type(cloneVal_(*itr), node->prev_, node);
+      node->prev_->next_ = new_node;
+      node->prev_ = new_node;
+      node = new_node->next_;
     }
   }
 
