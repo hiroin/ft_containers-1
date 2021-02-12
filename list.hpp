@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 10:12:04 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 10:35:25 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,23 @@ class list {
     assign(first, last);
   }
 
+  // copy constructor
+  list(const list& x) {
+    head_ = new node_type;
+    alloc_ = x.alloc_;
+    *this = x;
+  }
+
   ~list() { allClear_(); }
+
+  /*** operator overload ***/
+  list& operator=(const list& x) {
+    if (this == &x) {
+      return *this;
+    }
+    assign(x.begin(), x.end());
+    return *this;
+  }
 
   /*** iterators ***/
   iterator begin() { return iterator(head_->next_); }
