@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/11 18:32:12 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 09:02:16 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,10 +167,24 @@ class list {
   const_reference back() const { return *lastnode_type()->value_; }
 
   /*** Modifier ***/
-  // template <class InputIterator>
-  // void assign (InputIterator first, InputIterator last);
+  template <class InputIterator>
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
+  assign(InputIterator first, InputIterator last) {
+    node_pointer node;
+    node_pointer new_node;
+    
+    clear();
+    node = head_;
+    for (InputIterator itr = first; itr != last; ++itr) {
+      new_node = new node_type(cloneVal_(*itr), node, node->next_);
+      node->next_ = new_node;
+      node = new_node;
+    }
+    head_->prev_ = node;
+  }
 
-  void assign (size_type n, const value_type& val) {
+  void assign(size_type n, const value_type& val) {
     node_pointer node;
     node_pointer new_node;
 

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 08:24:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 08:52:09 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,20 +415,6 @@ struct is_input_iterator<
         ft::is_same<ft::random_access_iterator_tag,
                     typename InputIterator::iterator_category>::value,
         void>::type> : public ft::true_type {};
-
-// template <class InputIterator>
-// struct is_input_iterator<
-//     InputIterator,
-//     typename ft::enable_if<
-//         ft::is_same<ft::input_iterator_tag,
-//                     typename InputIterator::iterator_category>::value ||
-//         ft::is_same<ft::forward_iterator_tag,
-//                     typename InputIterator::iterator_category>::value ||
-//         ft::is_same<ft::bidirectional_iterator_tag,
-//                     typename InputIterator::iterator_category>::value ||
-//         ft::is_same<ft::random_access_iterator_tag,
-//                     typename InputIterator::iterator_category>::value,
-//         void>::type> : public ft::true_type {};
 
 template <class InputIterator>
 struct is_input_iterator<
