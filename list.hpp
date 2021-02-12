@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 12:13:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 13:00:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ class list {
       new_node = new node_type(cloneVal_(val), node, node->next_);
       node->next_ = new_node;
       node = new_node;
-      n--;
+      --n;
     }
     head_->prev_ = node;
   }
@@ -263,6 +263,18 @@ class list {
     node->prev_->next_ = new_node;
     node->prev_ = new_node;
     return iterator(new_node);
+  }
+
+  void insert (iterator position, size_type n, const value_type& val) {
+    node_pointer node = findNodeFromIterator_(position);
+    node_pointer new_node;
+    while (n > 0) {
+      new_node = new node_type(cloneVal_(val), node->prev_, node);
+      node->prev_->next_ = new_node;
+      node->prev_ = new_node;
+      node = new_node;
+      --n;
+    }
   }
 
   void clear() {
