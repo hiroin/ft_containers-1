@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 09:54:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 10:18:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void test_list(int& test_no) {
   std::vector<Hoge> hoge_vec(hoge, &hoge[10]);
   std::list<Hoge> hoge_lst(hoge, &hoge[10]);
   std::forward_list<Hoge> hoge_flst(hoge, &hoge[10]);
-  
+
   int num[10] = {0, 1, 2, 3, 42, 5, 6, 7, 8, 9};
   std::vector<int> num_vec(num, &num[10]);
 
@@ -1451,7 +1451,7 @@ void test_list(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   // fill constructor <int>
-  putTestInfo(test_no, "list<int>: int(0) to empty");
+  putTestInfo(test_no, "list<int>: int(0)");
   try {
     std::list<int> lst_std(0);
     ft::list<int> lst_ft(0);
@@ -1472,7 +1472,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<int>: int(0, 42) to empty");
+  putTestInfo(test_no, "list<int>: int(0, 42)");
   try {
     std::list<int> lst_std(0, 42);
     ft::list<int> lst_ft(0, 42);
@@ -1493,7 +1493,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<int>: int(1) to empty");
+  putTestInfo(test_no, "list<int>: int(1)");
   try {
     std::list<int> lst_std(1);
     ft::list<int> lst_ft(1);
@@ -1514,7 +1514,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<int>: int(1, 42) to empty");
+  putTestInfo(test_no, "list<int>: int(1, 42)");
   try {
     std::list<int> lst_std(1, 42);
     ft::list<int> lst_ft(1, 42);
@@ -1535,7 +1535,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<int>: int(24) to empty");
+  putTestInfo(test_no, "list<int>: int(24)");
   try {
     std::list<int> lst_std(24);
     ft::list<int> lst_ft(24);
@@ -1556,7 +1556,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<int>: int(24, 42) to empty");
+  putTestInfo(test_no, "list<int>: int(24, 42)");
   try {
     std::list<int> lst_std(24, 42);
     ft::list<int> lst_ft(24, 42);
@@ -1578,7 +1578,7 @@ void test_list(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   // fill constructor <Hoge>
-  putTestInfo(test_no, "list<Hoge>: Hoge(0) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(0)");
   try {
     std::list<Hoge> lst_std(0);
     ft::list<Hoge> lst_ft(0);
@@ -1599,7 +1599,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<Hoge>: Hoge(0, hoge[4]) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(0, hoge[4])");
   try {
     std::list<Hoge> lst_std(0, hoge[4]);
     ft::list<Hoge> lst_ft(0, hoge[4]);
@@ -1620,7 +1620,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<Hoge>: Hoge(1) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(1)");
   try {
     std::list<Hoge> lst_std(1);
     ft::list<Hoge> lst_ft(1);
@@ -1641,7 +1641,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<Hoge>: Hoge(1, hoge[4]) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(1, hoge[4])");
   try {
     std::list<Hoge> lst_std(1, hoge[4]);
     ft::list<Hoge> lst_ft(1, hoge[4]);
@@ -1662,7 +1662,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<Hoge>: Hoge(24) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(24)");
   try {
     std::list<Hoge> lst_std(24);
     ft::list<Hoge> lst_ft(24);
@@ -1683,10 +1683,181 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list<Hoge>: Hoge(24, hoge[4]) to empty");
+  putTestInfo(test_no, "list<Hoge>: Hoge(24, hoge[4])");
   try {
     std::list<Hoge> lst_std(24, hoge[4]);
     ft::list<Hoge> lst_ft(24, hoge[4]);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // range constuctor(itr, itr) <int>
+  putTestInfo(test_no, "list<int>: list(begin, end)");
+  try {
+    std::list<int> lst_std(num_vec.begin(), num_vec.end());
+    ft::list<int> lst_ft(num_vec.begin(), num_vec.end());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: list(begin, begin)");
+  try {
+    std::list<int> lst_std(num_vec.begin(), num_vec.begin());
+    ft::list<int> lst_ft(num_vec.begin(), num_vec.begin());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: list(rbegin, rend)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), num_vec.rend());
+    ft::list<int> lst_ft(num_vec.rbegin(), num_vec.rend());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // range constuctor(ptr, ptr) <int>
+  putTestInfo(test_no, "list<int>: list([0], [9])");
+  try {
+    std::list<int> lst_std(num, &num[9]);
+    ft::list<int> lst_ft(num, &num[9]);
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: list([4], [4])");
+  try {
+    std::list<int> lst_std(&num[4], &num[4]);
+    ft::list<int> lst_ft(&num[4], &num[4]);
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // range constuctor(itr, itr) <Hoge>
+  putTestInfo(test_no, "list<Hoge>: list(begin, end)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(begin, begin)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.begin());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.begin());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(rbegin, rend)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), hoge_vec.rend());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), hoge_vec.rend());
     std::list<Hoge>::iterator itr_std;
     ft::list<Hoge>::iterator itr_ft;
 

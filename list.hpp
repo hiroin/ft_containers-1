@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 09:40:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 10:12:04 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,17 @@ class list {
     head_ = new node_type;
     alloc_ = alloc;
     assign(n, val);
+  }
+
+  // range construtcor
+  template <class InputIterator>
+  list(InputIterator first,
+       typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                              InputIterator>::type last,
+       const allocator_type& alloc = allocator_type()) {
+    head_ = new node_type;
+    alloc_ = alloc;
+    assign(first, last);
   }
 
   ~list() { allClear_(); }
