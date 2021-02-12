@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 08:52:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 12:26:01 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,9 @@ class bidirectional_iterator_
 
   bidirectional_iterator_(const bidirectional_iterator_& x) { *this = x; }
 
-  ~bidirectional_iterator_(){};
+  virtual ~bidirectional_iterator_(){};
+
+  // get_node()
 
   bidirectional_iterator_& operator=(const bidirectional_iterator_& rhs) {
     node_ = rhs.node_;

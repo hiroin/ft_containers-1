@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 10:43:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 12:25:01 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2139,6 +2139,433 @@ void test_list(int& test_no) {
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // insert(pos, val) <int>
+  putTestInfo(test_no, "list<int>: insert(begin, 42) to list(rbegin, rbegin)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), num_vec.rbegin());
+    ft::list<int> lst_ft(num_vec.rbegin(), num_vec.rbegin());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), 42);
+    itr_ft = lst_ft.insert(lst_ft.begin(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(begin, 42) to list(rbegin,++rbegin)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), ++num_vec.rbegin());
+    ft::list<int> lst_ft(num_vec.rbegin(), ++num_vec.rbegin());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), 42);
+    itr_ft = lst_ft.insert(lst_ft.begin(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(begin, 42) to list(rbegin, rend)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), num_vec.rend());
+    ft::list<int> lst_ft(num_vec.rbegin(), num_vec.rend());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), 42);
+    itr_ft = lst_ft.insert(lst_ft.begin(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(end, 42) to list(rbegin, rbegin)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), num_vec.rbegin());
+    ft::list<int> lst_ft(num_vec.rbegin(), num_vec.rbegin());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), 42);
+    itr_ft = lst_ft.insert(lst_ft.end(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(end, 42) to list(rbegin,++rbegin)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), ++num_vec.rbegin());
+    ft::list<int> lst_ft(num_vec.rbegin(), ++num_vec.rbegin());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), 42);
+    itr_ft = lst_ft.insert(lst_ft.end(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(end, 42) to list(rbegin, rend)");
+  try {
+    std::list<int> lst_std(num_vec.rbegin(), num_vec.rend());
+    ft::list<int> lst_ft(num_vec.rbegin(), num_vec.rend());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), 42);
+    itr_ft = lst_ft.insert(lst_ft.end(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: insert(begin + 5, 42) to list(begin, end)");
+  try {
+    std::list<int> lst_std(num_vec.begin(), num_vec.end());
+    ft::list<int> lst_ft(num_vec.begin(), num_vec.end());
+    std::list<int>::iterator itr_std;
+    ft::list<int>::iterator itr_ft;
+
+    itr_std = lst_std.begin();
+    itr_ft = lst_ft.begin();
+    for (int n = 0; n < 5; n++) {
+      ++itr_std;
+      ++itr_ft;
+    }
+    itr_std = lst_std.insert(lst_std.begin(), 42);
+    itr_ft = lst_ft.insert(lst_ft.begin(), 42);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // insert(pos, val) <Hoge>
+  putTestInfo(test_no,
+              "list<Hoge>: insert(begin, hoge[4]) to list(rbegin, rbegin)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), hoge_vec.rbegin());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), hoge_vec.rbegin());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.begin(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(begin, hoge[4]) to list(rbegin,++rbegin)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), ++hoge_vec.rbegin());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), ++hoge_vec.rbegin());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.begin(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(begin, hoge[4]) to list(rbegin, rend)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), hoge_vec.rend());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), hoge_vec.rend());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.begin(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.begin(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(end, hoge[4]) to list(rbegin, rbegin)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), hoge_vec.rbegin());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), hoge_vec.rbegin());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.end(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(end, hoge[4]) to list(rbegin,++rbegin)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), ++hoge_vec.rbegin());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), ++hoge_vec.rbegin());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.end(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(end, hoge[4]) to list(rbegin, rend)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.rbegin(), hoge_vec.rend());
+    ft::list<Hoge> lst_ft(hoge_vec.rbegin(), hoge_vec.rend());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.insert(lst_std.end(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.end(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list<Hoge>: insert(begin + 5, hoge[4]) to list(begin, end)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    itr_std = lst_std.begin();
+    itr_ft = lst_ft.begin();
+    for (size_t n = 0; n < 5; n++) {
+      ++itr_std;
+      ++itr_ft;
+    }
+    itr_std = lst_std.insert(lst_std.begin(), hoge[4]);
+    itr_ft = lst_ft.insert(lst_ft.begin(), hoge[4]);
+    if (*itr_std != *itr_ft) {
+      throw std::runtime_error("return value");
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
     }
     if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
       throw std::runtime_error("size");

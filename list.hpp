@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 10:35:25 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 12:13:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,20 +94,20 @@ class list {
     return val_ptr;
   }
 
-  node_pointer lastnode_type() {
-    node_pointer node = head_;
-    while (head_ != node->next_) {
-      node = node->next_;
-    }
-    return node;
-  }
-
   node_pointer delOnenode_type(node_pointer node) {
     node_pointer next = node->next_;
     alloc_.destroy(node->value_);
     alloc_.deallocate(node->value_, 1);
     delete node;
     return next;
+  }
+
+  node_pointer findNodeFromIterator_(const iterator& itr) const {
+    node_pointer node = head_->next_;
+    while (node->value_ != &(*itr) && node != head_) {
+      node = node->next_;
+    }
+    return node;
   }
 
   void allClear_() {
@@ -198,8 +198,8 @@ class list {
   /*** Element access ***/
   reference front() { return *head_->next_->value_; }
   const_reference front() const { return *head_->next_->value_; }
-  reference back() { return *lastnode_type()->value_; }
-  const_reference back() const { return *lastnode_type()->value_; }
+  reference back() { return *head_->prev_->value_; }
+  const_reference back() const { return *head_->prev_->value_; }
 
   /*** Modifier ***/
   template <class InputIterator>
@@ -241,8 +241,7 @@ class list {
   }
 
   void push_back(const value_type& val) {
-    pointer val_ptr = cloneVal_(val);
-    node_pointer new_node = new node_type(val_ptr, head_->prev_, head_);
+    node_pointer new_node = new node_type(cloneVal_(val), head_->prev_, head_);
     head_->prev_->next_ = new_node;
     head_->prev_ = new_node;
   }
@@ -256,6 +255,14 @@ class list {
     node_pointer new_last_node = head_->prev_->prev_;
     new_last_node->next_ = delOnenode_type(head_->prev_);
     head_->prev_ = new_last_node;
+  }
+
+  iterator insert (iterator position, const value_type& val) {
+    node_pointer node = findNodeFromIterator_(position);
+    node_pointer new_node = new node_type(cloneVal_(val), node->prev_, node);
+    node->prev_->next_ = new_node;
+    node->prev_ = new_node;
+    return iterator(new_node);
   }
 
   void clear() {
