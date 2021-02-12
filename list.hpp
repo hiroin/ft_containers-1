@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 09:02:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 09:40:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ class list {
     alloc_ = alloc;
   }
 
+  // fill construtcor
+  explicit list(size_type n, const value_type& val = value_type(),
+                const allocator_type& alloc = allocator_type()) {
+    head_ = new node_type;
+    alloc_ = alloc;
+    assign(n, val);
+  }
+
   ~list() { allClear_(); }
 
   /*** iterators ***/
@@ -173,7 +181,7 @@ class list {
   assign(InputIterator first, InputIterator last) {
     node_pointer node;
     node_pointer new_node;
-    
+
     clear();
     node = head_;
     for (InputIterator itr = first; itr != last; ++itr) {
