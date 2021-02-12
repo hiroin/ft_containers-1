@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 13:48:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 14:28:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ class list {
     return val_ptr;
   }
 
-  node_pointer delOnenode_type(node_pointer node) {
+  node_pointer delOneNode_(node_pointer node) {
     node_pointer next = node->next_;
     alloc_.destroy(node->value_);
     alloc_.deallocate(node->value_, 1);
@@ -247,13 +247,13 @@ class list {
   }
 
   void pop_front() {
-    head_->next_ = delOnenode_type(head_->next_);
+    head_->next_ = delOneNode_(head_->next_);
     head_->next_->prev_ = head_;
   }
 
   void pop_back() {
     node_pointer new_last_node = head_->prev_->prev_;
-    new_last_node->next_ = delOnenode_type(head_->prev_);
+    new_last_node->next_ = delOneNode_(head_->prev_);
     head_->prev_ = new_last_node;
   }
 
@@ -291,10 +291,17 @@ class list {
     }
   }
 
+  iterator erase (iterator position) {
+    node_pointer node = findNodeFromIterator_(position);
+    node->next_->prev_ = node->prev_;
+    node->prev_->next_ = node->next_;
+    return delOneNode_(node);
+  }
+
   void clear() {
     node_pointer node = head_->next_;
     while (node != head_) {
-      node = delOnenode_type(node);
+      node = delOneNode_(node);
     }
     head_->next_ = head_;
     head_->prev_ = head_;
