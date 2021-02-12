@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 16:45:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 17:03:43 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,13 +300,18 @@ class list {
 
   iterator erase(iterator first, iterator last) {
     node_pointer node = findNodeFromIterator_(first);
-    // node_pointer node_last = findNodeFromIterator_(last);
     while (node->value_ != &(*last)) {
       node->next_->prev_ = node->prev_;
       node->prev_->next_ = node->next_;
       node = delOneNode_(node);
     }
     return iterator(node);
+  }
+
+  void swap (list& x) {
+    node_pointer tmp = head_;
+    head_ = x.head_;
+    x.head_ = tmp;
   }
 
   void clear() {
