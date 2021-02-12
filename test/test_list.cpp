@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 17:22:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 17:26:56 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -4107,6 +4107,7 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
+  // swap (member)
   putTestInfo(test_no, "list<Hoge> list(begin, end).swap(list(begin, end))");
   try {
     std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
@@ -4417,6 +4418,335 @@ void test_list(int& test_no) {
 
     lst_std.swap(lst_std);
     lst_ft.swap(lst_ft);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // swap (non member)
+  putTestInfo(test_no, "list<Hoge> list(begin, end).swap(list(begin, end))");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge> lst_std2(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft2(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list(begin, end).swap(list(rbegin, rend))");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge> lst_std2(hoge_vec.rbegin(), hoge_vec.rend());
+    ft::list<Hoge> lst_ft2(hoge_vec.rbegin(), hoge_vec.rend());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list.swap(list");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge> lst_std2;
+    ft::list<Hoge> lst_ft2;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list.swap(list(begin, end))");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge> lst_std2(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft2(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list(begin, end).swap(list)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge> lst_std2;
+    ft::list<Hoge> lst_ft2;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list([2], [4]).swap(list([1], [8]))");
+  try {
+    std::list<Hoge> lst_std(&hoge[2], &hoge[4]);
+    ft::list<Hoge> lst_ft(&hoge[2], &hoge[4]);
+    std::list<Hoge> lst_std2(&hoge[1], &hoge[8]);
+    ft::list<Hoge> lst_ft2(&hoge[1], &hoge[8]);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list([1], [4]).swap(list([7], [8]))");
+  try {
+    std::list<Hoge> lst_std(&hoge[1], &hoge[4]);
+    ft::list<Hoge> lst_ft(&hoge[1], &hoge[4]);
+    std::list<Hoge> lst_std2(&hoge[7], &hoge[8]);
+    ft::list<Hoge> lst_ft2(&hoge[7], &hoge[8]);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std2);
+    ft::swap(lst_ft, lst_ft2);
+    // check lst1
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check lst2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge> list(begin, end).swap(itself)");
+  try {
+    std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+    ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    std::swap(lst_std, lst_std);
+    ft::swap(lst_ft, lst_ft);
     // check lst1
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 17:03:43 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 17:23:43 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,6 +323,11 @@ class list {
     head_->prev_ = head_;
   }
 };
+
+template <class T, class Allocator>
+void swap(list<T, Allocator>& a, list<T, Allocator>& b) {
+  a.swap(b);
+}
 
 }  // namespace ft
 
