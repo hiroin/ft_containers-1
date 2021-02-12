@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 17:23:43 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 18:06:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,17 @@ class list {
     node_pointer tmp = head_;
     head_ = x.head_;
     x.head_ = tmp;
+  }
+
+  void resize (size_type n, value_type val = value_type()) {
+    size_type current_size = size();
+    if (n > current_size) {
+      insert(end(), n - current_size, val);
+    } else {
+      while (current_size-- > n) {
+        erase(--end());
+      }
+    }
   }
 
   void clear() {
