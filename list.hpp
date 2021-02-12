@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 18:06:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 22:46:57 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,34 @@ class list {
     }
     head_->next_ = head_;
     head_->prev_ = head_;
+  }
+
+  /*** Operations ***/
+  void splice (iterator position, list& x) {
+    node_pointer node = findNodeFromIterator_(position);
+    // connect begin of x
+    node->prev_->next_ = x.head_->next_;
+    x.head_->next_ = node->prev_;
+    // connect end of x
+    x.head_->prev_->next_ = node;
+    node->prev_ = x.head_->prev_;
+    // close x
+    x.head_->next_ = x.head_;
+    x.head_->prev_ = x.head_;
+  }
+
+  void splice (iterator position, list& x, iterator i) {
+    node_pointer node = findNodeFromIterator_(position);
+    node_pointer x_node = x.findNodeFromIterator_(i);
+    // close around i of x
+    x_node->prev_->next_ = x_node->next_;
+    x_node->next_->prev_ = x_node->prev_;
+    // connect former i
+    node->prev_->next_ = x_node;
+    x_node->prev_ = node->prev_;
+    // connect former i
+    x_node->next_ = node;
+    node->prev_ = x_node;
   }
 };
 
