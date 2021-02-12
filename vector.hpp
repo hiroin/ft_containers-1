@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 08:27:02 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/12 10:13:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,9 @@ class vector {
   template <class InputIterator>
   vector(InputIterator first,
          typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
-                                InputIterator>::type last) {
-    alloc_ = allocator_type();
+                                InputIterator>::type last,
+         const allocator_type& alloc = allocator_type()) {
+    alloc_ = alloc;
     values_ = NULL;
     size_ = 0;
     capacity_ = 0;
