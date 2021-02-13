@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 23:07:03 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 08:41:20 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,47 @@ class list {
     }
   }
 
+  template <class Compare>
+  void mergeNode_(node_pointer head1, node_pointer head2, Compare comp) {
+    if (head2->next_ == head2) {
+      return;
+    } else if (head1->next_ == head1) {
+      spliceNode_(head1, head2->next_, head2->prev_);
+      return;
+    }
+
+    node_pointer first;
+    node_pointer last;
+    node_pointer pos = head1->next_;
+    while (1) {
+      first = head2->next_;
+      // while (*pos->value_ <= *first->value_) {
+      while (comp(*pos->value_, *first->value_) ||
+             (!comp(*pos->value_, *first->value_) &&
+              !comp(*first->value_, *pos->value_))) {
+        pos = pos->next_;
+        if (pos == head1) {
+          spliceNode_(pos, first, head2->prev_);
+          return;
+        }
+      }
+      last = first;
+      if (last->next_ == head2) {
+        spliceNode_(pos, first, head2->prev_);
+        return;
+      }
+      // while (*last->next_->value_ < *pos->value_) {
+      while (comp(*pos->value_, *first->value_)) {
+        last = last->next_;
+        if (last->next_ == head2) {
+          spliceNode_(pos, first, head2->prev_);
+          return;
+        }
+      }
+      spliceNode_(pos, first, last);
+    }
+  }
+
   node_pointer mergeSort_(node_pointer head, size_type n) {
     if (n <= 1) {
       return head;
@@ -175,9 +216,21 @@ class list {
     node_pointer tmp = getNthNode_(head, n1 - 1);
     node_type head2;
     spliceNode_(&head2, tmp->next_, head->prev_);
-    // node_type head2(NULL, getNthNode_(head, n1), head->prev_);
-    // head->prev_ = getNthNode_(head, n1 - 1);
     mergeNode_(mergeSort_(head, n1), mergeSort_(&head2, n2));
+    return head;
+  }
+
+  template <class Compare>
+  node_pointer mergeSort_(node_pointer head, size_type n, Compare comp) {
+    if (n <= 1) {
+      return head;
+    }
+    size_type n1 = n / 2;
+    size_type n2 = n / 2 + n % 2;
+    node_pointer tmp = getNthNode_(head, n1 - 1);
+    node_type head2;
+    spliceNode_(&head2, tmp->next_, head->prev_);
+    mergeNode_(mergeSort_(head, n1, comp), mergeSort_(&head2, n2, comp), comp);
     return head;
   }
 
@@ -443,16 +496,17 @@ class list {
     }
   }
 
-  void merge(list& x) {
-    mergeNode_(head_, x.head_);
+  void merge(list& x) { mergeNode_(head_, x.head_); }
+
+  template <class Compare>
+  void merge(list& x, Compare comp) {
+    mergeNode_(head_, x.head_, comp);
   }
 
-  // template <class Compare>
-  // void merge(list& x, Compare comp);
+  void sort() { head_ = mergeSort_(head_, size()); }
 
-  void sort() {
-    head_ = mergeSort_(head_, size());
-  }
+  template <class Compare>
+  void sort(Compare comp) { head_ = mergeSort_(head_, size(), comp); }
 };
 
 template <class T, class Allocator>
