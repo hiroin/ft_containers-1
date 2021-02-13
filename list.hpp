@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 22:46:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 11:52:57 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,13 +308,13 @@ class list {
     return iterator(node);
   }
 
-  void swap (list& x) {
+  void swap(list& x) {
     node_pointer tmp = head_;
     head_ = x.head_;
     x.head_ = tmp;
   }
 
-  void resize (size_type n, value_type val = value_type()) {
+  void resize(size_type n, value_type val = value_type()) {
     size_type current_size = size();
     if (n > current_size) {
       insert(end(), n - current_size, val);
@@ -335,7 +335,7 @@ class list {
   }
 
   /*** Operations ***/
-  void splice (iterator position, list& x) {
+  void splice(iterator position, list& x) {
     node_pointer node = findNodeFromIterator_(position);
     // connect begin of x
     node->prev_->next_ = x.head_->next_;
@@ -348,7 +348,7 @@ class list {
     x.head_->prev_ = x.head_;
   }
 
-  void splice (iterator position, list& x, iterator i) {
+  void splice(iterator position, list& x, iterator i) {
     node_pointer node = findNodeFromIterator_(position);
     node_pointer x_node = x.findNodeFromIterator_(i);
     // close around i of x
@@ -360,6 +360,19 @@ class list {
     // connect former i
     x_node->next_ = node;
     node->prev_ = x_node;
+  }
+
+  void remove(const value_type& val) {
+    node_pointer node = head_->next_;
+    while (node != head_) {
+      if (*node->value_ == val) {
+        node->prev_->next_ = node->next_;
+        node->next_->prev_ = node->prev_;
+        node = delOneNode_(node);
+      } else {
+        node = node->next_;
+      }
+    }
   }
 };
 

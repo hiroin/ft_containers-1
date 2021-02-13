@@ -6,13 +6,14 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 22:43:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 12:21:54 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exception>
 #include <forward_list>
 #include <iostream>
+#include <sstream>
 #include <list>
 #include <vector>
 
@@ -5242,7 +5243,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5283,7 +5285,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5291,7 +5294,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++++begin, list(rbegin, rend))");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++++begin, list(rbegin, rend))");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5324,7 +5328,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5332,7 +5337,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++++++begin, list(rbegin, rend))");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++++++begin, list(rbegin, rend))");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5365,7 +5371,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5406,7 +5413,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5447,7 +5455,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5488,7 +5497,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5497,7 +5507,8 @@ void test_list(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   // splice(pos, x, itr)
-  putTestInfo(test_no, "list(begin, end).splice(begin, list(rbegin, rend), begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5530,7 +5541,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5538,7 +5550,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5571,7 +5584,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5579,7 +5593,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(begin, list(rbegin, rend), ++++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5612,7 +5627,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5620,7 +5636,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++begin, list(rbegin, rend), begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++begin, list(rbegin, rend), begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5653,7 +5670,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5661,7 +5679,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++begin, list(rbegin, rend), ++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++begin, list(rbegin, rend), ++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5694,7 +5713,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5702,7 +5722,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++begin, list(rbegin, rend), ++++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++begin, list(rbegin, rend), ++++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5735,7 +5756,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5743,7 +5765,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++++begin, list(rbegin, rend), begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++++begin, list(rbegin, rend), begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5776,7 +5799,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5784,7 +5808,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++++begin, list(rbegin, rend), ++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(++++begin, list(rbegin, rend), ++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5817,7 +5842,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5825,7 +5851,9 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(++++begin, list(rbegin, rend), ++++begin");
+  putTestInfo(
+      test_no,
+      "list(begin, end).splice(++++begin, list(rbegin, rend), ++++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5858,7 +5886,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5866,7 +5895,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(end, list(rbegin, rend), begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(end, list(rbegin, rend), begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5899,7 +5929,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5907,7 +5938,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(end, list(rbegin, rend), ++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(end, list(rbegin, rend), ++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5940,7 +5972,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5948,7 +5981,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(end, list(rbegin, rend), ++++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(end, list(rbegin, rend), ++++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -5981,7 +6015,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -5990,7 +6025,8 @@ void test_list(int& test_no) {
   std::cout << " => OK :)" << std::endl;
 
   // splice(pos, x, itr)
-  putTestInfo(test_no, "list(begin, end).splice(begin, list(rbegin, rend), --end");
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), --end");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -6023,7 +6059,8 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
@@ -6031,7 +6068,8 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
   try {
     std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
     ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
@@ -6064,13 +6102,212 @@ void test_list(int& test_no) {
     if (itr_ft != lst_ft2.end()) {
       throw std::runtime_error("iter");
     }
-    if (lst_std2.empty() != lst_ft2.empty() || lst_std2.size() != lst_ft2.size()) {
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
       throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  try {
+    std::list<Hoge> lst_std(hoge_flst.begin(), hoge_flst.end());
+    ft::list<Hoge> lst_ft(hoge_flst.begin(), hoge_flst.end());
+    std::list<Hoge> lst_std2(hoge_lst.rbegin(), hoge_lst.rend());
+    ft::list<Hoge> lst_ft2(hoge_lst.rbegin(), hoge_lst.rend());
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.splice(lst_std.begin(), lst_std2, --lst_std2.end());
+    lst_ft.splice(lst_ft.begin(), lst_ft2, --lst_ft2.end());
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+    // check 2
+    for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
+         itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft2.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std2.empty() != lst_ft2.empty() ||
+        lst_std2.size() != lst_ft2.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "list<int>(0..9).remove(" << i << ")";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::list<int> lst_std(num, num + 9);
+      ft::list<int> lst_ft(num, num + 9);
+      std::list<int>::iterator itr_std;
+      ft::list<int>::iterator itr_ft;
+
+      lst_std.remove(i);
+      lst_ft.remove(i);
+      for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+        if (*itr_std != *itr_ft) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (itr_ft != lst_ft.end()) {
+        throw std::runtime_error("iter");
+      }
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "list<int>(10, " << i << ").remove(" << i << ")";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::list<int> lst_std(10, i);
+      ft::list<int> lst_ft(10, i);
+      std::list<int>::iterator itr_std;
+      ft::list<int>::iterator itr_ft;
+
+      lst_std.remove(i);
+      lst_ft.remove(i);
+      for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+        if (*itr_std != *itr_ft) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (itr_ft != lst_ft.end()) {
+        throw std::runtime_error("iter");
+      }
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "list<int>(" << i << ", 42).remove(42)";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::list<int> lst_std(10, 42);
+      ft::list<int> lst_ft(10, 42);
+      std::list<int>::iterator itr_std;
+      ft::list<int>::iterator itr_ft;
+
+      lst_std.remove(42);
+      lst_ft.remove(42);
+      for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+        if (*itr_std != *itr_ft) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (itr_ft != lst_ft.end()) {
+        throw std::runtime_error("iter");
+      }
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "list<int>(" << i << ", 21).remove(42)";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::list<int> lst_std(i, 42);
+      ft::list<int> lst_ft(i, 42);
+      std::list<int>::iterator itr_std;
+      ft::list<int>::iterator itr_ft;
+
+      lst_std.remove(42);
+      lst_ft.remove(42);
+      for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+        if (*itr_std != *itr_ft) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (itr_ft != lst_ft.end()) {
+        throw std::runtime_error("iter");
+      }
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "list<Hoge>(begin, end).remove(hoge[" << i << "])";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::list<Hoge> lst_std(hoge_vec.begin(), hoge_vec.end());
+      ft::list<Hoge> lst_ft(hoge_vec.begin(), hoge_vec.end());
+      std::list<Hoge>::iterator itr_std;
+      ft::list<Hoge>::iterator itr_ft;
+
+      lst_std.remove(hoge[i]);
+      lst_ft.remove(hoge[i]);
+      for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+        if (*itr_std != *itr_ft) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (itr_ft != lst_ft.end()) {
+        throw std::runtime_error("iter");
+      }
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
 
   return;
 }
