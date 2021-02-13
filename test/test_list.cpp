@@ -6,10 +6,11 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 21:05:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 23:13:51 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <cstdlib>
 #include <exception>
 #include <forward_list>
 #include <iostream>
@@ -6361,7 +6362,7 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(6)) case2");
   try {
-    Hoge hog[6] = {Hoge(0, 2),  Hoge(1, 3),  Hoge(2, 3),
+    Hoge hog[6] = {Hoge(0, 2), Hoge(1, 3),  Hoge(2, 3),
                    Hoge(3, 3), Hoge(4, 92), Hoge(5, 95)};
     Hoge hog2[6] = {Hoge(-1, 1),  Hoge(-2, 3),  Hoge(-3, 3),
                     Hoge(-4, 32), Hoge(-5, 89), Hoge(-6, 99)};
@@ -6410,9 +6411,9 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(6)) case3");
   try {
-    Hoge hog[6] = {Hoge(0, 0),  Hoge(1, 1),  Hoge(2, 2),
+    Hoge hog[6] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2),
                    Hoge(3, 3), Hoge(4, 4), Hoge(5, 5)};
-    Hoge hog2[6] = {Hoge(-1, 0),  Hoge(-2, 1),  Hoge(-3, 2),
+    Hoge hog2[6] = {Hoge(-1, 0), Hoge(-2, 1), Hoge(-3, 2),
                     Hoge(-4, 3), Hoge(-5, 4), Hoge(-6, 5)};
     std::list<Hoge> lst_std(hog, hog + 6);
     ft::list<Hoge> lst_ft(hog, hog + 6);
@@ -6459,9 +6460,9 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(6)) case4");
   try {
-    Hoge hog[6] = {Hoge(0, 0),  Hoge(1, 1),  Hoge(2, 2),
+    Hoge hog[6] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2),
                    Hoge(3, 3), Hoge(4, 4), Hoge(5, 5)};
-    Hoge hog2[6] = {Hoge(-1, 6),  Hoge(-2, 7),  Hoge(-3, 8),
+    Hoge hog2[6] = {Hoge(-1, 6), Hoge(-2, 7),  Hoge(-3, 8),
                     Hoge(-4, 9), Hoge(-5, 10), Hoge(-6, 11)};
     std::list<Hoge> lst_std(hog, hog + 6);
     ft::list<Hoge> lst_ft(hog, hog + 6);
@@ -6508,9 +6509,9 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(6)) case5");
   try {
-    Hoge hog[6] = {Hoge(0, 6),  Hoge(1, 7),  Hoge(2, 8),
+    Hoge hog[6] = {Hoge(0, 6), Hoge(1, 7),  Hoge(2, 8),
                    Hoge(3, 9), Hoge(4, 10), Hoge(5, 11)};
-    Hoge hog2[6] = {Hoge(-1, 0),  Hoge(-2, 1),  Hoge(-3, 2),
+    Hoge hog2[6] = {Hoge(-1, 0), Hoge(-2, 1), Hoge(-3, 2),
                     Hoge(-4, 3), Hoge(-5, 4), Hoge(-6, 5)};
     std::list<Hoge> lst_std(hog, hog + 6);
     ft::list<Hoge> lst_ft(hog, hog + 6);
@@ -6561,7 +6562,7 @@ void test_list(int& test_no) {
     putTestInfo(test_no, sout.str());
     try {
       Hoge hog[1] = {Hoge(0, i)};
-      Hoge hog2[6] = {Hoge(-1, 0),  Hoge(-2, 1),  Hoge(-3, 2),
+      Hoge hog2[6] = {Hoge(-1, 0), Hoge(-2, 1), Hoge(-3, 2),
                       Hoge(-4, 3), Hoge(-5, 4), Hoge(-6, 5)};
       std::list<Hoge> lst_std(hog, hog + 1);
       ft::list<Hoge> lst_ft(hog, hog + 1);
@@ -6574,7 +6575,7 @@ void test_list(int& test_no) {
       lst_ft.merge(lst_ft2);
       std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
-          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         std::cout << *itr_std << " *** " << *itr_ft << std::endl;
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
@@ -6583,13 +6584,14 @@ void test_list(int& test_no) {
       if (itr_ft != lst_ft.end()) {
         throw std::runtime_error("iter");
       }
-      if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
         throw std::runtime_error("size");
       }
       // check lst2
       std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
-          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
         }
@@ -6612,8 +6614,8 @@ void test_list(int& test_no) {
     sout << "list<Hoge>: list(6).marge(list(1)) case: " << i;
     putTestInfo(test_no, sout.str());
     try {
-      Hoge hog[6] = {Hoge(1, 0),  Hoge(2, 1),  Hoge(3, 2),
-                      Hoge(4, 3), Hoge(5, 4), Hoge(6, 5)};
+      Hoge hog[6] = {Hoge(1, 0), Hoge(2, 1), Hoge(3, 2),
+                     Hoge(4, 3), Hoge(5, 4), Hoge(6, 5)};
       Hoge hog2[1] = {Hoge(0, i)};
       std::list<Hoge> lst_std(hog, hog + 6);
       ft::list<Hoge> lst_ft(hog, hog + 6);
@@ -6626,7 +6628,7 @@ void test_list(int& test_no) {
       lst_ft.merge(lst_ft2);
       std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
-          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         std::cout << *itr_std << " *** " << *itr_ft << std::endl;
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
@@ -6635,13 +6637,14 @@ void test_list(int& test_no) {
       if (itr_ft != lst_ft.end()) {
         throw std::runtime_error("iter");
       }
-      if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
         throw std::runtime_error("size");
       }
       // check lst2
       std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
-          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
         }
@@ -6665,7 +6668,7 @@ void test_list(int& test_no) {
     putTestInfo(test_no, sout.str());
     try {
       Hoge hog[1] = {Hoge(1, i)};
-      Hoge hog2[2] = {Hoge(-1, 0),  Hoge(-2, 1)};
+      Hoge hog2[2] = {Hoge(-1, 0), Hoge(-2, 1)};
       std::list<Hoge> lst_std(hog, hog + 1);
       ft::list<Hoge> lst_ft(hog, hog + 1);
       std::list<Hoge> lst_std2(hog2, hog2 + 2);
@@ -6677,7 +6680,7 @@ void test_list(int& test_no) {
       lst_ft.merge(lst_ft2);
       std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
-          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         std::cout << *itr_std << " *** " << *itr_ft << std::endl;
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
@@ -6686,13 +6689,14 @@ void test_list(int& test_no) {
       if (itr_ft != lst_ft.end()) {
         throw std::runtime_error("iter");
       }
-      if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
         throw std::runtime_error("size");
       }
       // check lst2
       std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
-          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
         }
@@ -6715,7 +6719,7 @@ void test_list(int& test_no) {
     sout << "list<Hoge>: list(2)).marge(list(1)) case" << i;
     putTestInfo(test_no, sout.str());
     try {
-      Hoge hog[2] = {Hoge(-1, 0),  Hoge(-2, 1)};
+      Hoge hog[2] = {Hoge(-1, 0), Hoge(-2, 1)};
       Hoge hog2[1] = {Hoge(1, i)};
       std::list<Hoge> lst_std(hog, hog + 2);
       ft::list<Hoge> lst_ft(hog, hog + 2);
@@ -6728,7 +6732,7 @@ void test_list(int& test_no) {
       lst_ft.merge(lst_ft2);
       std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
-          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         std::cout << *itr_std << " *** " << *itr_ft << std::endl;
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
@@ -6737,13 +6741,14 @@ void test_list(int& test_no) {
       if (itr_ft != lst_ft.end()) {
         throw std::runtime_error("iter");
       }
-      if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      if (lst_std.empty() != lst_ft.empty() ||
+          lst_std.size() != lst_ft.size()) {
         throw std::runtime_error("size");
       }
       // check lst2
       std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
-          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
+           itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
           throw std::runtime_error("value");
         }
@@ -6763,7 +6768,7 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(0)).marge(list(6))");
   try {
-    Hoge hog2[6] = {Hoge(-1, 6),  Hoge(-2, 7),  Hoge(-3, 8),
+    Hoge hog2[6] = {Hoge(-1, 6), Hoge(-2, 7),  Hoge(-3, 8),
                     Hoge(-4, 9), Hoge(-5, 10), Hoge(-6, 11)};
     std::list<Hoge> lst_std;
     ft::list<Hoge> lst_ft;
@@ -6810,7 +6815,7 @@ void test_list(int& test_no) {
 
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(0))");
   try {
-    Hoge hog[6] = {Hoge(0, 0),  Hoge(1, 1),  Hoge(2, 2),
+    Hoge hog[6] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2),
                    Hoge(3, 3), Hoge(4, 4), Hoge(5, 5)};
     std::list<Hoge> lst_std(hog, hog + 6);
     ft::list<Hoge> lst_ft(hog, hog + 6);
@@ -6990,15 +6995,10 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no,
-              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  putTestInfo(test_no, "list<Hoge>: list(6).sort case 1");
   try {
-    Hoge hog[6] = {
-        Hoge(0, 4), Hoge(1, 0), Hoge(2, 5), Hoge(3, 1),
-        Hoge(4, 0), Hoge(5, 0)
-        // Hoge(0, 4), Hoge(1, 3), Hoge(2, 5), Hoge(3, 1), Hoge(4, 0), Hoge(5,
-        // 2)
-    };
+    Hoge hog[6] = {Hoge(0, 4), Hoge(1, 1), Hoge(2, 0),
+                   Hoge(3, 5), Hoge(4, 2), Hoge(5, 3)};
     std::list<Hoge> lst_std(hog, hog + 6);
     ft::list<Hoge> lst_ft(hog, hog + 6);
     std::list<Hoge>::iterator itr_std;
@@ -7010,6 +7010,259 @@ void test_list(int& test_no) {
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(6).sort case 2");
+  try {
+    Hoge hog[6] = {Hoge(0, 4), Hoge(1, 0), Hoge(2, 5),
+                   Hoge(3, 1), Hoge(4, 0), Hoge(5, 0)};
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(6).sort case 3");
+  try {
+    Hoge hog[6] = {Hoge(0, 0), Hoge(1, 1), Hoge(2, 2),
+                   Hoge(3, 3), Hoge(4, 4), Hoge(5, 5)};
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(6).sort case 4");
+  try {
+    Hoge hog[6] = {Hoge(0, 5), Hoge(1, 4), Hoge(2, 3),
+                   Hoge(3, 2), Hoge(4, 1), Hoge(5, 0)};
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(6).sort case 5");
+  try {
+    Hoge hog[6] = {Hoge(0, 1), Hoge(1, 1), Hoge(2, 1),
+                   Hoge(3, 1), Hoge(4, 1), Hoge(5, 1)};
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(0).sort");
+  try {
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(1).sort");
+  try {
+    int n = 1;
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (int i = 0; i < n; i++) {
+      Hoge h(i, rand() % n);
+      lst_std.push_back(h);
+      lst_ft.push_back(h);
+    }
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(10).sort");
+  try {
+    int n = 10;
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (int i = 0; i < n; i++) {
+      Hoge h(i, rand() % n);
+      lst_std.push_back(h);
+      lst_ft.push_back(h);
+    }
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<Hoge>: list(1000).sort");
+  try {
+    int n = 1000;
+    std::list<Hoge> lst_std;
+    ft::list<Hoge> lst_ft;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    for (int i = 0; i < n; i++) {
+      Hoge h(i, rand() % n);
+      lst_std.push_back(h);
+      lst_ft.push_back(h);
+    }
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
     }
     if (itr_ft != lst_ft.end()) {
       throw std::runtime_error("iter");

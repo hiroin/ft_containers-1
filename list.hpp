@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 20:54:15 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 23:07:03 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ class list {
     return next;
   }
 
+  node_pointer getNthNode_(node_pointer head, size_type n) {
+    head = head->next_;
+    while (n-- > 0) {
+      head = head->next_;
+    }
+    return head;
+  }
+
   node_pointer findNodeFromIterator_(const iterator& itr) const {
     node_pointer node = head_->next_;
     while (node->value_ != &(*itr) && node != head_) {
@@ -120,6 +128,57 @@ class list {
     // connect last and pos
     last->next_ = pos;
     pos->prev_ = last;
+  }
+
+  void mergeNode_(node_pointer head1, node_pointer head2) {
+    if (head2->next_ == head2) {
+      return;
+    } else if (head1->next_ == head1) {
+      spliceNode_(head1, head2->next_, head2->prev_);
+      return;
+    }
+
+    node_pointer first;
+    node_pointer last;
+    node_pointer pos = head1->next_;
+    while (1) {
+      first = head2->next_;
+      while (*pos->value_ <= *first->value_) {
+        pos = pos->next_;
+        if (pos == head1) {
+          spliceNode_(pos, first, head2->prev_);
+          return;
+        }
+      }
+      last = first;
+      if (last->next_ == head2) {
+        spliceNode_(pos, first, head2->prev_);
+        return;
+      }
+      while (*last->next_->value_ < *pos->value_) {
+        last = last->next_;
+        if (last->next_ == head2) {
+          spliceNode_(pos, first, head2->prev_);
+          return;
+        }
+      }
+      spliceNode_(pos, first, last);
+    }
+  }
+
+  node_pointer mergeSort_(node_pointer head, size_type n) {
+    if (n <= 1) {
+      return head;
+    }
+    size_type n1 = n / 2;
+    size_type n2 = n / 2 + n % 2;
+    node_pointer tmp = getNthNode_(head, n1 - 1);
+    node_type head2;
+    spliceNode_(&head2, tmp->next_, head->prev_);
+    // node_type head2(NULL, getNthNode_(head, n1), head->prev_);
+    // head->prev_ = getNthNode_(head, n1 - 1);
+    mergeNode_(mergeSort_(head, n1), mergeSort_(&head2, n2));
+    return head;
   }
 
   void allClear_() {
@@ -384,43 +443,16 @@ class list {
     }
   }
 
-  void merge(list& x) { 
-    if (x.size() == 0) {
-      return;
-    } else if (size() == 0) {
-      spliceNode_(head_, x.head_->next_, x.head_->prev_);
-      return;
-    }
-
-    node_pointer first;
-    node_pointer last;
-    node_pointer pos = head_->next_;
-    while (1) {
-      first = x.head_->next_;
-      while (*pos->value_ <= *first->value_) {
-        pos = pos->next_;
-        if (pos == head_) {
-          spliceNode_(pos, first, x.head_->prev_);
-          return;
-        }
-      }
-      last = first;
-      if (last->next_ == x.head_) {
-        spliceNode_(pos, first, x.head_->prev_);
-        return;
-      }
-      while (*last->next_->value_ < *pos->value_) {
-        last = last->next_;
-        if (last->next_ == x.head_) {
-          spliceNode_(pos, first, x.head_->prev_);
-          return;
-        }
-      }
-      spliceNode_(pos, first, last);
-    }
+  void merge(list& x) {
+    mergeNode_(head_, x.head_);
   }
 
-  void sort() {}
+  // template <class Compare>
+  // void merge(list& x, Compare comp);
+
+  void sort() {
+    head_ = mergeSort_(head_, size());
+  }
 };
 
 template <class T, class Allocator>
