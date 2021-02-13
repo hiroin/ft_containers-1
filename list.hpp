@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 12:45:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 19:11:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,18 @@ class list {
       node = node->next_;
     }
     return node;
+  }
+
+  void spliceNode_(node_pointer pos, node_pointer first, node_pointer last) {
+    // connect first_->prev and last->next_
+    first->prev_->next_ = last->next_;
+    last->next_->prev_ = first->prev_;
+    // connect pos->prev_ and first
+    pos->prev_->next_ = first;
+    first->prev_ = pos->prev_;
+    // connect last and pos
+    last->next_ = pos;
+    pos->prev_ = last;
   }
 
   void allClear_() {
@@ -336,30 +348,13 @@ class list {
 
   /*** Operations ***/
   void splice(iterator position, list& x) {
-    node_pointer node = findNodeFromIterator_(position);
-    // connect begin of x
-    node->prev_->next_ = x.head_->next_;
-    x.head_->next_ = node->prev_;
-    // connect end of x
-    x.head_->prev_->next_ = node;
-    node->prev_ = x.head_->prev_;
-    // close x
-    x.head_->next_ = x.head_;
-    x.head_->prev_ = x.head_;
+    spliceNode_(findNodeFromIterator_(position), x.head_->next_,
+                x.head_->prev_);
   }
 
   void splice(iterator position, list& x, iterator i) {
-    node_pointer node = findNodeFromIterator_(position);
     node_pointer x_node = x.findNodeFromIterator_(i);
-    // close around i of x
-    x_node->prev_->next_ = x_node->next_;
-    x_node->next_->prev_ = x_node->prev_;
-    // connect former i
-    node->prev_->next_ = x_node;
-    x_node->prev_ = node->prev_;
-    // connect former i
-    x_node->next_ = node;
-    node->prev_ = x_node;
+    spliceNode_(findNodeFromIterator_(position), x_node, x_node);
   }
 
   void remove(const value_type& val) {
@@ -376,7 +371,7 @@ class list {
   }
 
   template <class Predicate>
-  void remove_if (Predicate pred) {
+  void remove_if(Predicate pred) {
     node_pointer node = head_->next_;
     while (node != head_) {
       if (pred(*node->value_)) {
@@ -388,6 +383,10 @@ class list {
       }
     }
   }
+
+  void merge(list& x) { (void)x; }
+
+  void sort() {}
 };
 
 template <class T, class Allocator>
