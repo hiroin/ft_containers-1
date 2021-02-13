@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 19:11:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 20:54:15 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,7 +384,41 @@ class list {
     }
   }
 
-  void merge(list& x) { (void)x; }
+  void merge(list& x) { 
+    if (x.size() == 0) {
+      return;
+    } else if (size() == 0) {
+      spliceNode_(head_, x.head_->next_, x.head_->prev_);
+      return;
+    }
+
+    node_pointer first;
+    node_pointer last;
+    node_pointer pos = head_->next_;
+    while (1) {
+      first = x.head_->next_;
+      while (*pos->value_ <= *first->value_) {
+        pos = pos->next_;
+        if (pos == head_) {
+          spliceNode_(pos, first, x.head_->prev_);
+          return;
+        }
+      }
+      last = first;
+      if (last->next_ == x.head_) {
+        spliceNode_(pos, first, x.head_->prev_);
+        return;
+      }
+      while (*last->next_->value_ < *pos->value_) {
+        last = last->next_;
+        if (last->next_ == x.head_) {
+          spliceNode_(pos, first, x.head_->prev_);
+          return;
+        }
+      }
+      spliceNode_(pos, first, last);
+    }
+  }
 
   void sort() {}
 };
