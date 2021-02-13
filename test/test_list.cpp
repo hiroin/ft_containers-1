@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 12:21:54 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 18:44:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -6308,6 +6308,70 @@ void test_list(int& test_no) {
     }
     std::cout << " => OK :)" << std::endl;
   }
+
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  try {
+    Hoge hog[6] = {
+      Hoge(0, 2), Hoge(1, 6), Hoge(2, 42), Hoge(3, 84), Hoge(4, 92), Hoge(5, 95)
+    };
+    Hoge hog2[6] = {
+      Hoge(0, 3), Hoge(1, 4), Hoge(2, 24), Hoge(3, 32), Hoge(4, 89), Hoge(5, 99)
+    };
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge> lst_std2(hog2, hog2 + 6);
+    ft::list<Hoge> lst_ft2(hog2, hog2 + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.merge(lst_std2);
+    lst_ft.merge(lst_ft2);
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "list(begin, end).splice(begin, list(rbegin, rend), ++begin");
+  try {
+    Hoge hog[6] = {
+      Hoge(0, 4), Hoge(1, 0), Hoge(2, 5), Hoge(3, 1), Hoge(4, 0), Hoge(5, 0)
+      // Hoge(0, 4), Hoge(1, 3), Hoge(2, 5), Hoge(3, 1), Hoge(4, 0), Hoge(5, 2)
+    };
+    std::list<Hoge> lst_std(hog, hog + 6);
+    ft::list<Hoge> lst_ft(hog, hog + 6);
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
+
+    lst_std.sort();
+    lst_ft.sort();
+    std::cout << std::endl;
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
 
   return;
 }
