@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 21:11:44 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/10 08:44:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 12:41:14 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,11 @@ template <typename T>
 void divByTwo(T& n) {
   n = n / 2;
 }
+
+bool is_even(const int& value);
+
+struct is_odd {
+  bool operator()(const int& value) { return (value % 2) == 1; }
+};
 
 #endif /* TEST_HPP */

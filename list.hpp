@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/13 11:52:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/13 12:45:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,20 @@ class list {
     node_pointer node = head_->next_;
     while (node != head_) {
       if (*node->value_ == val) {
+        node->prev_->next_ = node->next_;
+        node->next_->prev_ = node->prev_;
+        node = delOneNode_(node);
+      } else {
+        node = node->next_;
+      }
+    }
+  }
+
+  template <class Predicate>
+  void remove_if (Predicate pred) {
+    node_pointer node = head_->next_;
+    while (node != head_) {
+      if (pred(*node->value_)) {
         node->prev_->next_ = node->next_;
         node->next_->prev_ = node->prev_;
         node = delOneNode_(node);
