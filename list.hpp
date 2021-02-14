@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 09:31:03 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 09:55:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,34 @@ class list {
     assign(x.begin(), x.end());
     return *this;
   }
+
+  friend bool operator==(const list& x, const list& y) {
+    node_pointer node_x = x.head_->next_;
+    node_pointer node_y = y.head_->next_;
+    while (node_x != x.head_ && node_y != y.head_) {
+      if (*node_x->value_ != *node_y->value_) {
+        return false;
+      }
+      node_x = node_x->next_;
+      node_y = node_y->next_;
+    }
+    return (node_x == x.head_ && node_y == y.head_);
+  }
+
+  friend bool operator!=(const list& x, const list& y) { return !(x == y); }
+
+  friend bool operator<(const list& x, const list& y) {
+    return (
+        ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+  }
+
+  friend bool operator>(const list& x, const list& y) {
+    return (
+        ft::lexicographical_compare(y.begin(), y.end(), x.begin(), x.end()));
+  }
+
+  friend bool operator<=(const list& x, const list& y) { return !(x > y); }
+  friend bool operator>=(const list& x, const list& y) { return !(x < y); }
 
   /*** iterators ***/
   iterator begin() { return iterator(head_->next_); }
