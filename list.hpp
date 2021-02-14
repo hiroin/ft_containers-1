@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 09:13:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 09:25:09 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -515,8 +515,8 @@ class list {
     }
   }
 
-    template <class BinaryPredicate>
-  void unique (BinaryPredicate binary_pred) {
+  template <class BinaryPredicate>
+  void unique(BinaryPredicate binary_pred) {
     // case size == 0
     if (head_->next_ == head_) {
       return;
@@ -545,7 +545,30 @@ class list {
   void sort() { head_ = mergeSort_(head_, size()); }
 
   template <class Compare>
-  void sort(Compare comp) { head_ = mergeSort_(head_, size(), comp); }
+  void sort(Compare comp) {
+    head_ = mergeSort_(head_, size(), comp);
+  }
+
+  void reverse() {
+    node_pointer node1 = head_->next_;
+    node_pointer node2 = head_->prev_;
+
+    while (node1 != node2) {
+      // swap value
+      pointer tmp = node1->value_;
+      node1->value_ = node2->value_;
+      node2->value_ = tmp;
+
+      // check end meets
+      if (node1->next_ == node2) {
+        return;
+      }
+
+      // go next
+      node1 = node1->next_;
+      node2 = node2->prev_;
+    }
+  }
 };
 
 template <class T, class Allocator>
