@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 09:25:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 09:31:03 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -568,6 +568,10 @@ class list {
       node1 = node1->next_;
       node2 = node2->prev_;
     }
+  }
+
+  allocator_type get_allocator() const {
+    return alloc_;
   }
 };
 
