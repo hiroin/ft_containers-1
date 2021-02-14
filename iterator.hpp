@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 12:26:01 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/15 07:48:21 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 template <class type_name_, class distance_ = ptrdiff_t,
           class pointer_ = type_name_*, class reference_ = type_name_&>
 class random_access_iterator_base_
-    : public ft::iterator<ft::random_access_iterator_tag, type_name_,
-                           distance_, pointer_, reference_> {
+    : public ft::iterator<ft::random_access_iterator_tag, type_name_, distance_,
+                          pointer_, reference_> {
  private:
   // pointer to data
   pointer_ ptr_;
@@ -182,24 +182,22 @@ class random_access_iterator_base_
 };
 
 /*
-** bidirectional_iterator_base_
+** bidirectional_iterator_
 **
 ** template of iterator class makes an bidirectional access iterator which
-** wraps an array of type_name_.
+** wraps an list of type_name_.
 **
 ** NOTE: node_pointer_ type should have members below
 **  - pointer_* value_: pointer the value is stored
 **  - node_poitner_ prev_: pointer to previous node
 **  - node_poitner_ next_: pointer to next node
-**
-** TODO: exclude STL types
 */
 
 template <class type_name_, class node_pointer_, class distance_ = ptrdiff_t,
           class pointer_ = type_name_*, class reference_ = type_name_&>
 class bidirectional_iterator_
-    : public ft::iterator<ft::bidirectional_iterator_tag, type_name_,
-                          distance_, pointer_, reference_> {
+    : public ft::iterator<ft::bidirectional_iterator_tag, type_name_, distance_,
+                          pointer_, reference_> {
  private:
   // pointer to data
   node_pointer_ node_;
@@ -212,8 +210,6 @@ class bidirectional_iterator_
   bidirectional_iterator_(const bidirectional_iterator_& x) { *this = x; }
 
   virtual ~bidirectional_iterator_(){};
-
-  // get_node()
 
   bidirectional_iterator_& operator=(const bidirectional_iterator_& rhs) {
     node_ = rhs.node_;
@@ -259,6 +255,87 @@ class bidirectional_iterator_
 
   friend bool operator!=(const bidirectional_iterator_& x,
                          const bidirectional_iterator_& y) {
+    return !(x == y);
+  }
+};
+
+/*
+** bidirectional_iterator_tree_
+**
+** template of iterator class makes an bidirectional access iterator which
+** wraps an tree of type_name_.
+**
+** NOTE: node_pointer_ type should have members below
+**  - pointer_* value_: pointer the value is stored
+**  - node_poitner_ left_: pointer to left node
+**  - node_poitner_ right_: pointer to right node
+*/
+
+template <class type_name_, class node_pointer_, class distance_ = ptrdiff_t,
+          class pointer_ = type_name_*, class reference_ = type_name_&>
+class bidirectional_iterator_tree_
+    : public ft::iterator<ft::bidirectional_iterator_tag, type_name_, distance_,
+                          pointer_, reference_> {
+ private:
+  node_pointer_ node_;
+  node_pointer_ root_;
+
+  bidirectional_iterator_tree_() {
+    node_ = NULL;
+    root_ = NULL;
+  }
+
+ public:
+  bidirectional_iterator_tree_(node_pointer_ node, node_pointer_ root) {
+    node_ = node;
+    root_ = root;
+  }
+
+  bidirectional_iterator_tree_& operator=(
+      const bidirectional_iterator_tree_& rhs) {
+    node_ = rhs.node_;
+    return *this;
+  }
+
+  reference_ operator*() const { return *node_->value_; }
+  pointer_ operator->() const { return node_->value_; }
+
+  bidirectional_iterator_tree_& operator++() {
+    // node_ = node_->left_;
+    return *this;
+  }
+
+  bidirectional_iterator_tree_ operator++(int) {
+    bidirectional_iterator_tree_ tmp(*this);
+    // node_ = node_->next_;
+    return tmp;
+  }
+
+  bidirectional_iterator_tree_& operator--() {
+    // node_ = node_->prev_;
+    return *this;
+  }
+
+  bidirectional_iterator_tree_ operator--(int) {
+    bidirectional_iterator_tree_ tmp(*this);
+    // node_ = node_->prev_;
+    return tmp;
+  }
+
+  friend void swap(const bidirectional_iterator_tree_& x,
+                   const bidirectional_iterator_tree_& y) {
+    bidirectional_iterator_tree_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const bidirectional_iterator_tree_& x,
+                         const bidirectional_iterator_tree_& y) {
+    return x.node_ == y.node_;
+  }
+
+  friend bool operator!=(const bidirectional_iterator_tree_& x,
+                         const bidirectional_iterator_tree_& y) {
     return !(x == y);
   }
 };
@@ -402,20 +479,20 @@ struct is_input_iterator<
     typename ft::enable_if<
         ft::is_same<std::input_iterator_tag,
                     typename InputIterator::iterator_category>::value ||
-        ft::is_same<std::forward_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<std::bidirectional_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<std::random_access_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<ft::input_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<ft::forward_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<ft::bidirectional_iterator_tag,
-                    typename InputIterator::iterator_category>::value ||
-        ft::is_same<ft::random_access_iterator_tag,
-                    typename InputIterator::iterator_category>::value,
+            ft::is_same<std::forward_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<std::bidirectional_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<std::random_access_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<ft::input_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<ft::forward_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<ft::bidirectional_iterator_tag,
+                        typename InputIterator::iterator_category>::value ||
+            ft::is_same<ft::random_access_iterator_tag,
+                        typename InputIterator::iterator_category>::value,
         void>::type> : public ft::true_type {};
 
 template <class InputIterator>
