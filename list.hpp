@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 09:55:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 18:27:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ struct ListNode {
     next_ = next;
   }
 
-  ~ListNode(){};
+  virtual ~ListNode(){}
 };
 
 template <class T, class Allocator = std::allocator<T> >
@@ -180,7 +180,6 @@ class list {
     node_pointer pos = head1->next_;
     while (1) {
       first = head2->next_;
-      // while (*pos->value_ <= *first->value_) {
       while (comp(*pos->value_, *first->value_) ||
              (!comp(*pos->value_, *first->value_) &&
               !comp(*first->value_, *pos->value_))) {
@@ -195,7 +194,6 @@ class list {
         spliceNode_(pos, first, head2->prev_);
         return;
       }
-      // while (*last->next_->value_ < *pos->value_) {
       while (comp(*pos->value_, *first->value_)) {
         last = last->next_;
         if (last->next_ == head2) {

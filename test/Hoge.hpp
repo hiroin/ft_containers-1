@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:20:56 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 09:10:46 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 20:36:54 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <ostream>
 
 class Hoge {
- private:
  public:
   const int idx_;
   int* num_;
