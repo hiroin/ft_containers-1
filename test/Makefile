@@ -6,13 +6,13 @@
 #    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 17:34:06 by dnakano           #+#    #+#              #
-#    Updated: 2021/02/10 08:47:40 by dnakano          ###   ########.fr        #
+#    Updated: 2021/02/14 14:30:54 by dnakano          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		:=	main.cpp test_util.cpp test_vector.cpp test_list.cpp Hoge.cpp
+SRCS		:=	main.cpp test_util.cpp test_vector.cpp test_list.cpp test_map.cpp Hoge.cpp
 OBJS		:=	$(SRCS:%.cpp=%.o)
-HEADERS		:=	vector.hpp list.hpp
+HEADERS		:=	vector.hpp list.hpp map.hpp
 HEADERDIR	:=	..
 NAME		:=	test.out
 OUTDIR		:=	.

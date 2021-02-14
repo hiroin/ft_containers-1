@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:13 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 14:18:46 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 14:30:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int main() {
   try {
     test_vector(test_no);
     test_list(test_no);
+    test_map(test_no);
     std::cout << "=== PASSED ALL TEST ===" << std::endl;
   } catch (std::exception& e) {
     std::cout << ": " << e.what() << std::endl;
