@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 08:41:20 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/14 09:13:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -489,6 +489,45 @@ class list {
       if (pred(*node->value_)) {
         node->prev_->next_ = node->next_;
         node->next_->prev_ = node->prev_;
+        node = delOneNode_(node);
+      } else {
+        node = node->next_;
+      }
+    }
+  }
+
+  void unique() {
+    // case size == 0
+    if (head_->next_ == head_) {
+      return;
+    }
+
+    node_pointer node = head_->next_->next_;
+    while (node != head_) {
+      if (*node->value_ == *node->prev_->value_) {
+        // erase a node
+        node->next_->prev_ = node->prev_;
+        node->prev_->next_ = node->next_;
+        node = delOneNode_(node);
+      } else {
+        node = node->next_;
+      }
+    }
+  }
+
+    template <class BinaryPredicate>
+  void unique (BinaryPredicate binary_pred) {
+    // case size == 0
+    if (head_->next_ == head_) {
+      return;
+    }
+
+    node_pointer node = head_->next_->next_;
+    while (node != head_) {
+      if (binary_pred(*node->value_, *node->prev_->value_)) {
+        // erase a node
+        node->next_->prev_ = node->prev_;
+        node->prev_->next_ = node->next_;
         node = delOneNode_(node);
       } else {
         node = node->next_;
