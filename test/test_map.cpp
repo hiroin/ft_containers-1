@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/15 07:51:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/15 12:04:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,25 @@ void test_map(int& test_no) {
     }
     if (std_map[2] != ft_map[2]) {
       throw std::runtime_error("value");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, string>: insert 10 to map(0)");
+  try {
+    std::map<int, std::string> std_map;
+    ft::map<int, std::string> ft_map;
+
+    for (int i = 0; i < 10; i++) {
+      std_map.insert(persons[i]);
+      ft_map.insert(persons[i]);
+    }
+    for (int i = 0; i < 10; i++) {
+      if (std_map[i] != ft_map[i]) {
+        throw std::runtime_error("value");
+      }
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());

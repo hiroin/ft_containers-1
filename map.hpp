@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/15 07:59:49 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/15 12:00:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,18 @@ class map {
     return val_ptr;
   }
 
+  node_pointer findNode_(node_pointer node, const key_type& k) {
+    if (node == NULL) {
+      return NULL;
+    } else if (comp_(k, (*node->value_).first)) {
+      return findNode_(node->left_, k);
+    } else if (comp_((*node->value_).first, k)) {
+      return findNode_(node->right_, k);
+    } else {
+      return node;
+    }
+  }
+
   void destructNodes_(node_pointer node) {
     if (node == NULL) {
       return ;
@@ -128,9 +140,9 @@ class map {
   }
 
   /*** operator overloads ***/
-  mapped_type& operator[](const key_type& key) {
-    (void)key;
-    return (*root_->value_).second;
+  mapped_type& operator[](const key_type& k) {
+    node_pointer node = findNode_(root_, k);
+    return (*node->value_).second;
   }
 
   /*** modifiers ***/
@@ -173,6 +185,14 @@ class map {
     std::cout << "inserted: " << (*node->value_).first << ": " << (*node->value_).second << std::endl;
     return std::pair<iterator, bool>(iterator(node, root_), true);
   }
+
+  /*** operations ***/
+  iterator find (const key_type& k) {
+    node_pointer node = findNode_(root_, k);
+    return iterator(node, root_);
+  }
+
+  const_iterator find (const key_type& k) const;
 };
 
 }  // namespace ft
