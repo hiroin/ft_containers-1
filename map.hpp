@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 13:29:29 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:20:16 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,6 +252,11 @@ class map {
     alloc_ = alloc;
   }
 
+  // template <class InputIterator>
+  // map(InputIterator first, InputIterator last,
+  //     const key_compare& comp = key_compare(),
+  //     const allocator_type& alloc = allocator_type());
+
   ~map() { deleteNodes_(root_); }
 
   /*** operator overloads ***/
@@ -268,6 +273,15 @@ class map {
     } else {
       deleteVal_(new_value);
       return std::pair<iterator, bool>(iterator(node, root_), false);
+    }
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
+  insert (InputIterator first, InputIterator last) {
+    for (InputIterator itr = first; itr != last; ++itr) {
+      insert(*itr);
     }
   }
 
