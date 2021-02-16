@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 14:34:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:15:27 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,13 @@ class map {
     return new_node;
   }
 
+  node_pointer cloneNodes_(node_pointer node) {
+    return node ? new node_type(cloneVal_(*node->value_),
+                                cloneNodes_(node->left_),
+                                cloneNodes_(node->right_))
+                : NULL;
+  }
+
   void deleteNodes_(node_pointer node) {
     if (node == NULL) {
       return;
@@ -267,6 +274,16 @@ class map {
   ~map() { deleteNodes_(root_); }
 
   /*** operator overloads ***/
+  map& operator=(const map& x) {
+    if (this == &x) {
+      return *this;
+    }
+    deleteNodes_(root_);
+    comp_ = x.comp_;
+    root_ = cloneNodes_(x.root_);
+    return *this;
+  }
+
   mapped_type& operator[](const key_type& k) {
     return (*(insert(value_type(k, mapped_type())).first)).second;
   }

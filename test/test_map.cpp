@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 14:37:33 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:19:06 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,7 +536,7 @@ void test_map(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "map<Hoge, Hoge>: insert(0 ~ 10) with array");
+  putTestInfo(test_no, "map<Hoge, Hoge>: range construction with array");
   try {
     std::map<Hoge, Hoge> std_map(fugas, fugas + 10);
     ft::map<Hoge, Hoge> ft_map(fugas, fugas + 10);
@@ -551,11 +551,89 @@ void test_map(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "map<Hoge, Hoge>: insert(0 ~ 10) with map itr");
+  putTestInfo(test_no, "map<Hoge, Hoge>: range construction with mapitr");
   try {
     std::map<Hoge, Hoge> std_map(fugas_map.begin(), fugas_map.end());
     ft::map<Hoge, Hoge> ft_map(fugas_map.begin(), fugas_map.end());
 
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: map(10) = map(10) with array");
+  try {
+    std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
+    std::map<Hoge, Hoge> std_map2(fugas, fugas + 10);
+    ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
+    ft::map<Hoge, Hoge> ft_map2(fugas, fugas + 10);
+
+    for (int i = 0; i < 10; i++) {
+      // std::cout << "std[" << hoges[i].first << "] = " << std_map[hoges[i].first]
+      //           << " ft[" << hoges[i].first << "] = " << ft_map[hoges[i].first]
+      //           << std::endl;
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+    std_map = std_map2;
+    ft_map = ft_map2;
+    for (int i = 0; i < 10; i++) {
+      // std::cout << "std[" << hoges[i].first << "] = " << std_map[hoges[i].first]
+      //           << " ft[" << hoges[i].first << "] = " << ft_map[hoges[i].first]
+      //           << std::endl;
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: map(10) = map(5) with array");
+  try {
+    std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
+    std::map<Hoge, Hoge> std_map2(fugas, fugas + 5);
+    ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
+    ft::map<Hoge, Hoge> ft_map2(fugas, fugas + 5);
+
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+    std_map = std_map2;
+    ft_map = ft_map2;
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: map(5) = map(10) with array");
+  try {
+    std::map<Hoge, Hoge> std_map(hoges, hoges + 5);
+    std::map<Hoge, Hoge> std_map2(fugas, fugas + 10);
+    std::map<Hoge, Hoge> ft_map(hoges, hoges + 5);
+    std::map<Hoge, Hoge> ft_map2(fugas, fugas + 10);
+
+    for (int i = 0; i < 5; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+    std_map = std_map2;
+    ft_map = ft_map2;
     for (int i = 0; i < 10; i++) {
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
