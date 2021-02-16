@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 15:24:28 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 16:02:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,10 @@ void test_map(int& test_no) {
   try {
     std::map<int, std::string> std_map;
     ft::map<int, std::string> ft_map;
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error("failed");
   }
@@ -109,6 +113,10 @@ void test_map(int& test_no) {
     ft_map.insert(persons[0]);
     if (std_map[7] != ft_map[7]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -129,6 +137,10 @@ void test_map(int& test_no) {
     }
     if (std_map[2] != ft_map[2]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -154,6 +166,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -178,6 +194,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -201,6 +221,10 @@ void test_map(int& test_no) {
       if (std_map[i] != ft_map[i]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -231,6 +255,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -257,8 +285,12 @@ void test_map(int& test_no) {
       }
     }
     if (std_map[Hoge(42, 42)] != ft_map[Hoge(42, 42)] ||
-        std_map[Hoge(-42, -42)] != ft_map[Hoge(42, 42)]) {
+        std_map[Hoge(-42, -42)] != ft_map[Hoge(-42, -42)]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -284,8 +316,12 @@ void test_map(int& test_no) {
       }
     }
     if (std_map[Hoge(42, 42)] != ft_map[Hoge(42, 42)] ||
-        std_map[Hoge(-42, -42)] != ft_map[Hoge(42, 42)]) {
+        std_map[Hoge(-42, -42)] != ft_map[Hoge(-42, -42)]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -312,6 +348,10 @@ void test_map(int& test_no) {
     }
     if (std_map[42] != ft_map[42] || std_map[-42] != ft_map[-42]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -341,6 +381,10 @@ void test_map(int& test_no) {
     if (std_map[42] != ft_map[42] || std_map[-42] != ft_map[-42]) {
       throw std::runtime_error("value");
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -367,8 +411,12 @@ void test_map(int& test_no) {
       }
     }
     if (std_map[Hoge(42, 42)] != ft_map[Hoge(42, 42)] ||
-        std_map[Hoge(-42, -42)] != ft_map[Hoge(42, 42)]) {
+        std_map[Hoge(-42, -42)] != ft_map[Hoge(-42, -42)]) {
       throw std::runtime_error("value");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -387,6 +435,10 @@ void test_map(int& test_no) {
       if (std_map[persons[i].first] != ft_map[persons[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -407,6 +459,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -423,6 +479,10 @@ void test_map(int& test_no) {
       if (std_map[persons[i].first] != ft_map[persons[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -445,6 +505,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -462,6 +526,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -478,6 +546,10 @@ void test_map(int& test_no) {
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -498,6 +570,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -513,6 +589,10 @@ void test_map(int& test_no) {
       if (std_map[persons[i].first] != ft_map[persons[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -531,6 +611,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -545,6 +629,10 @@ void test_map(int& test_no) {
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -561,6 +649,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -574,8 +666,10 @@ void test_map(int& test_no) {
     ft::map<Hoge, Hoge> ft_map2(fugas, fugas + 10);
 
     for (int i = 0; i < 10; i++) {
-      // std::cout << "std[" << hoges[i].first << "] = " << std_map[hoges[i].first]
-      //           << " ft[" << hoges[i].first << "] = " << ft_map[hoges[i].first]
+      // std::cout << "std[" << hoges[i].first << "] = " <<
+      // std_map[hoges[i].first]
+      //           << " ft[" << hoges[i].first << "] = " <<
+      //           ft_map[hoges[i].first]
       //           << std::endl;
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
@@ -584,12 +678,18 @@ void test_map(int& test_no) {
     std_map = std_map2;
     ft_map = ft_map2;
     for (int i = 0; i < 10; i++) {
-      // std::cout << "std[" << hoges[i].first << "] = " << std_map[hoges[i].first]
-      //           << " ft[" << hoges[i].first << "] = " << ft_map[hoges[i].first]
+      // std::cout << "std[" << hoges[i].first << "] = " <<
+      // std_map[hoges[i].first]
+      //           << " ft[" << hoges[i].first << "] = " <<
+      //           ft_map[hoges[i].first]
       //           << std::endl;
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
@@ -615,6 +715,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -639,6 +743,10 @@ void test_map(int& test_no) {
         throw std::runtime_error("value");
       }
     }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }
@@ -647,14 +755,16 @@ void test_map(int& test_no) {
   putTestInfo(test_no, "map<Hoge, Hoge>: map(10) = map(10) with array");
   try {
     std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
-    std::map<Hoge, Hoge> std_map2(std_map);
     ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
-    ft::map<Hoge, Hoge> ft_map2(ft_map);
 
     for (int i = 0; i < 10; i++) {
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
       }
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());

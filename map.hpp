@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 15:25:59 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:52:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ struct TreeNode {
   }
 
   virtual ~TreeNode() {}
+
+  size_t size() const {
+    return (left_ ? left_->size() : 0) + (right_ ? right_->size() : 0) + 1;
+  }
 
   void updateHeight() {
     if (value_ == NULL) {
@@ -295,6 +299,17 @@ class map {
 
   mapped_type& operator[](const key_type& k) {
     return (*(insert(value_type(k, mapped_type())).first)).second;
+  }
+
+  /*** capacity ***/
+  bool empty() const { return root_ == NULL; }
+
+  size_type size() const {
+    return root_ ? static_cast<size_type>(root_->size()) : 0;
+  }
+
+  size_type max_size() const {
+    return alloc_.max_size() / 2;
   }
 
   /*** modifiers ***/
