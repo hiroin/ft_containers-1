@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 15:15:27 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:25:59 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,15 @@ class map {
     comp_ = comp;
     alloc_ = alloc;
     insert(first, last);
+  }
+
+  map(const map& x) {
+    if (this == &x) {
+      return;
+    }
+    root_ = NULL;
+    alloc_ = x.alloc_;
+    *this = x;
   }
 
   ~map() { deleteNodes_(root_); }

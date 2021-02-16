@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 15:19:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 15:24:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -634,6 +634,23 @@ void test_map(int& test_no) {
     }
     std_map = std_map2;
     ft_map = ft_map2;
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: map(10) = map(10) with array");
+  try {
+    std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
+    std::map<Hoge, Hoge> std_map2(std_map);
+    ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
+    ft::map<Hoge, Hoge> ft_map2(ft_map);
+
     for (int i = 0; i < 10; i++) {
       if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
