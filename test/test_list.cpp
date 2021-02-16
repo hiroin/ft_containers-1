@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 19:49:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 08:18:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -8151,7 +8151,7 @@ void test_list(int& test_no) {
     std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      // std::cout << *itr_std << " *** " << *itr_ft << std::endl;
+      // std::cout << *itr_std << " *** " << *itr_ft << std::endlc
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8422,8 +8422,6 @@ void test_list(int& test_no) {
     int n = 1000;
     std::list<Hoge> lst_std;
     ft::list<Hoge> lst_ft;
-    std::list<Hoge>::iterator itr_std;
-    ft::list<Hoge>::iterator itr_ft;
 
     for (int i = 0; i < n; i++) {
       Hoge h(rand() % 1000, 42);
@@ -8434,10 +8432,35 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique(compareNum);
     lst_ft.unique(compareNum);
-    std::cout << std::endl;
+    std::list<Hoge>::iterator itr_std;
+    ft::list<Hoge>::iterator itr_ft;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    std::list<Hoge>::const_iterator citr_std;
+    ft::list<Hoge>::const_iterator citr_ft;
+    for (citr_std = lst_std.begin(), citr_ft = lst_ft.begin();
+         citr_std != lst_std.end(); ++citr_std, ++citr_ft) {
+      if (*citr_std != *citr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    std::list<Hoge>::reverse_iterator ritr_std;
+    ft::list<Hoge>::reverse_iterator ritr_ft;
+    for (ritr_std = lst_std.rbegin(), ritr_ft = lst_ft.rbegin();
+         ritr_std != lst_std.rend(); ++ritr_std, ++ritr_ft) {
+      if (*ritr_std != *ritr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    std::list<Hoge>::const_reverse_iterator rcitr_std;
+    ft::list<Hoge>::const_reverse_iterator rcitr_ft;
+    for (rcitr_std = lst_std.rbegin(), rcitr_ft = lst_ft.rbegin();
+         rcitr_std != lst_std.rend(); ++rcitr_std, ++rcitr_ft) {
+      if (*rcitr_std != *rcitr_ft) {
         throw std::runtime_error("value");
       }
     }

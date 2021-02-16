@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 20:25:58 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 08:07:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,15 +267,12 @@ class bidirectional_iterator_tree_
 */
 
 template <class Iterator>
-class reverse_iterator
-    : public iterator<
-          typename Iterator::iterator_category, typename Iterator::value_type,
-          typename Iterator::difference_type, typename Iterator::pointer,
-          typename Iterator::reference> {
+class reverse_iterator {
  protected:
   Iterator normal_;
 
  public:
+  typedef Iterator iterator;
   typedef typename Iterator::value_type value_type;
   typedef typename Iterator::difference_type difference_type;
   typedef typename Iterator::pointer pointer;
@@ -283,9 +280,14 @@ class reverse_iterator
   typedef typename Iterator::iterator_category iterator_category;
 
   reverse_iterator() { normal_ = Iterator(); };
-  reverse_iterator(const Iterator& ref) { normal_ = ref; }
-  reverse_iterator(const reverse_iterator& x) { *this = x; }
+  reverse_iterator(const Iterator& ref) : normal_(ref) {}
+
+  template<class Itr>
+  reverse_iterator(const reverse_iterator<Itr>& x) : normal_(x.base()) {}
+
   ~reverse_iterator(){};
+
+  Iterator base() const { return normal_; }
 
   reverse_iterator& operator=(const reverse_iterator& rhs) {
     normal_ = rhs.normal_;
@@ -391,6 +393,275 @@ class reverse_iterator
     return !(x < y);
   }
 };
+
+// template <class ReverseIterator>
+// class const_reverse_iterator {
+//  protected:
+//   ReverseIterator rev_;
+
+//  public:
+//   typedef typename Iterator::value_type value_type;
+//   typedef typename Iterator::difference_type difference_type;
+//   typedef const value_type* pointer;
+//   typedef const value_type& reference;
+//   typedef const typename Iterator::reference reference;
+//   typedef typename Iterator::iterator_category iterator_category;
+
+//   Iterator::normal_;
+
+//   const_reverse_iterator() { normal_ = Iterator(); };
+//   const_reverse_iterator(const ReverseIterator& x) normal_(x.normal_) {
+//     normal_ = x.normal_;
+//   }
+
+//   const_reverse_iterator(const const_reverse_iterator& x) { *this = x; }
+//   ~const_reverse_iterator(){};
+
+//   const_reverse_iterator& operator=(const const_reverse_iterator& rhs) {
+//     normal_ = rhs.normal_;
+//     return *this;
+//   }
+
+//   reference operator*() const {
+//     Iterator tmp = normal_;
+//     return *--tmp;
+//   }
+
+//   pointer operator->() const {
+//     Iterator tmp = normal_;
+//     return &(*--tmp);
+//   }
+
+//   reference operator[](difference_type idx) const { return *(*this + idx); }
+
+//   const_reverse_iterator& operator++() {
+//     --normal_;
+//     return *this;
+//   }
+
+//   const_reverse_iterator operator++(int) {
+//     const_reverse_iterator tmp(*this);
+//     ++(*this);
+//     return tmp;
+//   }
+
+//   const_reverse_iterator& operator--() {
+//     ++normal_;
+//     return *this;
+//   }
+
+//   const_reverse_iterator operator--(int) {
+//     const_reverse_iterator tmp(*this);
+//     --(*this);
+//     return tmp;
+//   }
+
+//   const_reverse_iterator& operator+=(difference_type diff) {
+//     normal_ -= diff;
+//     return *this;
+//   }
+
+//   const_reverse_iterator& operator-=(difference_type diff) {
+//     normal_ += diff;
+//     return *this;
+//   }
+
+//   friend const_reverse_iterator operator+(const const_reverse_iterator& lhs,
+//                                           difference_type rhs) {
+//     return const_reverse_iterator(lhs.normal_ - rhs);
+//   }
+
+//   friend const_reverse_iterator operator+(difference_type lhs,
+//                                           const const_reverse_iterator& rhs) {
+//     return const_reverse_iterator(rhs.normal_ - lhs);
+//   }
+
+//   friend difference_type operator-(const const_reverse_iterator& lhs,
+//                                    const const_reverse_iterator& rhs) {
+//     return rhs.normal_ - lhs.normal_;
+//   }
+
+//   friend const_reverse_iterator operator-(const const_reverse_iterator& lhs,
+//                                           difference_type rhs) {
+//     return const_reverse_iterator(lhs.normal_ + rhs);
+//   }
+
+//   friend const_reverse_iterator operator-(difference_type lhs,
+//                                           const const_reverse_iterator& rhs) {
+//     return const_reverse_iterator(rhs.normal_ + lhs);
+//   }
+
+//   friend void swap(const const_reverse_iterator& x,
+//                    const const_reverse_iterator& y) {
+//     const_reverse_iterator tmp(x);
+//     x = y;
+//     y = tmp;
+//   }
+
+//   friend bool operator==(const const_reverse_iterator& x,
+//                          const const_reverse_iterator& y) {
+//     return x.normal_ == y.normal_;
+//   }
+
+//   friend bool operator!=(const const_reverse_iterator& x,
+//                          const const_reverse_iterator& y) {
+//     return !(x == y);
+//   }
+
+//   friend bool operator<(const const_reverse_iterator& x,
+//                         const const_reverse_iterator& y) {
+//     return x.normal_ > y.normal_;
+//   }
+
+//   friend bool operator<=(const const_reverse_iterator& x,
+//                          const const_reverse_iterator& y) {
+//     return !(x > y);
+//   }
+
+//   friend bool operator>(const const_reverse_iterator& x,
+//                         const const_reverse_iterator& y) {
+//     return x.normal_ < y.normal_;
+//   }
+
+//   friend bool operator>=(const const_reverse_iterator& x,
+//                          const const_reverse_iterator& y) {
+//     return !(x < y);
+//   }
+// };
+
+// template <class Iterator, class Reverse>
+// class const_reverse_iterator {
+//  protected:
+//   Iterator normal_;
+
+//  public:
+//   typedef typename Iterator::value_type value_type;
+//   typedef typename Iterator::difference_type difference_type;
+//   typedef const typename Iterator::value_type* pointer;
+//   typedef const typename Iterator::value_type& reference;
+//   typedef typename Iterator::iterator_category iterator_category;
+
+//   const_reverse_iterator() { normal_ = Iterator(); };
+//   const_reverse_iterator(const Iterator& x) : normal_(x) {}
+//   const_reverse_iterator(const const_reverse_iterator& x)
+//       : normal_(x.normal_) {}
+//   const_reverse_iterator(const reverse_iterator& x)
+//       : normal_(x.normal_) {}
+//   ~const_reverse_iterator(){};
+
+//   const_reverse_iterator& operator=(const const_reverse_iterator& rhs) {
+//     normal_ = rhs.normal_;
+//     return *this;
+//   }
+
+//   reference operator*() const {
+//     Iterator tmp = normal_;
+//     return *--tmp;
+//   }
+
+//   pointer operator->() const {
+//     Iterator tmp = normal_;
+//     return &(*--tmp);
+//   }
+
+//   reference operator[](difference_type idx) const { return *(*this + idx); }
+
+//   const_reverse_iterator& operator++() {
+//     --normal_;
+//     return *this;
+//   }
+
+//   const_reverse_iterator operator++(int) {
+//     const_reverse_iterator tmp(*this);
+//     ++(*this);
+//     return tmp;
+//   }
+
+//   const_reverse_iterator& operator--() {
+//     ++normal_;
+//     return *this;
+//   }
+
+//   const_reverse_iterator operator--(int) {
+//     const_reverse_iterator tmp(*this);
+//     --(*this);
+//     return tmp;
+//   }
+
+//   const_reverse_iterator& operator+=(difference_type diff) {
+//     normal_ -= diff;
+//     return *this;
+//   }
+
+//   const_reverse_iterator& operator-=(difference_type diff) {
+//     normal_ += diff;
+//     return *this;
+//   }
+
+//   friend const_reverse_iterator operator+(const const_reverse_iterator& lhs,
+//                                           difference_type rhs) {
+//     return const_reverse_iterator(lhs.normal_ - rhs);
+//   }
+
+//   friend const_reverse_iterator operator+(difference_type lhs,
+//                                           const const_reverse_iterator& rhs)
+//                                           {
+//     return const_reverse_iterator(rhs.normal_ - lhs);
+//   }
+
+//   friend difference_type operator-(const const_reverse_iterator& lhs,
+//                                    const const_reverse_iterator& rhs) {
+//     return rhs.normal_ - lhs.normal_;
+//   }
+
+//   friend const_reverse_iterator operator-(const const_reverse_iterator& lhs,
+//                                           difference_type rhs) {
+//     return const_reverse_iterator(lhs.normal_ + rhs);
+//   }
+
+//   friend const_reverse_iterator operator-(difference_type lhs,
+//                                           const const_reverse_iterator& rhs)
+//                                           {
+//     return const_reverse_iterator(rhs.normal_ + lhs);
+//   }
+
+//   friend void swap(const const_reverse_iterator& x,
+//                    const const_reverse_iterator& y) {
+//     const_reverse_iterator tmp(x);
+//     x = y;
+//     y = tmp;
+//   }
+
+// friend bool operator==(const const_reverse_iterator& x,
+//                        const const_reverse_iterator& y) {
+//   return x.normal_ == y.normal_;
+// }
+
+// friend bool operator!=(const const_reverse_iterator& x,
+//                        const const_reverse_iterator& y) {
+//   return !(x == y);
+// }
+
+// friend bool operator<(const const_reverse_iterator& x,
+//                       const const_reverse_iterator& y) {
+//   return x.normal_ > y.normal_;
+// }
+
+// friend bool operator<=(const const_reverse_iterator& x,
+//                        const const_reverse_iterator& y) {
+//   return !(x > y);
+// }
+
+// friend bool operator>(const const_reverse_iterator& x,
+//                       const const_reverse_iterator& y) {
+//   return x.normal_ < y.normal_;
+// }
+
+// friend bool operator>=(const const_reverse_iterator& x,
+//                        const const_reverse_iterator& y) {
+//   return !(x < y);
+// }
+// };
 
 template <class InputIterator, typename = void>
 struct is_input_iterator : public ft::false_type {};

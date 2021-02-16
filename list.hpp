@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 20:03:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 07:21:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,15 @@ class list_iterator_ {
   typedef ft::bidirectional_iterator_tag iterator_category;
   typedef NodePointer node_pointer;
 
- private:
  public:
-  // pointer to data
   node_pointer node_;
 
  public:
-  list_iterator_() { node_ = NULL; };
+  list_iterator_() : node_(NULL) {};
 
-  list_iterator_(node_pointer node) { node_ = node; }
+  list_iterator_(node_pointer node) : node_(node) {}
 
-  list_iterator_(const list_iterator_& x) { *this = x; }
+  list_iterator_(const list_iterator_& x) : node_(x.node_) {}
 
   virtual ~list_iterator_(){};
 
@@ -133,22 +131,20 @@ class list_const_iterator_ {
   typedef ft::bidirectional_iterator_tag iterator_category;
   typedef NodePointer node_pointer;
 
- private:
  public:
   // pointer to data
   node_pointer node_;
 
  public:
-  list_const_iterator_() { node_ = NULL; };
+  list_const_iterator_() : node_(NULL) {};
 
-  list_const_iterator_(node_pointer node) { node_ = node; }
+  list_const_iterator_(node_pointer node) : node_(node) {}
 
-  list_const_iterator_(const list_const_iterator_& x) { *this = x; }
+  list_const_iterator_(const list_const_iterator_& x) : node_(x.node_) {}
 
   list_const_iterator_(
-      const list_iterator_<Type, NodePointer, DifferenceType>& x) {
-    node_ = x.node_;
-  }
+      const list_iterator_<Type, NodePointer, DifferenceType>& x)
+      : node_(x.node_) {}
 
   virtual ~list_const_iterator_(){};
 

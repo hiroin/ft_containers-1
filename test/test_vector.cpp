@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/12 08:45:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 08:08:34 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,35 @@ void test_vector(int& test_no) {
     std::vector<int> vec_std2(vec_std1);
     ft::vector<int> vec_ft1(42, 42);
     ft::vector<int> vec_ft2(vec_ft1);
-    for (size_t idx = 0; idx < vec_std2.size(); idx++) {
-      if (vec_std2[idx] != vec_ft2[idx]) {
+    std::vector<int>::iterator itr_std;
+    ft::vector<int>::iterator itr_ft;
+    for (itr_std = vec_std2.begin(), itr_ft = vec_ft2.begin();
+    itr_std != vec_std2.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("failed");
+      }
+    }
+    std::vector<int>::const_iterator citr_std;
+    ft::vector<int>::const_iterator citr_ft;
+    for (citr_std = vec_std2.begin(), citr_ft = vec_ft2.begin();
+    citr_std != vec_std2.end(); ++citr_std, ++citr_ft) {
+      if (*citr_std != *citr_ft) {
+        throw std::runtime_error("failed");
+      }
+    }
+    std::vector<int>::reverse_iterator ritr_std;
+    ft::vector<int>::reverse_iterator ritr_ft;
+    for (ritr_std = vec_std2.rbegin(), ritr_ft = vec_ft2.rbegin();
+    ritr_std != vec_std2.rend(); ++ritr_std, ++ritr_ft) {
+      if (*ritr_std != *ritr_ft) {
+        throw std::runtime_error("failed");
+      }
+    }
+    std::vector<int>::const_reverse_iterator rcitr_std;
+    ft::vector<int>::const_reverse_iterator rcitr_ft;
+    for (rcitr_std = vec_std2.rbegin(), rcitr_ft = vec_ft2.rbegin();
+    rcitr_std != vec_std2.rend(); ++rcitr_std, ++rcitr_ft) {
+      if (*rcitr_std != *rcitr_ft) {
         throw std::runtime_error("failed");
       }
     }
