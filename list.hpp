@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 18:27:28 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 20:03:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,176 @@ namespace ft {
 
 // lineked list class template
 template <class Pointer>
-struct ListNode {
+struct ListNode_ {
   Pointer value_;
-  ListNode* prev_;
-  ListNode* next_;
+  ListNode_* prev_;
+  ListNode_* next_;
 
-  ListNode() {
+  ListNode_() {
     value_ = NULL;
     prev_ = this;
     next_ = this;
   }
 
-  ListNode(Pointer value, ListNode* prev, ListNode* next) {
+  ListNode_(Pointer value, ListNode_* prev, ListNode_* next) {
     value_ = value;
     prev_ = prev;
     next_ = next;
   }
 
-  virtual ~ListNode(){}
+  virtual ~ListNode_() {}
+};
+
+template <class Type, class NodePointer, class DifferenceType>
+class list_iterator_ {
+ public:
+  typedef Type value_type;
+  typedef DifferenceType difference_type;
+  typedef value_type* pointer;
+  typedef value_type& reference;
+  typedef ft::bidirectional_iterator_tag iterator_category;
+  typedef NodePointer node_pointer;
+
+ private:
+ public:
+  // pointer to data
+  node_pointer node_;
+
+ public:
+  list_iterator_() { node_ = NULL; };
+
+  list_iterator_(node_pointer node) { node_ = node; }
+
+  list_iterator_(const list_iterator_& x) { *this = x; }
+
+  virtual ~list_iterator_(){};
+
+  list_iterator_& operator=(const list_iterator_& rhs) {
+    node_ = rhs.node_;
+    return *this;
+  }
+
+  reference operator*() const { return *node_->value_; }
+  pointer operator->() const { return node_->value_; }
+
+  list_iterator_& operator++() {
+    node_ = node_->next_;
+    return *this;
+  }
+
+  list_iterator_ operator++(int) {
+    list_iterator_ tmp(*this);
+    node_ = node_->next_;
+    return tmp;
+  }
+
+  list_iterator_& operator--() {
+    node_ = node_->prev_;
+    return *this;
+  }
+
+  list_iterator_ operator--(int) {
+    list_iterator_ tmp(*this);
+    node_ = node_->prev_;
+    return tmp;
+  }
+
+  friend void swap(const list_iterator_& x, const list_iterator_& y) {
+    list_iterator_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const list_iterator_& x, const list_iterator_& y) {
+    return x.node_ == y.node_;
+  }
+
+  friend bool operator!=(const list_iterator_& x, const list_iterator_& y) {
+    return !(x == y);
+  }
+};
+
+template <class Type, class NodePointer, class DifferenceType>
+class list_const_iterator_ {
+ public:
+  typedef Type value_type;
+  typedef DifferenceType difference_type;
+  typedef const value_type* pointer;
+  typedef const value_type& reference;
+  typedef ft::bidirectional_iterator_tag iterator_category;
+  typedef NodePointer node_pointer;
+
+ private:
+ public:
+  // pointer to data
+  node_pointer node_;
+
+ public:
+  list_const_iterator_() { node_ = NULL; };
+
+  list_const_iterator_(node_pointer node) { node_ = node; }
+
+  list_const_iterator_(const list_const_iterator_& x) { *this = x; }
+
+  list_const_iterator_(
+      const list_iterator_<Type, NodePointer, DifferenceType>& x) {
+    node_ = x.node_;
+  }
+
+  virtual ~list_const_iterator_(){};
+
+  list_const_iterator_& operator=(const list_const_iterator_& rhs) {
+    node_ = rhs.node_;
+    return *this;
+  }
+
+  list_const_iterator_& operator=(
+      const list_iterator_<Type, NodePointer, DifferenceType>& rhs) {
+    node_ = rhs.node_;
+    return *this;
+  }
+
+  reference operator*() const { return *node_->value_; }
+  pointer operator->() const { return node_->value_; }
+
+  list_const_iterator_& operator++() {
+    node_ = node_->next_;
+    return *this;
+  }
+
+  list_const_iterator_ operator++(int) {
+    list_const_iterator_ tmp(*this);
+    node_ = node_->next_;
+    return tmp;
+  }
+
+  list_const_iterator_& operator--() {
+    node_ = node_->prev_;
+    return *this;
+  }
+
+  list_const_iterator_ operator--(int) {
+    list_const_iterator_ tmp(*this);
+    node_ = node_->prev_;
+    return tmp;
+  }
+
+  friend void swap(const list_const_iterator_& x,
+                   const list_const_iterator_& y) {
+    list_const_iterator_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const list_const_iterator_& x,
+                         const list_const_iterator_& y) {
+    return x.node_ == y.node_;
+  }
+
+  friend bool operator!=(const list_const_iterator_& x,
+                         const list_const_iterator_& y) {
+    return !(x == y);
+  }
 };
 
 template <class T, class Allocator = std::allocator<T> >
@@ -68,16 +220,13 @@ class list {
   typedef typename allocator_type::difference_type difference_type;
 
  private:
-  typedef ListNode<pointer> node_type;
+  typedef ListNode_<pointer> node_type;
   typedef node_type* node_pointer;
 
   /*** iterators ***/
  public:
-  typedef bidirectional_iterator_<value_type, node_pointer, difference_type,
-                                  pointer, reference>
-      iterator;
-  typedef bidirectional_iterator_<const value_type, node_pointer,
-                                  difference_type, pointer, reference>
+  typedef list_iterator_<value_type, node_pointer, difference_type> iterator;
+  typedef list_const_iterator_<value_type, node_pointer, difference_type>
       const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -596,9 +745,7 @@ class list {
     }
   }
 
-  allocator_type get_allocator() const {
-    return alloc_;
-  }
+  allocator_type get_allocator() const { return alloc_; }
 };
 
 template <class T, class Allocator>

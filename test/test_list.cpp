@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/14 10:36:36 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 19:49:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -8242,8 +8242,8 @@ void test_list(int& test_no) {
     int n = 1;
     std::list<int> lst_std;
     ft::list<int> lst_ft;
-    std::list<int>::iterator itr_std;
-    ft::list<int>::iterator itr_ft;
+    std::list<int>::const_iterator itr_std;
+    ft::list<int>::const_iterator itr_ft;
 
     for (int i = 0; i < n; i++) {
       int num = rand() % 10;
@@ -8577,8 +8577,8 @@ void test_list(int& test_no) {
     std::list<Hoge> lst_std2;
     std::list<Hoge> lst_std(hoge, hoge + 10, lst_std2.get_allocator());
     ft::list<Hoge> lst_ft(hoge, hoge + 10, lst_std2.get_allocator());
-    std::list<Hoge>::iterator itr_std;
-    ft::list<Hoge>::iterator itr_ft;
+    std::list<Hoge>::const_iterator itr_std;
+    ft::list<Hoge>::const_iterator itr_ft;
 
     std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
