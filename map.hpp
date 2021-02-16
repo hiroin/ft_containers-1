@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 13:16:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 13:29:29 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,9 +256,7 @@ class map {
 
   /*** operator overloads ***/
   mapped_type& operator[](const key_type& k) {
-    node_pointer node = findNode_(root_, k);
-    // std::cout << k << ":" << node << std::endl;
-    return (*node->value_).second;
+    return (*(insert(value_type(k, mapped_type())).first)).second;
   }
 
   /*** modifiers ***/
