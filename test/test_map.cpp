@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 14:17:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:37:33 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,13 +506,58 @@ void test_map(int& test_no) {
   // fill constructor
   putTestInfo(test_no, "map<int, string>: map(0 ~ 10) with array");
   try {
-    std::map<int, std::string> std_map;
-    ft::map<int, std::string> ft_map;
+    std::map<int, std::string> std_map(persons, persons + 10);
+    ft::map<int, std::string> ft_map(persons, persons + 10);
 
-    std_map.insert(persons, persons + 10);
-    ft_map.insert(persons, persons + 10);
     for (int i = 0; i < 10; i++) {
       if (std_map[persons[i].first] != ft_map[persons[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, string>: map(0 ~ 10) with itr");
+  try {
+    std::map<int, std::string> std_map(persons_revsorted_map.begin(),
+                                       persons_revsorted_map.end());
+    ft::map<int, std::string> ft_map(persons_revsorted_map.begin(),
+                                     persons_revsorted_map.end());
+
+    for (int i = 0; i < 10; i++) {
+      if (std_map[persons[i].first] != ft_map[persons[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: insert(0 ~ 10) with array");
+  try {
+    std::map<Hoge, Hoge> std_map(fugas, fugas + 10);
+    ft::map<Hoge, Hoge> ft_map(fugas, fugas + 10);
+
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<Hoge, Hoge>: insert(0 ~ 10) with map itr");
+  try {
+    std::map<Hoge, Hoge> std_map(fugas_map.begin(), fugas_map.end());
+    ft::map<Hoge, Hoge> ft_map(fugas_map.begin(), fugas_map.end());
+
+    for (int i = 0; i < 10; i++) {
+      if (std_map[hoges[i].first] != ft_map[hoges[i].first]) {
         throw std::runtime_error("value");
       }
     }

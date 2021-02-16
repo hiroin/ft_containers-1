@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 14:20:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 14:34:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,10 +252,17 @@ class map {
     alloc_ = alloc;
   }
 
-  // template <class InputIterator>
-  // map(InputIterator first, InputIterator last,
-  //     const key_compare& comp = key_compare(),
-  //     const allocator_type& alloc = allocator_type());
+  template <class InputIterator>
+  map(InputIterator first,
+      typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                             InputIterator>::type last,
+      const key_compare& comp = key_compare(),
+      const allocator_type& alloc = allocator_type()) {
+    root_ = NULL;
+    comp_ = comp;
+    alloc_ = alloc;
+    insert(first, last);
+  }
 
   ~map() { deleteNodes_(root_); }
 
@@ -279,7 +286,7 @@ class map {
   template <class InputIterator>
   typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
                          void>::type
-  insert (InputIterator first, InputIterator last) {
+  insert(InputIterator first, InputIterator last) {
     for (InputIterator itr = first; itr != last; ++itr) {
       insert(*itr);
     }
