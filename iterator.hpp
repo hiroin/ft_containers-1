@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/15 07:48:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/16 13:00:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,12 +280,12 @@ class bidirectional_iterator_tree_
   node_pointer_ node_;
   node_pointer_ root_;
 
+ public:
   bidirectional_iterator_tree_() {
     node_ = NULL;
     root_ = NULL;
   }
 
- public:
   bidirectional_iterator_tree_(node_pointer_ node, node_pointer_ root) {
     node_ = node;
     root_ = root;
