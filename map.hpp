@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/16 15:52:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 11:25:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,15 @@ class map {
   /*** public class definitions ***/
   class value_compare
       : public std::binary_function<value_type, value_type, bool> {
-   protected:
-    map::key_compare comp;
-    value_compare(key_compare c) { comp = c; }
+    //  protected:
+    // map::key_compare comp;
+    // value_compare(key_compare c) { comp = c; }
 
    public:
+    map::key_compare comp_;
+    value_compare(map::key_compare c) : comp_(c) {}
     bool operator()(const value_type& x, const value_type& y) const {
-      return c(x, y);
+      return comp_(x.first, y.first);
     }
   };
 
@@ -167,6 +169,7 @@ class map {
   /*** private members ***/
  private:
   key_compare comp_;
+  value_compare val_comp_;
   allocator_type alloc_;
   node_pointer root_;
 
@@ -254,31 +257,22 @@ class map {
   /*** constructors ***/
  public:
   explicit map(const key_compare& comp = key_compare(),
-               const allocator_type& alloc = allocator_type()) {
-    root_ = NULL;
-    comp_ = comp;
-    alloc_ = alloc;
-  }
+               const allocator_type& alloc = allocator_type())
+      : comp_(comp), val_comp_(comp), alloc_(alloc) { root_ = NULL; }
 
   template <class InputIterator>
   map(InputIterator first,
       typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
                              InputIterator>::type last,
       const key_compare& comp = key_compare(),
-      const allocator_type& alloc = allocator_type()) {
+      const allocator_type& alloc = allocator_type())
+      : comp_(comp), val_comp_(comp), alloc_(alloc) {
     root_ = NULL;
-    comp_ = comp;
-    alloc_ = alloc;
     insert(first, last);
   }
 
-  map(const map& x) {
-    if (this == &x) {
-      return;
-    }
-    root_ = NULL;
-    alloc_ = x.alloc_;
-    *this = x;
+  map(const map& x) : comp_(x.comp_), val_comp_(x.comp_), alloc_(x.alloc_) {
+    root_ = cloneNodes_(x.root_);
   }
 
   ~map() { deleteNodes_(root_); }
@@ -305,9 +299,7 @@ class map {
     return root_ ? static_cast<size_type>(root_->size()) : 0;
   }
 
-  size_type max_size() const {
-    return alloc_.max_size() / 2;
-  }
+  size_type max_size() const { return alloc_.max_size() / 2; }
 
   /*** modifiers ***/
   std::pair<iterator, bool> insert(const value_type& val) {
@@ -329,6 +321,9 @@ class map {
       insert(*itr);
     }
   }
+
+  /*** observers ***/
+  value_compare value_comp() const { return val_comp_; }
 
   /*** operations ***/
   iterator find(const key_type& k) {
