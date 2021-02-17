@@ -158,11 +158,8 @@ class map {
   typedef node_type* node_pointer;
 
   /*** iterators ***/
-  typedef bidirectional_iterator_tree_<value_type, node_pointer,
-                                       difference_type, pointer, reference>
-      iterator;
-  typedef bidirectional_iterator_tree_<const value_type, node_pointer,
-                                       difference_type, pointer, reference>
+  typedef tree_iterator_<value_type, node_pointer, difference_type> iterator;
+  typedef tree_iterator_<value_type, node_pointer, difference_type>
       const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
