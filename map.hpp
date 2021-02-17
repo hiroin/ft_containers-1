@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 11:25:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 12:49:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,20 @@ struct TreeNode {
 
   size_t size() const {
     return (left_ ? left_->size() : 0) + (right_ ? right_->size() : 0) + 1;
+  }
+
+  TreeNode* findLeftest() {
+    if (left_ == NULL) {
+      return this;
+    }
+    return left_->findLeftest();
+  }
+
+  TreeNode* findRightest() {
+    if (right_ == NULL) {
+      return this;
+    }
+    return right_->findRightest();
   }
 
   void updateHeight() {
@@ -258,7 +272,9 @@ class map {
  public:
   explicit map(const key_compare& comp = key_compare(),
                const allocator_type& alloc = allocator_type())
-      : comp_(comp), val_comp_(comp), alloc_(alloc) { root_ = NULL; }
+      : comp_(comp), val_comp_(comp), alloc_(alloc) {
+    root_ = NULL;
+  }
 
   template <class InputIterator>
   map(InputIterator first,
@@ -291,6 +307,17 @@ class map {
   mapped_type& operator[](const key_type& k) {
     return (*(insert(value_type(k, mapped_type())).first)).second;
   }
+
+  /*** iterator ***/
+  iterator begin() {
+    return iterator(root_->findLeftest(), root_);
+  }
+  const_iterator begin() const;
+
+  iterator end() {
+    return iterator(NULL, root_);
+  }
+  const_iterator end() const;
 
   /*** capacity ***/
   bool empty() const { return root_ == NULL; }
