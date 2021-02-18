@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 16:11:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 17:17:13 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 22:18:20 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ class stack {
   /*** member functions ***/
   bool empty() const { return c.empty(); }
   size_type size() const { return c.size(); }
-  value_type& top() { return c.top(); }
-  const value_type& top() const { return c.top(); }
+  value_type& top() { return c.back(); }
+  const value_type& top() const { return c.back(); }
   void push(const value_type& val) { c.push_back(val); }
   void pop() { c.pop_back(); }
 

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 14:48:47 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/17 21:53:27 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 #include "type_traits.hpp"
 
 namespace ft {
+
+// template <class T>
+// class list;
+
+// template <class T>
+// class stack;
 
 /*
 ** iterator tags
@@ -45,139 +51,6 @@ struct random_access_iterator_tag : public bidirectional_iterator_tag {};
 **  - node_poitner_ left_: pointer to left node
 **  - node_poitner_ right_: pointer to right node
 */
-
-template <class Type, class NodePointer, class DifferenceType>
-class tree_iterator_ {
- public:
-  typedef Type value_type;
-  typedef DifferenceType difference_type;
-  typedef value_type* pointer;
-  typedef value_type& reference;
-  typedef ft::bidirectional_iterator_tag iterator_category;
-  typedef NodePointer node_pointer;
-
- private:
-  node_pointer node_;
-  node_pointer root_;
-
-  virtual node_pointer findParent_(node_pointer node, node_pointer start) {
-    if (node == NULL || start == NULL || node == start) {
-      // case no parent found
-      return NULL;
-    } else if (node == start->left_ || node == start->right_) {
-      // case parent found
-      return start;
-    }
-    node_pointer parent;
-    if ((parent = findParent_(node, start->left_)) != NULL) {
-      return parent;
-    }
-    return findParent_(node, start->right_);
-  }
-
-  node_pointer findLeftest_(node_pointer node) {
-    if (node == NULL || node->left_ == NULL) {
-      return node;
-    }
-    return findLeftest_(node->left_);
-  }
-
-  node_pointer findRightest_(node_pointer node) {
-    if (node == NULL || node->right_ == NULL) {
-      return node;
-    }
-    return findRightest_(node->right_);
-  }
-
-  node_pointer getNextNode_() {
-    node_->displayInfo();
-    if (node_ == NULL) {
-      return findLeftest_(root_);
-    } else if (node_->right_) {
-      return findLeftest_(node_->right_);
-    }
-    node_pointer parent = findParent_(node_, root_);
-    parent->displayInfo();
-    if (parent == NULL) {
-      return NULL;
-    } else if (parent->left_ == node_) {
-      return parent;
-    } else { // parent->right_ == node_
-      return findParent_(parent, root_);
-    }
-    // std::cout << "parent" << parent->value_->first << "parent" << "next"
-    // << findLeftest_(parent->right_)->value_->first << "next";
-    return parent;
-  }
-
-  node_pointer getPrevNode_() {
-    if (node_ == NULL) {
-      return findRightest_(root_);
-    } else if (node_->left_) {
-      return findRightest_(node_->left_);
-    }
-    node_pointer parent = findParent_(node_, root_);
-    if (parent == NULL || parent->right_ != node_) {
-      return NULL;
-    }
-    return parent;
-  }
-
- public:
-  tree_iterator_() : node_(NULL), root_(NULL) {}
-
-  tree_iterator_(node_pointer node, node_pointer root)
-      : node_(node), root_(root) {}
-
-  tree_iterator_(const tree_iterator_& x) : node_(x.node_), root_(x.root_) {}
-
-  ~tree_iterator_(){};
-
-  tree_iterator_& operator=(const tree_iterator_& rhs) {
-    root_ = rhs.root_;
-    node_ = rhs.node_;
-    return *this;
-  }
-
-  reference operator*() const { return *node_->value_; }
-  pointer operator->() const { return node_->value_; }
-
-  tree_iterator_& operator++() {
-    node_ = getNextNode_();
-    return *this;
-  }
-
-  tree_iterator_ operator++(int) {
-    tree_iterator_ tmp(*this);
-    node_ = getNextNode_();
-    return tmp;
-  }
-
-  tree_iterator_& operator--() {
-    node_ = getPrevNode_();
-    return *this;
-  }
-
-  tree_iterator_ operator--(int) {
-    tree_iterator_ tmp(*this);
-    node_ = getPrevNode_();
-    return tmp;
-  }
-
-  friend void swap(const tree_iterator_& x, const tree_iterator_& y) {
-    tree_iterator_ tmp(x);
-    x = y;
-    y = tmp;
-  }
-
-  friend bool operator==(const tree_iterator_& x, const tree_iterator_& y) {
-    return x.node_ == y.node_;
-  }
-
-  friend bool operator!=(const tree_iterator_& x, const tree_iterator_& y) {
-    return !(x == y);
-  }
-};
 
 /*
 ** reverse_itarator

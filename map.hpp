@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 16:45:49 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/18 09:30:48 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,202 @@
 #define MAP_HPP
 
 #include <stack>
+
 #include "iterator.hpp"
+#include "list.hpp"
+#include "stack.hpp"
 
 namespace ft {
+
+template <class Type, class NodePointer, class DifferenceType, class ValueComp,
+          class KeyComp>
+class tree_iterator_ {
+ public:
+  typedef Type value_type;
+  typedef DifferenceType difference_type;
+  typedef value_type* pointer;
+  typedef value_type& reference;
+  typedef bidirectional_iterator_tag iterator_category;
+
+ private:
+  typedef NodePointer node_pointer;
+  typedef ValueComp value_compare;
+  typedef KeyComp key_compare;
+  typedef stack<node_pointer> stack_type;
+
+  node_pointer node_;
+  stack_type node_stack_;
+  value_compare value_comp_;
+
+  void initStack_(node_pointer root) {
+    if (node_ == NULL) {
+      node_stack_.push(root);
+      return;
+    }
+    node_pointer node = root;
+    while (node != node_) {
+      node_stack_.push(node);
+      if (value_comp_(*node_->value_, *node->value_)) {
+        node = node->left_;
+      } else {
+        node = node->right_;
+      }
+    }
+  }
+
+  virtual node_pointer findParent_(node_pointer node, node_pointer start) {
+    if (node == NULL || start == NULL || node == start) {
+      // case no parent found
+      return NULL;
+    } else if (node == start->left_ || node == start->right_) {
+      // case parent found
+      return start;
+    }
+    node_pointer parent;
+    if ((parent = findParent_(node, start->left_)) != NULL) {
+      return parent;
+    }
+    return findParent_(node, start->right_);
+  }
+
+  void toLeftest_() {
+    if (node_ == NULL || node_->left_ == NULL) {
+      return;
+    }
+    node_stack_.push(node_);
+    node_ = node_->left_;
+    toLeftest_();
+  }
+
+  void toRightest_() {
+    if (node_ == NULL || node_->right_ == NULL) {
+      return;
+    }
+    node_stack_.push(node_);
+    node_ = node_->right_;
+    toRightest_();
+  }
+
+  void toNextNode_() {
+    // case in end
+    if (node_ == NULL) {
+      node_ = node_stack_.top();
+      toLeftest_();
+      return;
+    }
+    // case has right child
+    if (node_->right_ != NULL) {
+      node_stack_.push(node_);
+      node_ = node_->right_;
+      toLeftest_();
+      return;
+    }
+    // find next from parent
+    node_pointer prev_node;
+    while (!node_stack_.empty()) {
+      prev_node = node_;
+      node_ = node_stack_.top();
+      node_stack_.pop();
+      if (prev_node == node_->left_) {
+        return;
+      }
+    }
+    // case next is an end
+    node_stack_.push(node_);
+    node_ = NULL;
+  }
+
+  void toPrevNode_() {
+    // case in end
+    if (node_ == NULL) {
+      node_ = node_stack_.top();
+      toRightest_();
+      return;
+    }
+    node_->displayInfo();
+    // case has left child
+    if (node_->left_ != NULL) {
+      node_stack_.push(node_);
+      node_ = node_->left_;
+      toRightest_();
+      return;
+    }
+    // find next from parent
+    node_pointer prev_node;
+    while (!node_stack_.empty()) {
+      prev_node = node_;
+      node_ = node_stack_.top();
+      node_stack_.pop();
+      if (prev_node == node_->right_) {
+        return;
+      }
+    }
+    // case next is an end
+    node_stack_.push(node_);
+    node_ = NULL;
+  }
+
+ public:
+  tree_iterator_() : node_(NULL), value_comp_(key_compare()) {}
+
+  tree_iterator_(node_pointer node, node_pointer root)
+      : node_(node), value_comp_(key_compare()) {
+    initStack_(root);
+  }
+
+  tree_iterator_(const tree_iterator_& x)
+      : node_(x.node_),
+        node_stack_(x.node_stack_),
+        value_comp_(key_compare()) {}
+
+  ~tree_iterator_(){};
+
+  tree_iterator_& operator=(const tree_iterator_& rhs) {
+    value_comp_ = rhs.value_comp_;
+    node_ = rhs.node_;
+    node_stack_ = rhs.node_stack_;
+    return *this;
+  }
+
+  reference operator*() const { return *node_->value_; }
+  pointer operator->() const { return node_->value_; }
+
+  tree_iterator_& operator++() {
+    toNextNode_();
+    return *this;
+  }
+
+  tree_iterator_ operator++(int) {
+    tree_iterator_ tmp(*this);
+    toNextNode_();
+    return tmp;
+  }
+
+  tree_iterator_& operator--() {
+    toPrevNode_();
+    return *this;
+  }
+
+  tree_iterator_ operator--(int) {
+    tree_iterator_ tmp(*this);
+    toPrevNode_();
+    return tmp;
+  }
+
+  friend void swap(const tree_iterator_& x, const tree_iterator_& y) {
+    tree_iterator_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const tree_iterator_& x, const tree_iterator_& y) {
+    return x.node_ == y.node_;
+  }
+
+  friend bool operator!=(const tree_iterator_& x, const tree_iterator_& y) {
+    return !(x == y);
+  }
+};
 
 // class of node tree
 template <class Pointer>
@@ -175,8 +368,11 @@ class map {
   typedef node_type* node_pointer;
 
   /*** iterators ***/
-  typedef tree_iterator_<value_type, node_pointer, difference_type> iterator;
-  typedef tree_iterator_<value_type, node_pointer, difference_type>
+  typedef tree_iterator_<value_type, node_pointer, difference_type,
+                         value_compare, key_compare>
+      iterator;
+  typedef tree_iterator_<value_type, node_pointer, difference_type,
+                         value_compare, key_compare>
       const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -310,14 +506,10 @@ class map {
   }
 
   /*** iterator ***/
-  iterator begin() {
-    return iterator(root_->findLeftest(), root_);
-  }
+  iterator begin() { return iterator(root_->findLeftest(), root_); }
   const_iterator begin() const;
 
-  iterator end() {
-    return iterator(NULL, root_);
-  }
+  iterator end() { return iterator(NULL, root_); }
   const_iterator end() const;
 
   /*** capacity ***/

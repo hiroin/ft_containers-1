@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 16:06:06 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/18 09:33:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -851,8 +851,6 @@ void test_map(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  return ;
-
   // check iterator
   putTestInfo(test_no, "map<int, string>: map(0 ~ 10) and check by iter");
   try {
@@ -861,20 +859,12 @@ void test_map(int& test_no) {
     std::map<int, std::string>::iterator std_itr;
     ft::map<int, std::string>::iterator ft_itr;
 
-    // for (int i = 0; i < 10; i++) {
-    //   if (std_map[persons[i].first] != ft_map[persons[i].first]) {
-    //     throw std::runtime_error("value");
-    //   }
-    // }
     std::cout << "hoge" << std::endl;
-    int i = 0;
     for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
          std_itr != std_map.end(); ++std_itr, ++ft_itr) {
-      std::cout << i << ": " << std_itr->first << ":" << ft_itr->first << std::endl;
       if (*std_itr != *ft_itr) {
         throw std::runtime_error("value");
       }
-      std::cout << i++ << std::endl;
     }
     if (ft_itr != ft_map.end()) {
       throw std::runtime_error("itr");
@@ -885,6 +875,85 @@ void test_map(int& test_no) {
     }
   } catch (std::exception& e) {
     throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, string>: map(0 ~ 10) and check by iter");
+  try {
+    std::map<int, std::string> std_map(persons, persons + 10);
+    ft::map<int, std::string> ft_map(persons, persons + 10);
+    std::map<int, std::string>::iterator std_itr;
+    ft::map<int, std::string>::iterator ft_itr;
+
+    for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+         std_itr != std_map.end(); std_itr++, ft_itr++) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (ft_itr != ft_map.end()) {
+      throw std::runtime_error("itr");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(
+      test_no,
+      "map<int, string>: map(0 ~ 10) and check by iter fron end to begin");
+  try {
+    std::map<int, std::string> std_map(persons, persons + 10);
+    ft::map<int, std::string> ft_map(persons, persons + 10);
+    std::map<int, std::string>::iterator std_itr;
+    ft::map<int, std::string>::iterator ft_itr;
+
+    for (std_itr = --std_map.end(), ft_itr = --ft_map.end();
+         std_itr != std_map.begin(); --ft_itr, --std_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (ft_itr != ft_map.begin()) {
+      throw std::runtime_error("itr");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(
+      test_no,
+      "map<int, string>: map(0 ~ 10) and check by iter fron end to begin");
+  try {
+    std::map<int, std::string> std_map(persons, persons + 10);
+    ft::map<int, std::string> ft_map(persons, persons + 10);
+    std::map<int, std::string>::iterator std_itr;
+    ft::map<int, std::string>::iterator ft_itr;
+
+    for (std_itr = --std_map.end(), ft_itr = --ft_map.end();
+         std_itr != std_map.begin(); ft_itr--, std_itr--) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (ft_itr != ft_map.begin()) {
+      throw std::runtime_error("itr");
+    }
+    if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
+        std_map.max_size() != ft_map.max_size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
