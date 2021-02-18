@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/18 09:30:48 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/18 12:44:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ class tree_iterator_ {
   typedef KeyComp key_compare;
   typedef stack<node_pointer> stack_type;
 
+ public:
   node_pointer node_;
   stack_type node_stack_;
+
+ private:
   value_compare value_comp_;
 
   void initStack_(node_pointer root) {
@@ -57,20 +60,20 @@ class tree_iterator_ {
     }
   }
 
-  virtual node_pointer findParent_(node_pointer node, node_pointer start) {
-    if (node == NULL || start == NULL || node == start) {
-      // case no parent found
-      return NULL;
-    } else if (node == start->left_ || node == start->right_) {
-      // case parent found
-      return start;
-    }
-    node_pointer parent;
-    if ((parent = findParent_(node, start->left_)) != NULL) {
-      return parent;
-    }
-    return findParent_(node, start->right_);
-  }
+  // virtual node_pointer findParent_(node_pointer node, node_pointer start) {
+  //   if (node == NULL || start == NULL || node == start) {
+  //     // case no parent found
+  //     return NULL;
+  //   } else if (node == start->left_ || node == start->right_) {
+  //     // case parent found
+  //     return start;
+  //   }
+  //   node_pointer parent;
+  //   if ((parent = findParent_(node, start->left_)) != NULL) {
+  //     return parent;
+  //   }
+  //   return findParent_(node, start->right_);
+  // }
 
   void toLeftest_() {
     if (node_ == NULL || node_->left_ == NULL) {
@@ -126,7 +129,6 @@ class tree_iterator_ {
       toRightest_();
       return;
     }
-    node_->displayInfo();
     // case has left child
     if (node_->left_ != NULL) {
       node_stack_.push(node_);
@@ -316,6 +318,16 @@ struct TreeNode {
     return false;
   }
 
+  void reBalanceAll() {
+    if (left_) {
+      left_->reBalanceAll();
+    }
+    if (right_) {
+      right_->reBalanceAll();
+    }
+    getBalanced();
+  }
+
   void displayInfo() {
     std::cout << "node: ";
     std::cout << value_->first << "=" << value_->second;
@@ -455,14 +467,52 @@ class map {
                 : NULL;
   }
 
-  void deleteNodes_(node_pointer node) {
+  void eraseOneNode_(node_pointer node, node_pointer parent) {
+    if (node->left_ != NULL && node->right_ != NULL) {
+      parent = node;
+      node_pointer node_next = node->right_;
+      while (node_next->left_ != NULL) {
+        parent = node_next;
+        node_next = node_next->left_;
+      }
+      std::swap(node->value_, node_next->value_);
+      eraseOneNode_(node_next, parent);
+      return;
+    } else if (node->left_ != NULL) {
+      if (parent == NULL) {
+        root_ = node->left_;
+      } if (node == parent->left_) {
+        parent->left_ = node->left_;
+      } else {
+        parent->right_ = node->left_;
+      }
+    } else { // means if (node->right != NULL || node->right == NULL)
+      if (parent == NULL) {
+        root_ = node->right_;
+      } else if (node == parent->left_) {
+        parent->left_ = node->right_;
+      } else {
+        parent->right_ = node->right_;
+      }
+    }
+    delOneNode_(node);
+  }
+
+  void delOneNode_(node_pointer node) {
     if (node == NULL) {
       return;
     }
     deleteVal_(node->value_);
+    delete node;
+  }
+
+  void deleteNodes_(node_pointer node) {
+    if (node == NULL) {
+      return;
+    }
     deleteNodes_(node->left_);
     deleteNodes_(node->right_);
-    delete node;
+    delOneNode_(node);
   }
 
   /*** constructors ***/
@@ -539,6 +589,14 @@ class map {
   insert(InputIterator first, InputIterator last) {
     for (InputIterator itr = first; itr != last; ++itr) {
       insert(*itr);
+    }
+  }
+
+  void erase(iterator position) {
+    eraseOneNode_(position.node_,
+               position.node_ == root_ ? NULL : position.node_stack_.top());
+    if (root_) {
+      root_->reBalanceAll();
     }
   }
 
