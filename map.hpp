@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 20:55:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 22:22:45 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,6 @@ class tree_iterator_ {
 
   tree_iterator_(const key_type& key, node_pointer root)
       : value_comp_(key_comp_) {
-    // key_comp_ = key_compare();
-    // value_comp_ = value_compare(key_comp_);
     findAndInitStack_(key, root);
   }
 
@@ -620,7 +618,6 @@ class map {
   }
 
   iterator insert(iterator position, const value_type& val) {
-    pointer new_value = cloneVal_(val);
     node_pointer node_to_insert;
     if (position == end()) {
       node_to_insert = root_;
@@ -634,6 +631,7 @@ class map {
     } else {
       node_to_insert = root_;
     }
+    pointer new_value = cloneVal_(val);
     node_pointer node = insertVal_(node_to_insert, new_value);
     if (node_to_insert != root_) {
       root_->rebalanceAll();
@@ -671,8 +669,17 @@ class map {
     return 1;
   }
 
-  void erase(iterator first, iterator last);
-  // atomawashi
+  void erase(iterator first, iterator last) {
+    ft::stack<key_type> stk;
+    while (first != last) {
+      stk.push(first.node_->value_->first);
+      ++first;
+    }
+    while (!stk.empty()) {
+      erase(stk.top());
+      stk.pop();
+    }
+  }
 
   void swap(map& x) { std::swap(root_, x.root_); }
 

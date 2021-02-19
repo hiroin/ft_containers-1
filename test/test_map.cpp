@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 20:54:23 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 22:26:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1921,6 +1921,8 @@ void test_map(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
+  // for (int i = 0; i <= 20; i++) {
+  //   for (int j = 0; j <= 10; j++) {
   for (int i = 0; i <= 20; i++) {
     for (int j = 0; j <= 10; j++) {
       std::stringstream sout;
@@ -1946,6 +1948,43 @@ void test_map(int& test_no) {
         for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
              std_itr != std_map.end(); ++std_itr, ++ft_itr) {
           if (*std_itr != *ft_itr) {
+            throw std::runtime_error("value");
+          }
+        }
+      } catch (std::exception& e) {
+        throw std::runtime_error(e.what());
+      }
+      std::cout << " => OK :)" << std::endl;
+    }
+  }
+
+  for (int i = 0; i <= 10; i++) {
+    for (int j = i; j <= 10; j++) {
+      std::stringstream sout;
+      sout << "map<Hoge, Hoge>: map(0,10).erase(" << i << " ~ " << j << ")";
+      putTestInfo(test_no, sout.str());
+      try {
+        std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
+        ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
+
+        std::map<Hoge, Hoge>::iterator std_first = std_map.begin();
+        ft::map<Hoge, Hoge>::iterator ft_first = ft_map.begin();
+        for (int k = 0; k < i; k++) {
+          ++std_first;
+          ++ft_first;
+        }
+
+        std::map<Hoge, Hoge>::iterator std_last = std_first;
+        ft::map<Hoge, Hoge>::iterator ft_last = ft_first;
+        for (int k = i + 1; k < j; k++) {
+          ++std_last;
+          ++ft_last;
+        }
+        std_map.erase(std_first, std_last);
+        ft_map.erase(ft_first, ft_last);
+        for (std_first = std_map.begin(), ft_first = ft_map.begin();
+             std_first != std_map.end(); ++std_first, ++ft_first) {
+          if (*std_first != *ft_first) {
             throw std::runtime_error("value");
           }
         }
