@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 11:00:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 11:54:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -633,6 +633,11 @@ class map {
   // atomawashi
 
   void swap(map& x) { std::swap(root_, x.root_); }
+
+  void clear() {
+    deleteNodes_(root_);
+    root_ = NULL;
+  }
 
   /*** observers ***/
   value_compare value_comp() const { return val_comp_; }
