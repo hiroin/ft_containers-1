@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 09:38:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 11:00:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -573,7 +573,10 @@ class map {
   }
 
   /*** iterator ***/
-  iterator begin() { return iterator(root_->findLeftest(), root_); }
+  iterator begin() {
+    return iterator(
+        root_ ? root_->findLeftest() : static_cast<node_pointer>(NULL), root_);
+  }
   const_iterator begin() const;
 
   iterator end() { return iterator(static_cast<node_pointer>(NULL), root_); }
@@ -626,16 +629,24 @@ class map {
     return 1;
   }
 
+  void erase(iterator first, iterator last);
+  // atomawashi
+
+  void swap(map& x) { std::swap(root_, x.root_); }
+
   /*** observers ***/
   value_compare value_comp() const { return val_comp_; }
 
   /*** operations ***/
-  iterator find(const key_type& k) {
-    return iterator(k, root_);
-  }
+  iterator find(const key_type& k) { return iterator(k, root_); }
 
   const_iterator find(const key_type& k) const;
 };
+
+template <class Key, class T, class Compare, class Alloc>
+void swap(map<Key, T, Compare, Alloc>& x, map<Key, T, Compare, Alloc>& y) {
+  x.swap(y);
+}
 
 }  // namespace ft
 
