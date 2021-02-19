@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 12:11:51 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:49:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ class tree_iterator_ {
         node_stack_.push(node_);
         node_ = node_->right_;
       } else {
-        if (!node_stack_.empty()) node_stack_.top()->displayInfo();
         return;
       }
     }
@@ -284,9 +283,6 @@ struct TreeNode {
     if (right_ == NULL) {
       return;
     }
-    // std::cout << "rotate left" << std::endl;
-    // std::cout << "before:: ";
-    // displayInfo();
     std::swap(value_, right_->value_);
     TreeNode* tmp_left = left_;
     left_ = right_;
@@ -295,8 +291,6 @@ struct TreeNode {
     left_->left_ = tmp_left;
     left_->updateHeight();
     updateHeight();
-    // std::cout << "after:: ";
-    // displayInfo();
   }
 
   void rotateRight() {
@@ -311,8 +305,6 @@ struct TreeNode {
     right_->right_ = tmp_right;
     right_->updateHeight();
     updateHeight();
-    // std::cout << "after:: ";
-    // displayInfo();
   }
 
   bool getBalanced() {
@@ -437,6 +429,30 @@ class map {
     } else {
       return node;
     }
+  }
+
+  node_pointer findLowerBound_(node_pointer node, const key_type& k) const {
+    if (node == NULL) {
+      return NULL;
+    } else if (comp_(k, node->value_->first)) {
+      node_pointer res = findLowerBound_(node->left_, k);
+      return res ? res : node;
+    } else if (comp_(node->value_->first, k)) {
+      return findLowerBound_(node->right_, k);
+    }
+    return node;
+  }
+
+  node_pointer findUpperBound_(node_pointer node, const key_type& k) const {
+    if (node == NULL) {
+      return NULL;
+    } else if (comp_(k, node->value_->first)) {
+      node_pointer res = findUpperBound_(node->left_, k);
+      return res ? res : node;
+    } else {
+      return findUpperBound_(node->right_, k);
+    }
+    // return NULL;
   }
 
   // This tries to insert new node with val_ptr (pointer to newly allocated
@@ -650,6 +666,18 @@ class map {
   size_type count(const key_type& k) const {
     return (findNode_(root_, k) == NULL ? 0 : 1);
   }
+
+  iterator lower_bound(const key_type& k) {
+    return iterator(findLowerBound_(root_, k), root_);
+  }
+
+  const_iterator lower_bound(const key_type& k) const;
+
+  iterator upper_bound(const key_type& k) {
+    return iterator(findUpperBound_(root_, k), root_);
+  }
+
+  const_iterator upper_bound(const key_type& k) const;
 };
 
 template <class Key, class T, class Compare, class Alloc>

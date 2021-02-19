@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 12:13:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 14:49:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1786,6 +1786,70 @@ void test_map(int& test_no) {
          std_itr != std_map.end(); ++std_itr, ++ft_itr) {
       if (*std_itr != *ft_itr) {
         throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: map(0).lower_bound(-9~10)");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+    std::map<int, int>::iterator std_itr;
+    ft::map<int, int>::iterator ft_itr;
+
+    for (int i = -9; i <= 10; i++) {
+      std_itr = std_map.lower_bound(i);
+      ft_itr = ft_map.lower_bound(i);
+      if (std_itr != std_map.end() && *std_itr != *ft_itr) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_itr == std_map.end() && ft_itr != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
+      }
+      std_itr = std_map.upper_bound(i);
+      ft_itr = ft_map.upper_bound(i);
+      if (std_itr != std_map.end() && *std_itr != *ft_itr) {
+        throw std::runtime_error("upper_bound");
+      }
+      if (std_itr == std_map.end() && ft_itr != ft_map.end()) {
+        throw std::runtime_error("upper_bound");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: map(0, 2, ... 100).lower_bound(-9~110)");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+    std::map<int, int>::iterator std_itr;
+    ft::map<int, int>::iterator ft_itr;
+
+    for (int i = 0; i <= 50; i++) {
+      std_map[i * 2] = i * 2;
+      ft_map[i * 2] = i * 2;
+    }
+    for (int i = -9; i <= 110; i++) {
+      std_itr = std_map.lower_bound(i);
+      ft_itr = ft_map.lower_bound(i);
+      if (std_itr != std_map.end() && *std_itr != *ft_itr) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_itr == std_map.end() && ft_itr != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
+      }
+      std_itr = std_map.upper_bound(i);
+      ft_itr = ft_map.upper_bound(i);
+      if (std_itr != std_map.end() && *std_itr != *ft_itr) {
+        throw std::runtime_error("upper_bound");
+      }
+      if (std_itr == std_map.end() && ft_itr != ft_map.end()) {
+        throw std::runtime_error("upper_bound");
       }
     }
   } catch (std::exception& e) {
