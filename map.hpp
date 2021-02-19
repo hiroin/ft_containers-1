@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 09:18:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 09:38:56 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -617,13 +617,20 @@ class map {
     }
   }
 
+  size_type erase(const key_type& k) {
+    iterator itr = find(k);
+    if (itr == end()) {
+      return 0;
+    }
+    erase(find(k));
+    return 1;
+  }
+
   /*** observers ***/
   value_compare value_comp() const { return val_comp_; }
 
   /*** operations ***/
   iterator find(const key_type& k) {
-    // node_pointer node = findNode_(root_, k);
-    // return iterator(node, root_);
     return iterator(k, root_);
   }
 

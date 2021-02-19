@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/18 11:11:01 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 09:37:44 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -995,6 +995,71 @@ void test_map(int& test_no) {
 
       std_map.erase(std_map.find(i));
       ft_map.erase(ft_map.find(i));
+      for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+           std_itr != std_map.end(); std_itr++, ft_itr++) {
+        if (*std_itr != *ft_itr) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (ft_itr != ft_map.end()) {
+        throw std::runtime_error("itr");
+      }
+      if (std_map.size() != ft_map.size() ||
+          std_map.empty() != ft_map.empty() ||
+          std_map.max_size() != ft_map.max_size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = 0; i < 10; i++) {
+    std::stringstream sout;
+    sout << "map<int, string>: map(0 ~ 10) and erase [" << i << "]";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::map<int, std::string> std_map(persons, persons + 10);
+      ft::map<int, std::string> ft_map(persons, persons + 10);
+      std::map<int, std::string>::iterator std_itr;
+      ft::map<int, std::string>::iterator ft_itr;
+
+      std_map.erase(std_map.find(i));
+      ft_map.erase(ft_map.find(i));
+      for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+           std_itr != std_map.end(); std_itr++, ft_itr++) {
+        if (*std_itr != *ft_itr) {
+          throw std::runtime_error("value");
+        }
+      }
+      if (ft_itr != ft_map.end()) {
+        throw std::runtime_error("itr");
+      }
+      if (std_map.size() != ft_map.size() ||
+          std_map.empty() != ft_map.empty() ||
+          std_map.max_size() != ft_map.max_size()) {
+        throw std::runtime_error("size");
+      }
+    } catch (std::exception& e) {
+      throw std::runtime_error(e.what());
+    }
+    std::cout << " => OK :)" << std::endl;
+  }
+
+  for (int i = -2; i < 12; i++) {
+    std::stringstream sout;
+    sout << "map<int, string>: map(0 ~ 10) and erase [" << i << "] by key";
+    putTestInfo(test_no, sout.str());
+    try {
+      std::map<int, std::string> std_map(persons, persons + 10);
+      ft::map<int, std::string> ft_map(persons, persons + 10);
+      std::map<int, std::string>::iterator std_itr;
+      ft::map<int, std::string>::iterator ft_itr;
+
+      if (std_map.erase(i) != ft_map.erase(i)) {
+        throw std::runtime_error("return value");
+      }
       for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
            std_itr != std_map.end(); std_itr++, ft_itr++) {
         if (*std_itr != *ft_itr) {
