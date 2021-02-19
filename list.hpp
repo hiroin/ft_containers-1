@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 21:16:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/18 21:18:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ class list_iterator_ {
   node_pointer node_;
 
  public:
-  list_iterator_() : node_(NULL) {};
+  list_iterator_() : node_(NULL){};
 
   list_iterator_(node_pointer node) : node_(node) {}
 
@@ -136,7 +136,7 @@ class list_const_iterator_ {
   node_pointer node_;
 
  public:
-  list_const_iterator_() : node_(NULL) {};
+  list_const_iterator_() : node_(NULL){};
 
   list_const_iterator_(node_pointer node) : node_(node) {}
 

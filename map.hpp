@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/18 12:44:47 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 09:18:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,12 @@
 
 namespace ft {
 
-template <class Type, class NodePointer, class DifferenceType, class ValueComp,
-          class KeyComp>
+template <class ValueType, class KeyType, class NodePointer,
+          class DifferenceType, class ValueComp, class KeyComp>
 class tree_iterator_ {
  public:
-  typedef Type value_type;
+  typedef ValueType value_type;
+  typedef KeyType key_type;
   typedef DifferenceType difference_type;
   typedef value_type* pointer;
   typedef value_type& reference;
@@ -42,6 +43,7 @@ class tree_iterator_ {
   stack_type node_stack_;
 
  private:
+  key_compare key_comp_;
   value_compare value_comp_;
 
   void initStack_(node_pointer root) {
@@ -60,20 +62,26 @@ class tree_iterator_ {
     }
   }
 
-  // virtual node_pointer findParent_(node_pointer node, node_pointer start) {
-  //   if (node == NULL || start == NULL || node == start) {
-  //     // case no parent found
-  //     return NULL;
-  //   } else if (node == start->left_ || node == start->right_) {
-  //     // case parent found
-  //     return start;
-  //   }
-  //   node_pointer parent;
-  //   if ((parent = findParent_(node, start->left_)) != NULL) {
-  //     return parent;
-  //   }
-  //   return findParent_(node, start->right_);
-  // }
+  // find node by key and store null to node if no matches
+  void findAndInitStack_(const key_type& key, node_pointer root) {
+    node_ = root;
+    while (node_ != NULL) {
+      if (key_comp_(key, node_->value_->first)) {
+        node_stack_.push(node_);
+        node_ = node_->left_;
+      } else if (key_comp_(node_->value_->first, key)) {
+        node_stack_.push(node_);
+        node_ = node_->right_;
+      } else {
+        if (!node_stack_.empty()) node_stack_.top()->displayInfo();
+        return;
+      }
+    }
+    difference_type size = node_stack_.size();
+    while (size-- > 1) {
+      node_stack_.pop();
+    }
+  }
 
   void toLeftest_() {
     if (node_ == NULL || node_->left_ == NULL) {
@@ -152,17 +160,25 @@ class tree_iterator_ {
   }
 
  public:
-  tree_iterator_() : node_(NULL), value_comp_(key_compare()) {}
+  tree_iterator_() : node_(NULL), value_comp_(key_compare()) {
+    key_comp_ = key_compare();
+    value_comp_ = value_compare(key_comp_);
+  }
 
   tree_iterator_(node_pointer node, node_pointer root)
-      : node_(node), value_comp_(key_compare()) {
+      : node_(node), value_comp_(key_comp_) {
     initStack_(root);
   }
 
+  tree_iterator_(const key_type& key, node_pointer root)
+      : value_comp_(key_comp_) {
+    // key_comp_ = key_compare();
+    // value_comp_ = value_compare(key_comp_);
+    findAndInitStack_(key, root);
+  }
+
   tree_iterator_(const tree_iterator_& x)
-      : node_(x.node_),
-        node_stack_(x.node_stack_),
-        value_comp_(key_compare()) {}
+      : node_(x.node_), node_stack_(x.node_stack_), value_comp_(key_comp_) {}
 
   ~tree_iterator_(){};
 
@@ -380,10 +396,10 @@ class map {
   typedef node_type* node_pointer;
 
   /*** iterators ***/
-  typedef tree_iterator_<value_type, node_pointer, difference_type,
+  typedef tree_iterator_<value_type, key_type, node_pointer, difference_type,
                          value_compare, key_compare>
       iterator;
-  typedef tree_iterator_<value_type, node_pointer, difference_type,
+  typedef tree_iterator_<value_type, key_type, node_pointer, difference_type,
                          value_compare, key_compare>
       const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
@@ -481,12 +497,13 @@ class map {
     } else if (node->left_ != NULL) {
       if (parent == NULL) {
         root_ = node->left_;
-      } if (node == parent->left_) {
+      }
+      if (node == parent->left_) {
         parent->left_ = node->left_;
       } else {
         parent->right_ = node->left_;
       }
-    } else { // means if (node->right != NULL || node->right == NULL)
+    } else {  // means if (node->right != NULL || node->right == NULL)
       if (parent == NULL) {
         root_ = node->right_;
       } else if (node == parent->left_) {
@@ -559,7 +576,7 @@ class map {
   iterator begin() { return iterator(root_->findLeftest(), root_); }
   const_iterator begin() const;
 
-  iterator end() { return iterator(NULL, root_); }
+  iterator end() { return iterator(static_cast<node_pointer>(NULL), root_); }
   const_iterator end() const;
 
   /*** capacity ***/
@@ -594,7 +611,7 @@ class map {
 
   void erase(iterator position) {
     eraseOneNode_(position.node_,
-               position.node_ == root_ ? NULL : position.node_stack_.top());
+                  position.node_ == root_ ? NULL : position.node_stack_.top());
     if (root_) {
       root_->reBalanceAll();
     }
@@ -605,8 +622,9 @@ class map {
 
   /*** operations ***/
   iterator find(const key_type& k) {
-    node_pointer node = findNode_(root_, k);
-    return iterator(node, root_);
+    // node_pointer node = findNode_(root_, k);
+    // return iterator(node, root_);
+    return iterator(k, root_);
   }
 
   const_iterator find(const key_type& k) const;
