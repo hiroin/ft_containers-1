@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 11:54:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:11:51 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,7 +427,7 @@ class map {
     alloc_.deallocate(val_ptr, 1);
   }
 
-  node_pointer findNode_(node_pointer node, const key_type& k) {
+  node_pointer findNode_(node_pointer node, const key_type& k) const {
     if (node == NULL) {
       return NULL;
     } else if (comp_(k, (*node->value_).first)) {
@@ -646,6 +646,10 @@ class map {
   iterator find(const key_type& k) { return iterator(k, root_); }
 
   const_iterator find(const key_type& k) const;
+
+  size_type count(const key_type& k) const {
+    return (findNode_(root_, k) == NULL ? 0 : 1);
+  }
 };
 
 template <class Key, class T, class Compare, class Alloc>

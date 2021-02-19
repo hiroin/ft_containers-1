@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 11:56:15 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 12:13:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1733,6 +1733,60 @@ void test_map(int& test_no) {
     if (std_map.size() != ft_map.size() || std_map.empty() != ft_map.empty() ||
         std_map.max_size() != ft_map.max_size()) {
       throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: add nothing and count for 100");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+
+    for (int i = 0; i < 50; i++) {
+      if (std_map.count(i) != ft_map.count(i)) {
+        throw std::runtime_error("count");
+      }
+    }
+    // ichiou check
+    std::map<int, int>::iterator std_itr;
+    ft::map<int, int>::iterator ft_itr;
+    for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+         std_itr != std_map.end(); ++std_itr, ++ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("value");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: add 50 random and count for 100");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+    int tmp;
+
+    for (int i = 0; i < 50; i++) {
+      tmp = rand();
+      std_map[tmp % 100] = tmp;
+      ft_map[tmp % 100] = tmp;
+    }
+    for (int i = 0; i < 50; i++) {
+      if (std_map.count(i) != ft_map.count(i)) {
+        throw std::runtime_error("count");
+      }
+    }
+    // ichiou check
+    std::map<int, int>::iterator std_itr;
+    ft::map<int, int>::iterator ft_itr;
+    for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+         std_itr != std_map.end(); ++std_itr, ++ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("value");
+      }
     }
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
