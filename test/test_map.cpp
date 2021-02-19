@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 14:49:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:43:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1850,6 +1850,70 @@ void test_map(int& test_no) {
       }
       if (std_itr == std_map.end() && ft_itr != ft_map.end()) {
         throw std::runtime_error("upper_bound");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: map(0).equal_range(-9~10)");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+    std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator>
+        std_res;
+    std::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> ft_res;
+
+    for (int i = -9; i <= 10; i++) {
+      std_res = std_map.equal_range(i);
+      ft_res = ft_map.equal_range(i);
+      if (std_res.first != std_map.end() && *std_res.first != *ft_res.first) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.first == std_map.end() && ft_res.first != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.second != std_map.end() &&
+          *std_res.second != *ft_res.second) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.second == std_map.end() && ft_res.second != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
+      }
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "map<int, int>: map(0, 2, ... 100).equal_range(-9~110)");
+  try {
+    std::map<int, int> std_map;
+    ft::map<int, int> ft_map;
+    std::pair<std::map<int, int>::iterator, std::map<int, int>::iterator>
+        std_res;
+    std::pair<ft::map<int, int>::iterator, ft::map<int, int>::iterator> ft_res;
+
+    for (int i = 0; i <= 50; i++) {
+      std_map[i * 2] = i * 2;
+      ft_map[i * 2] = i * 2;
+    }
+    for (int i = -9; i <= 110; i++) {
+      std_res = std_map.equal_range(i);
+      ft_res = ft_map.equal_range(i);
+      if (std_res.first != std_map.end() && *std_res.first != *ft_res.first) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.first == std_map.end() && ft_res.first != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.second != std_map.end() &&
+          *std_res.second != *ft_res.second) {
+        throw std::runtime_error("lower_bound");
+      }
+      if (std_res.second == std_map.end() && ft_res.second != ft_map.end()) {
+        throw std::runtime_error("lower_bound");
       }
     }
   } catch (std::exception& e) {

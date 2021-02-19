@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 14:49:35 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 15:42:32 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,12 +326,12 @@ struct TreeNode {
     return false;
   }
 
-  void reBalanceAll() {
+  void rebalanceAll() {
     if (left_) {
-      left_->reBalanceAll();
+      left_->rebalanceAll();
     }
     if (right_) {
-      right_->reBalanceAll();
+      right_->rebalanceAll();
     }
     getBalanced();
   }
@@ -632,7 +632,7 @@ class map {
     eraseOneNode_(position.node_,
                   position.node_ == root_ ? NULL : position.node_stack_.top());
     if (root_) {
-      root_->reBalanceAll();
+      root_->rebalanceAll();
     }
   }
 
@@ -678,6 +678,13 @@ class map {
   }
 
   const_iterator upper_bound(const key_type& k) const;
+
+  std::pair<iterator, iterator> equal_range(const key_type& k) {
+    return std::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
+  }
+
+  std::pair<const_iterator, const_iterator> equal_range(
+      const key_type& k) const;
 };
 
 template <class Key, class T, class Compare, class Alloc>
