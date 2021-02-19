@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 15:43:11 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 20:54:23 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1920,6 +1920,41 @@ void test_map(int& test_no) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  for (int i = 0; i <= 20; i++) {
+    for (int j = 0; j <= 10; j++) {
+      std::stringstream sout;
+      sout << "map<int, int>: map(0,2..20).insert to " << i << " with hint "
+           << j * 2;
+      putTestInfo(test_no, sout.str());
+      try {
+        std::map<int, int> std_map;
+        ft::map<int, int> ft_map;
+        std::map<int, int>::iterator std_itr;
+        ft::map<int, int>::iterator ft_itr;
+
+        for (int k = 0; k <= 10; k++) {
+          std_map[k * 2] = k * 2;
+          ft_map[k * 2] = k * 2;
+        }
+        std_itr =
+            std_map.insert(std_map.find(j * 2), std::pair<int, int>(i, 42));
+        ft_itr = ft_map.insert(ft_map.find(j * 2), std::pair<int, int>(i, 42));
+        if (*std_itr != *ft_itr) {
+          throw std::runtime_error("return value");
+        }
+        for (std_itr = std_map.begin(), ft_itr = ft_map.begin();
+             std_itr != std_map.end(); ++std_itr, ++ft_itr) {
+          if (*std_itr != *ft_itr) {
+            throw std::runtime_error("value");
+          }
+        }
+      } catch (std::exception& e) {
+        throw std::runtime_error(e.what());
+      }
+      std::cout << " => OK :)" << std::endl;
+    }
+  }
 
   return;
 }

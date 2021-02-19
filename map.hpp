@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 15:42:32 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/19 20:55:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,14 +326,15 @@ struct TreeNode {
     return false;
   }
 
-  void rebalanceAll() {
+  bool rebalanceAll() {
+    bool balanced = false;
     if (left_) {
-      left_->rebalanceAll();
+      balanced = left_->rebalanceAll();
     }
     if (right_) {
-      right_->rebalanceAll();
+      balanced = (right_->rebalanceAll() || balanced);
     }
-    getBalanced();
+    return (getBalanced() || balanced);
   }
 
   void displayInfo() {
@@ -613,10 +614,35 @@ class map {
     node_pointer node = insertVal_(root_, new_value);
     if (node->value_ == new_value) {
       return std::pair<iterator, bool>(iterator(node, root_), true);
-    } else {
-      deleteVal_(new_value);
-      return std::pair<iterator, bool>(iterator(node, root_), false);
     }
+    deleteVal_(new_value);
+    return std::pair<iterator, bool>(iterator(node, root_), false);
+  }
+
+  iterator insert(iterator position, const value_type& val) {
+    pointer new_value = cloneVal_(val);
+    node_pointer node_to_insert;
+    if (position == end()) {
+      node_to_insert = root_;
+    } else if (!val_comp_(val, *position.node_->value_) &&
+               !val_comp_(*position.node_->value_, val)) {
+      return position;
+    } else if (position.node_->left_ && position.node_->right_ &&
+               !val_comp_(val, *position.node_->left_->value_) &&
+               !val_comp_(*position.node_->right_->value_, val)) {
+      node_to_insert = position.node_;
+    } else {
+      node_to_insert = root_;
+    }
+    node_pointer node = insertVal_(node_to_insert, new_value);
+    if (node_to_insert != root_) {
+      root_->rebalanceAll();
+      node = findNode_(root_, new_value->first);
+    }
+    if (node->value_ != new_value) {
+      deleteVal_(new_value);
+    }
+    return iterator(node, root_);
   }
 
   template <class InputIterator>
