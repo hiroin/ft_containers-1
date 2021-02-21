@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 11:33:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 11:46:52 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -596,10 +596,6 @@ class map {
   /*** public class definitions ***/
   class value_compare
       : public std::binary_function<value_type, value_type, bool> {
-    //  protected:
-    // map::key_compare comp;
-    // value_compare(key_compare c) { comp = c; }
-
    public:
     map::key_compare comp_;
     value_compare(map::key_compare c) : comp_(c) {}
@@ -931,11 +927,13 @@ class map {
 
   /*** observers ***/
   value_compare value_comp() const { return val_comp_; }
+  key_compare key_comp() const { return comp_; }
 
   /*** operations ***/
   iterator find(const key_type& k) { return iterator(k, root_); }
-
-  const_iterator find(const key_type& k) const;
+  const_iterator find(const key_type& k) const {
+    return const_iterator(k, root_);
+  }
 
   size_type count(const key_type& k) const {
     return (findNode_(root_, k) == NULL ? 0 : 1);
@@ -945,20 +943,27 @@ class map {
     return iterator(findLowerBound_(root_, k), root_);
   }
 
-  const_iterator lower_bound(const key_type& k) const;
+  const_iterator lower_bound(const key_type& k) const {
+    return const_iterator(findLowerBound_(root_, k), root_);
+  }
 
   iterator upper_bound(const key_type& k) {
     return iterator(findUpperBound_(root_, k), root_);
   }
 
-  const_iterator upper_bound(const key_type& k) const;
+  const_iterator upper_bound(const key_type& k) const {
+    return const_iterator(findUpperBound_(root_, k), root_);
+  }
 
   std::pair<iterator, iterator> equal_range(const key_type& k) {
     return std::pair<iterator, iterator>(lower_bound(k), upper_bound(k));
   }
 
   std::pair<const_iterator, const_iterator> equal_range(
-      const key_type& k) const;
+      const key_type& k) const {
+    return std::pair<const_iterator, const_iterator>(lower_bound(k),
+                                                     upper_bound(k));
+  }
 };
 
 template <class Key, class T, class Compare, class Alloc>
