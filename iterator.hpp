@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 21:53:27 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 11:24:31 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,10 +138,10 @@ class reverse_iterator {
     return reverse_iterator(rhs.normal_ - lhs);
   }
 
-  friend difference_type operator-(const reverse_iterator& lhs,
-                                   const reverse_iterator& rhs) {
-    return rhs.normal_ - lhs.normal_;
-  }
+  // friend difference_type operator-(const reverse_iterator& lhs,
+  //                                  const reverse_iterator& rhs) {
+  //   return rhs.normal_ - lhs.normal_;
+  // }
 
   friend reverse_iterator operator-(const reverse_iterator& lhs,
                                     difference_type rhs) {
@@ -153,36 +153,84 @@ class reverse_iterator {
     return reverse_iterator(rhs.normal_ + lhs);
   }
 
-  friend void swap(const reverse_iterator& x, const reverse_iterator& y) {
-    reverse_iterator tmp(x);
-    x = y;
-    y = tmp;
-  }
+  // friend void swap(const reverse_iterator& x, const reverse_iterator& y) {
+  //   reverse_iterator tmp(x);
+  //   x = y;
+  //   y = tmp;
+  // }
 
-  friend bool operator==(const reverse_iterator& x, const reverse_iterator& y) {
-    return x.normal_ == y.normal_;
-  }
+  // friend bool operator==(const reverse_iterator& x, const reverse_iterator&
+  // y) {
+  //   return x.normal_ == y.normal_;
+  // }
 
-  friend bool operator!=(const reverse_iterator& x, const reverse_iterator& y) {
-    return !(x == y);
-  }
+  // friend bool operator!=(const reverse_iterator& x, const reverse_iterator&
+  // y) {
+  //   return !(x == y);
+  // }
 
-  friend bool operator<(const reverse_iterator& x, const reverse_iterator& y) {
-    return x.normal_ > y.normal_;
-  }
+  // friend bool operator<(const reverse_iterator& x, const reverse_iterator& y)
+  // {
+  //   return x.normal_ > y.normal_;
+  // }
 
-  friend bool operator<=(const reverse_iterator& x, const reverse_iterator& y) {
-    return !(x > y);
-  }
+  // friend bool operator<=(const reverse_iterator& x, const reverse_iterator&
+  // y) {
+  //   return !(x > y);
+  // }
 
-  friend bool operator>(const reverse_iterator& x, const reverse_iterator& y) {
-    return x.normal_ < y.normal_;
-  }
+  // friend bool operator>(const reverse_iterator& x, const reverse_iterator& y)
+  // {
+  //   return x.normal_ < y.normal_;
+  // }
 
-  friend bool operator>=(const reverse_iterator& x, const reverse_iterator& y) {
-    return !(x < y);
-  }
+  // friend bool operator>=(const reverse_iterator& x, const reverse_iterator&
+  // y) {
+  //   return !(x < y);
+  // }
 };
+
+template <class Itr1, class Itr2>
+typename reverse_iterator<Itr1>::difference_type operator-(
+    const reverse_iterator<Itr1>& lhs, const reverse_iterator<Itr2>& rhs) {
+  return rhs.base() - lhs.base();
+}
+
+template <class Itr1, class Itr2>
+bool operator==(const reverse_iterator<Itr1>& x,
+                const reverse_iterator<Itr2>& y) {
+  return x.base() == y.base();
+}
+
+template <class Itr1, class Itr2>
+bool operator!=(const reverse_iterator<Itr1>& x,
+                const reverse_iterator<Itr2>& y) {
+  return !(x == y);
+}
+
+template <class Itr1, class Itr2>
+bool operator<(const reverse_iterator<Itr1>& x,
+               const reverse_iterator<Itr2>& y) {
+  return x.base() > y.base();
+}
+
+template <class Itr1, class Itr2>
+bool operator<=(const reverse_iterator<Itr1>& x,
+                const reverse_iterator<Itr2>& y) {
+  return !(x > y);
+}
+
+template <class Itr1, class Itr2>
+bool operator>(const reverse_iterator<Itr1>& x,
+               const reverse_iterator<Itr2>& y) {
+  return x.base() < y.base();
+}
+
+template <class Itr1, class Itr2>
+bool operator>=(const reverse_iterator<Itr1>& x,
+                const reverse_iterator<Itr2>& y) {
+  return !(x < y);
+}
 
 template <class InputIterator, typename = void>
 struct is_input_iterator : public ft::false_type {};

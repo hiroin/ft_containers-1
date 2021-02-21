@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/19 22:22:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 11:33:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ namespace ft {
 
 template <class ValueType, class KeyType, class NodePointer,
           class DifferenceType, class ValueComp, class KeyComp>
-class tree_iterator_ {
+class map_iterator_ {
  public:
   typedef ValueType value_type;
   typedef KeyType key_type;
@@ -159,27 +159,27 @@ class tree_iterator_ {
   }
 
  public:
-  tree_iterator_() : node_(NULL), value_comp_(key_compare()) {
+  map_iterator_() : node_(NULL), value_comp_(key_compare()) {
     key_comp_ = key_compare();
     value_comp_ = value_compare(key_comp_);
   }
 
-  tree_iterator_(node_pointer node, node_pointer root)
+  map_iterator_(node_pointer node, node_pointer root)
       : node_(node), value_comp_(key_comp_) {
     initStack_(root);
   }
 
-  tree_iterator_(const key_type& key, node_pointer root)
+  map_iterator_(const key_type& key, node_pointer root)
       : value_comp_(key_comp_) {
     findAndInitStack_(key, root);
   }
 
-  tree_iterator_(const tree_iterator_& x)
+  map_iterator_(const map_iterator_& x)
       : node_(x.node_), node_stack_(x.node_stack_), value_comp_(key_comp_) {}
 
-  ~tree_iterator_(){};
+  ~map_iterator_(){};
 
-  tree_iterator_& operator=(const tree_iterator_& rhs) {
+  map_iterator_& operator=(const map_iterator_& rhs) {
     value_comp_ = rhs.value_comp_;
     node_ = rhs.node_;
     node_stack_ = rhs.node_stack_;
@@ -189,42 +189,268 @@ class tree_iterator_ {
   reference operator*() const { return *node_->value_; }
   pointer operator->() const { return node_->value_; }
 
-  tree_iterator_& operator++() {
+  map_iterator_& operator++() {
     toNextNode_();
     return *this;
   }
 
-  tree_iterator_ operator++(int) {
-    tree_iterator_ tmp(*this);
+  map_iterator_ operator++(int) {
+    map_iterator_ tmp(*this);
     toNextNode_();
     return tmp;
   }
 
-  tree_iterator_& operator--() {
+  map_iterator_& operator--() {
     toPrevNode_();
     return *this;
   }
 
-  tree_iterator_ operator--(int) {
-    tree_iterator_ tmp(*this);
+  map_iterator_ operator--(int) {
+    map_iterator_ tmp(*this);
     toPrevNode_();
     return tmp;
   }
 
-  friend void swap(const tree_iterator_& x, const tree_iterator_& y) {
-    tree_iterator_ tmp(x);
-    x = y;
-    y = tmp;
-  }
-
-  friend bool operator==(const tree_iterator_& x, const tree_iterator_& y) {
+  friend bool operator==(const map_iterator_& x, const map_iterator_& y) {
     return x.node_ == y.node_;
   }
 
-  friend bool operator!=(const tree_iterator_& x, const tree_iterator_& y) {
+  friend bool operator!=(const map_iterator_& x, const map_iterator_& y) {
     return !(x == y);
   }
 };
+
+template <class ValueType, class KeyType, class NodePointer,
+          class DifferenceType, class ValueComp, class KeyComp>
+void swap(map_iterator_<ValueType, KeyType, NodePointer, DifferenceType,
+                        ValueComp, KeyComp>& x,
+          map_iterator_<ValueType, KeyType, NodePointer, DifferenceType,
+                        ValueComp, KeyComp>& y) {
+  map_iterator_<ValueType, KeyType, NodePointer, DifferenceType, ValueComp,
+                KeyComp>
+      tmp(x);
+  x = y;
+  y = tmp;
+}
+
+template <class ValueType, class KeyType, class NodePointer,
+          class DifferenceType, class ValueComp, class KeyComp>
+class map_const_iterator_ {
+ public:
+  typedef ValueType value_type;
+  typedef KeyType key_type;
+  typedef DifferenceType difference_type;
+  typedef const value_type* pointer;
+  typedef const value_type& reference;
+  typedef bidirectional_iterator_tag iterator_category;
+
+ private:
+  typedef NodePointer node_pointer;
+  typedef ValueComp value_compare;
+  typedef KeyComp key_compare;
+  typedef stack<node_pointer> stack_type;
+
+ public:
+  node_pointer node_;
+  stack_type node_stack_;
+
+ private:
+  key_compare key_comp_;
+  value_compare value_comp_;
+
+  void initStack_(node_pointer root) {
+    if (node_ == NULL) {
+      node_stack_.push(root);
+      return;
+    }
+    node_pointer node = root;
+    while (node != node_) {
+      node_stack_.push(node);
+      if (value_comp_(*node_->value_, *node->value_)) {
+        node = node->left_;
+      } else {
+        node = node->right_;
+      }
+    }
+  }
+
+  // find node by key and store null to node if no matches
+  void findAndInitStack_(const key_type& key, node_pointer root) {
+    node_ = root;
+    while (node_ != NULL) {
+      if (key_comp_(key, node_->value_->first)) {
+        node_stack_.push(node_);
+        node_ = node_->left_;
+      } else if (key_comp_(node_->value_->first, key)) {
+        node_stack_.push(node_);
+        node_ = node_->right_;
+      } else {
+        return;
+      }
+    }
+    difference_type size = node_stack_.size();
+    while (size-- > 1) {
+      node_stack_.pop();
+    }
+  }
+
+  void toLeftest_() {
+    if (node_ == NULL || node_->left_ == NULL) {
+      return;
+    }
+    node_stack_.push(node_);
+    node_ = node_->left_;
+    toLeftest_();
+  }
+
+  void toRightest_() {
+    if (node_ == NULL || node_->right_ == NULL) {
+      return;
+    }
+    node_stack_.push(node_);
+    node_ = node_->right_;
+    toRightest_();
+  }
+
+  void toNextNode_() {
+    // case in end
+    if (node_ == NULL) {
+      node_ = node_stack_.top();
+      toLeftest_();
+      return;
+    }
+    // case has right child
+    if (node_->right_ != NULL) {
+      node_stack_.push(node_);
+      node_ = node_->right_;
+      toLeftest_();
+      return;
+    }
+    // find next from parent
+    node_pointer prev_node;
+    while (!node_stack_.empty()) {
+      prev_node = node_;
+      node_ = node_stack_.top();
+      node_stack_.pop();
+      if (prev_node == node_->left_) {
+        return;
+      }
+    }
+    // case next is an end
+    node_stack_.push(node_);
+    node_ = NULL;
+  }
+
+  void toPrevNode_() {
+    // case in end
+    if (node_ == NULL) {
+      node_ = node_stack_.top();
+      toRightest_();
+      return;
+    }
+    // case has left child
+    if (node_->left_ != NULL) {
+      node_stack_.push(node_);
+      node_ = node_->left_;
+      toRightest_();
+      return;
+    }
+    // find next from parent
+    node_pointer prev_node;
+    while (!node_stack_.empty()) {
+      prev_node = node_;
+      node_ = node_stack_.top();
+      node_stack_.pop();
+      if (prev_node == node_->right_) {
+        return;
+      }
+    }
+    // case next is an end
+    node_stack_.push(node_);
+    node_ = NULL;
+  }
+
+ public:
+  map_const_iterator_() : node_(NULL), value_comp_(key_compare()) {
+    key_comp_ = key_compare();
+    value_comp_ = value_compare(key_comp_);
+  }
+
+  map_const_iterator_(node_pointer node, node_pointer root)
+      : node_(node), value_comp_(key_comp_) {
+    initStack_(root);
+  }
+
+  map_const_iterator_(const key_type& key, node_pointer root)
+      : value_comp_(key_comp_) {
+    findAndInitStack_(key, root);
+  }
+
+  map_const_iterator_(const map_const_iterator_& x)
+      : node_(x.node_), node_stack_(x.node_stack_), value_comp_(key_comp_) {}
+
+  map_const_iterator_(
+      const map_iterator_<value_type, key_type, node_pointer, difference_type,
+                          value_compare, key_compare>& x)
+      : node_(x.node_), node_stack_(x.node_stack_), value_comp_(key_comp_) {}
+
+  ~map_const_iterator_(){};
+
+  map_const_iterator_& operator=(const map_const_iterator_& rhs) {
+    value_comp_ = rhs.value_comp_;
+    node_ = rhs.node_;
+    node_stack_ = rhs.node_stack_;
+    return *this;
+  }
+
+  reference operator*() const { return *node_->value_; }
+  pointer operator->() const { return node_->value_; }
+
+  map_const_iterator_& operator++() {
+    toNextNode_();
+    return *this;
+  }
+
+  map_const_iterator_ operator++(int) {
+    map_const_iterator_ tmp(*this);
+    toNextNode_();
+    return tmp;
+  }
+
+  map_const_iterator_& operator--() {
+    toPrevNode_();
+    return *this;
+  }
+
+  map_const_iterator_ operator--(int) {
+    map_const_iterator_ tmp(*this);
+    toPrevNode_();
+    return tmp;
+  }
+
+  friend bool operator==(const map_const_iterator_& x,
+                         const map_const_iterator_& y) {
+    return x.node_ == y.node_;
+  }
+
+  friend bool operator!=(const map_const_iterator_& x,
+                         const map_const_iterator_& y) {
+    return !(x == y);
+  }
+};
+
+template <class ValueType, class KeyType, class NodePointer,
+          class DifferenceType, class ValueComp, class KeyComp>
+void swap(const map_const_iterator_<ValueType, KeyType, NodePointer,
+                                    DifferenceType, ValueComp, KeyComp>& x,
+          const map_const_iterator_<ValueType, KeyType, NodePointer,
+                                    DifferenceType, ValueComp, KeyComp>& y) {
+  map_const_iterator_<ValueType, KeyType, NodePointer, DifferenceType,
+                      ValueComp, KeyComp>
+      tmp(x);
+  x = y;
+  y = tmp;
+}
 
 // class of node tree
 template <class Pointer>
@@ -387,11 +613,11 @@ class map {
   typedef node_type* node_pointer;
 
   /*** iterators ***/
-  typedef tree_iterator_<value_type, key_type, node_pointer, difference_type,
-                         value_compare, key_compare>
+  typedef map_iterator_<value_type, key_type, node_pointer, difference_type,
+                        value_compare, key_compare>
       iterator;
-  typedef tree_iterator_<value_type, key_type, node_pointer, difference_type,
-                         value_compare, key_compare>
+  typedef map_const_iterator_<value_type, key_type, node_pointer,
+                              difference_type, value_compare, key_compare>
       const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -595,7 +821,22 @@ class map {
   const_iterator begin() const;
 
   iterator end() { return iterator(static_cast<node_pointer>(NULL), root_); }
-  const_iterator end() const;
+
+  const_iterator end() const {
+    return const_iterator(static_cast<node_pointer>(NULL), root_);
+  }
+
+  reverse_iterator rbegin() { return reverse_iterator(end()); }
+
+  const_reverse_iterator rbegin() const {
+    return const_reverse_iterator(end());
+  }
+
+  reverse_iterator rend() { return reverse_iterator(begin()); }
+
+  const_reverse_iterator rend() const {
+    return const_reverse_iterator(begin());
+  }
 
   /*** capacity ***/
   bool empty() const { return root_ == NULL; }
