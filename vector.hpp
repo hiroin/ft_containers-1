@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:24:57 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:39:45 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -725,8 +725,6 @@ class vector {
       alloc_.destroy(values_ + --size_);
     }
   }
-
-  void get_allocator() const { return Allocator(); }
 };
 
 template <class T, class Allocator>

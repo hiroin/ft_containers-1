@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:32:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:51:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,6 @@ void test_list(int& test_no) {
       lst_std.push_back(*iter);
       lst_ft.push_back(*iter);
     }
-    // std::cout << std::endl;
     while (!lst_std.empty()) {
       // std::cout << "size = " << lst_ft.size() << std::endl;
       // std::cout << "std = " << lst_std.front() << std::endl;
@@ -330,7 +329,6 @@ void test_list(int& test_no) {
       lst_std.push_back(*iter);
       lst_ft.push_back(*iter);
     }
-    std::cout << std::endl;
     for (itr_ft = lst_ft.begin(), itr_std = lst_std.begin();
          itr_ft != lst_ft.end(); ++itr_ft, ++itr_std) {
       if (*itr_ft != *itr_std) {
@@ -428,7 +426,6 @@ void test_list(int& test_no) {
       lst_std.push_back(*iter);
       lst_ft.push_back(*iter);
     }
-    std::cout << std::endl;
     for (itr_ft = lst_ft.rbegin(), itr_std = lst_std.rbegin();
          itr_ft != lst_ft.rend(); ++itr_ft, ++itr_std) {
       if (*itr_ft != *itr_std) {
@@ -6671,7 +6668,6 @@ void test_list(int& test_no) {
         throw std::runtime_error("size");
       }
       // check lst2
-      std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
            itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -6883,7 +6879,6 @@ void test_list(int& test_no) {
     lst_ft.merge(lst_ft2);
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -6926,7 +6921,6 @@ void test_list(int& test_no) {
     lst_ft.merge(lst_ft2);
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -7171,7 +7165,6 @@ void test_list(int& test_no) {
     lst_ft.sort();
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -7204,7 +7197,6 @@ void test_list(int& test_no) {
     lst_ft.sort();
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      // std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -7237,7 +7229,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7251,7 +7242,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7285,7 +7275,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7299,7 +7288,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7335,7 +7323,6 @@ void test_list(int& test_no) {
     lst_ft.merge(lst_ft2, operator<);
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7349,7 +7336,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7383,7 +7369,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7397,7 +7382,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7431,7 +7415,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7445,7 +7428,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7481,7 +7463,6 @@ void test_list(int& test_no) {
 
       lst_std.merge(lst_std2, operator<);
       lst_ft.merge(lst_ft2, operator<);
-      std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
            itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7496,7 +7477,6 @@ void test_list(int& test_no) {
         throw std::runtime_error("size");
       }
       // check lst2
-      std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
            itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7533,7 +7513,6 @@ void test_list(int& test_no) {
 
       lst_std.merge(lst_std2, operator<);
       lst_ft.merge(lst_ft2, operator<);
-      std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
            itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7548,7 +7527,6 @@ void test_list(int& test_no) {
         throw std::runtime_error("size");
       }
       // check lst2
-      std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
            itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7584,7 +7562,6 @@ void test_list(int& test_no) {
 
       lst_std.merge(lst_std2, operator<);
       lst_ft.merge(lst_ft2, operator<);
-      std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
            itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7599,7 +7576,6 @@ void test_list(int& test_no) {
         throw std::runtime_error("size");
       }
       // check lst2
-      std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
            itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7635,7 +7611,6 @@ void test_list(int& test_no) {
 
       lst_std.merge(lst_std2, operator<);
       lst_ft.merge(lst_ft2, operator<);
-      std::cout << std::endl;
       for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
            itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7650,7 +7625,6 @@ void test_list(int& test_no) {
         throw std::runtime_error("size");
       }
       // check lst2
-      std::cout << std::endl;
       for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
            itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
         if (*itr_std != *itr_ft) {
@@ -7683,7 +7657,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7697,7 +7670,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7729,7 +7701,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7743,7 +7714,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7773,7 +7743,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7787,7 +7756,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7817,10 +7785,8 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -7832,7 +7798,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7862,7 +7827,6 @@ void test_list(int& test_no) {
 
     lst_std.merge(lst_std2, operator<);
     lst_ft.merge(lst_ft2, operator<);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7876,7 +7840,6 @@ void test_list(int& test_no) {
       throw std::runtime_error("size");
     }
     // check lst2
-    std::cout << std::endl;
     for (itr_std = lst_std2.begin(), itr_ft = lst_ft2.begin();
          itr_std != lst_std2.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7906,7 +7869,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7935,7 +7897,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7964,7 +7925,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -7993,7 +7953,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8022,7 +7981,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8049,7 +8007,6 @@ void test_list(int& test_no) {
 
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8082,7 +8039,6 @@ void test_list(int& test_no) {
     }
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8115,7 +8071,6 @@ void test_list(int& test_no) {
     }
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8148,10 +8103,8 @@ void test_list(int& test_no) {
     }
     lst_std.sort(operator>);
     lst_ft.sort(operator>);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      // std::cout << *itr_std << " *** " << *itr_ft << std::endlc
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8184,7 +8137,6 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique();
     lst_ft.unique();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8219,7 +8171,6 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique(compareNum);
     lst_ft.unique(compareNum);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8254,10 +8205,8 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique();
     lst_ft.unique();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8290,10 +8239,8 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique(compareNum);
     lst_ft.unique(compareNum);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8326,10 +8273,8 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique();
     lst_ft.unique();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8362,10 +8307,8 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique(compareNum);
     lst_ft.unique(compareNum);
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8398,10 +8341,8 @@ void test_list(int& test_no) {
     lst_ft.sort();
     lst_std.unique();
     lst_ft.unique();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      std::cout << *itr_std << " *** " << *itr_ft << std::endl;
       if (*itr_std != *itr_ft) {
         throw std::runtime_error("value");
       }
@@ -8490,7 +8431,6 @@ void test_list(int& test_no) {
     }
     lst_std.reverse();
     lst_ft.reverse();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8523,7 +8463,6 @@ void test_list(int& test_no) {
     }
     lst_std.reverse();
     lst_ft.reverse();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8550,7 +8489,6 @@ void test_list(int& test_no) {
 
     lst_std.reverse();
     lst_ft.reverse();
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {
@@ -8577,33 +8515,6 @@ void test_list(int& test_no) {
 
     lst_std.reverse();
     lst_ft.reverse();
-    std::cout << std::endl;
-    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
-         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
-      if (*itr_std != *itr_ft) {
-        throw std::runtime_error("value");
-      }
-    }
-    if (itr_ft != lst_ft.end()) {
-      throw std::runtime_error("iter");
-    }
-    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
-      throw std::runtime_error("size");
-    }
-  } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
-  }
-  std::cout << " => OK :)" << std::endl;
-
-  putTestInfo(test_no, "list<Hoge>: get_allocator");
-  try {
-    std::list<Hoge> lst_std2;
-    std::list<Hoge> lst_std(hoge, hoge + 10, lst_std2.get_allocator());
-    ft::list<Hoge> lst_ft(hoge, hoge + 10, lst_std2.get_allocator());
-    std::list<Hoge>::const_iterator itr_std;
-    ft::list<Hoge>::const_iterator itr_ft;
-
-    std::cout << std::endl;
     for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
          itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
       if (*itr_std != *itr_ft) {

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:37:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:18:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:38:54 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2064,24 +2064,10 @@ void test_map(int& test_no) {
   try {
     const std::map<Hoge, Hoge> std_map(hoges, hoges + 10);
     const ft::map<Hoge, Hoge> ft_map(hoges, hoges + 10);
-    std::map<Hoge, Hoge>::iterator std_itr;
-    ft::map<Hoge, Hoge>::iterator ft_itr;
-    std::map<Hoge, Hoge>::reverse_iterator std_ritr;
-    ft::map<Hoge, Hoge>::reverse_iterator ft_ritr;
     std::map<Hoge, Hoge>::const_iterator std_citr;
     ft::map<Hoge, Hoge>::const_iterator ft_citr;
     std::map<Hoge, Hoge>::const_reverse_iterator std_critr;
     ft::map<Hoge, Hoge>::const_reverse_iterator ft_critr;
-
-    // for (std_ritr = std_map.rbegin(), ft_ritr = ft_map.rbegin();
-    //      std_ritr != std_map.rend(); ++std_ritr, ++ft_ritr) {
-    //   if (*std_ritr != *ft_ritr) {
-    //     throw std::runtime_error("rev iterator");
-    //   }
-    // }
-    // if (ft_ritr != ft_map.rend()) {
-    //   throw std::runtime_error("rev iterator");
-    // }
 
     for (std_citr = std_map.begin(), ft_citr = ft_map.begin();
          std_citr != std_map.end(); ++std_citr, ++ft_citr) {
