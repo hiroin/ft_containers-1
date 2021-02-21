@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 08:18:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:32:09 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -9071,6 +9071,105 @@ void test_list(int& test_no) {
     if ((lst_std >= lst_std2) != (lst_ft >= lst_ft2)) {
       throw std::runtime_error("operator>=");
     }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: test all itrs");
+  try {
+    int n;
+    std::list<int> std_lst;
+    ft::list<int> ft_lst;
+    std::list<int>::iterator std_itr;
+    ft::list<int>::iterator ft_itr;
+    std::list<int>::reverse_iterator std_ritr;
+    ft::list<int>::reverse_iterator ft_ritr;
+    std::list<int>::const_iterator std_citr;
+    ft::list<int>::const_iterator ft_citr;
+    std::list<int>::const_reverse_iterator std_critr;
+    ft::list<int>::const_reverse_iterator ft_critr;
+
+    for (int i = 0; i < 1000; i++) {
+      n = rand() % 1000;
+      std_lst.push_back(n);
+      ft_lst.push_back(n);
+    }
+
+    for (std_itr = std_lst.begin(), ft_itr = ft_lst.begin();
+         std_itr != std_lst.end(); ++std_itr, ++ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("iterator");
+      }
+    }
+    if (ft_itr != ft_lst.end()) {
+      throw std::runtime_error("iterator");
+    }
+
+    for (std_ritr = std_lst.rbegin(), ft_ritr = ft_lst.rbegin();
+         std_ritr != std_lst.rend(); ++std_ritr, ++ft_ritr) {
+      if (*std_ritr != *ft_ritr) {
+        throw std::runtime_error("rev iterator");
+      }
+    }
+    if (ft_ritr != ft_lst.rend()) {
+      throw std::runtime_error("rev iterator");
+    }
+
+    for (std_citr = std_lst.begin(), ft_citr = ft_lst.begin();
+         std_citr != std_lst.end(); ++std_citr, ++ft_citr) {
+      if (*std_citr != *ft_citr) {
+        throw std::runtime_error("iterator");
+      }
+    }
+    if (ft_citr != ft_lst.end()) {
+      throw std::runtime_error("iterator");
+    }
+
+    for (std_critr = std_lst.rbegin(), ft_critr = ft_lst.rbegin();
+         std_critr != std_lst.rend(); ++std_critr, ++ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("rev iterator");
+      }
+    }
+    if (ft_critr != ft_lst.rend()) {
+      throw std::runtime_error("rev iterator");
+    }
+
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "list<int>: test const");
+  try {
+    const std::list<int> std_lst(num, num + 10);
+    const ft::list<int> ft_lst(num, num + 10);
+    std::list<int>::const_iterator std_citr;
+    ft::list<int>::const_iterator ft_citr;
+    std::list<int>::const_reverse_iterator std_critr;
+    ft::list<int>::const_reverse_iterator ft_critr;
+
+    for (std_citr = std_lst.begin(), ft_citr = ft_lst.begin();
+         std_citr != std_lst.end(); ++std_citr, ++ft_citr) {
+      if (*std_citr != *ft_citr) {
+        throw std::runtime_error("iterator");
+      }
+    }
+    if (ft_citr != ft_lst.end()) {
+      throw std::runtime_error("iterator");
+    }
+
+    for (std_critr = std_lst.rbegin(), ft_critr = ft_lst.rbegin();
+         std_critr != std_lst.rend(); ++std_critr, ++ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("rev iterator");
+      }
+    }
+    if (ft_critr != ft_lst.rend()) {
+      throw std::runtime_error("rev iterator");
+    }
+
   } catch (std::exception& e) {
     throw std::runtime_error(e.what());
   }

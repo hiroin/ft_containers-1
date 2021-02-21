@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 11:46:52 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:19:50 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -814,7 +814,10 @@ class map {
     return iterator(
         root_ ? root_->findLeftest() : static_cast<node_pointer>(NULL), root_);
   }
-  const_iterator begin() const;
+  const_iterator begin() const {
+    return const_iterator(
+        root_ ? root_->findLeftest() : static_cast<node_pointer>(NULL), root_);
+  }
 
   iterator end() { return iterator(static_cast<node_pointer>(NULL), root_); }
 

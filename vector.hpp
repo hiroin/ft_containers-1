@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 07:48:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 12:24:57 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,11 +427,11 @@ class vector {
   reverse_iterator rend() { return reverse_iterator(begin()); }
 
   const_reverse_iterator rbegin() const {
-    return std::reverse_iterator<const_iterator>(end());
+    return ft::reverse_iterator<const_iterator>(end());
   }
 
   const_reverse_iterator rend() const {
-    return std::reverse_iterator<const_iterator>(begin());
+    return ft::reverse_iterator<const_iterator>(begin());
   }
 
   /*** capacity ***/
