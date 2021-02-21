@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:19:50 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/21 15:09:09 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -859,11 +859,15 @@ class map {
 
   iterator insert(iterator position, const value_type& val) {
     node_pointer node_to_insert;
-    if (position == end()) {
+    if (position == end() || position.node_ == root_) {
       node_to_insert = root_;
     } else if (!val_comp_(val, *position.node_->value_) &&
                !val_comp_(*position.node_->value_, val)) {
       return position;
+    } else if (position.node_ == position.node_stack_.top()->left_ &&
+               val_comp_(val, *position.node_stack_.top()->value_) &&
+               val_comp_(*position.node_->value_, val)) {
+      node_to_insert = position.node_;
     } else if (position.node_->left_ && position.node_->right_ &&
                !val_comp_(val, *position.node_->left_->value_) &&
                !val_comp_(*position.node_->right_->value_, val)) {
