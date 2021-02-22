@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 10:16:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 11:24:31 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 08:21:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,6 @@
 
 namespace ft {
 
-// template <class T>
-// class list;
-
-// template <class T>
-// class stack;
-
 /*
 ** iterator tags
 */
@@ -39,18 +33,6 @@ struct output_iterator_tag {};
 struct forward_iterator_tag : public input_iterator_tag {};
 struct bidirectional_iterator_tag : public forward_iterator_tag {};
 struct random_access_iterator_tag : public bidirectional_iterator_tag {};
-
-/*
-** bidirectional_iterator_tree_
-**
-** template of iterator class makes an bidirectional access iterator which
-** wraps an tree of type_name_.
-**
-** NOTE: node_pointer_ type should have members below
-**  - pointer_* value_: pointer the value is stored
-**  - node_poitner_ left_: pointer to left node
-**  - node_poitner_ right_: pointer to right node
-*/
 
 /*
 ** reverse_itarator
@@ -138,11 +120,6 @@ class reverse_iterator {
     return reverse_iterator(rhs.normal_ - lhs);
   }
 
-  // friend difference_type operator-(const reverse_iterator& lhs,
-  //                                  const reverse_iterator& rhs) {
-  //   return rhs.normal_ - lhs.normal_;
-  // }
-
   friend reverse_iterator operator-(const reverse_iterator& lhs,
                                     difference_type rhs) {
     return reverse_iterator(lhs.normal_ + rhs);
@@ -152,42 +129,6 @@ class reverse_iterator {
                                     const reverse_iterator& rhs) {
     return reverse_iterator(rhs.normal_ + lhs);
   }
-
-  // friend void swap(const reverse_iterator& x, const reverse_iterator& y) {
-  //   reverse_iterator tmp(x);
-  //   x = y;
-  //   y = tmp;
-  // }
-
-  // friend bool operator==(const reverse_iterator& x, const reverse_iterator&
-  // y) {
-  //   return x.normal_ == y.normal_;
-  // }
-
-  // friend bool operator!=(const reverse_iterator& x, const reverse_iterator&
-  // y) {
-  //   return !(x == y);
-  // }
-
-  // friend bool operator<(const reverse_iterator& x, const reverse_iterator& y)
-  // {
-  //   return x.normal_ > y.normal_;
-  // }
-
-  // friend bool operator<=(const reverse_iterator& x, const reverse_iterator&
-  // y) {
-  //   return !(x > y);
-  // }
-
-  // friend bool operator>(const reverse_iterator& x, const reverse_iterator& y)
-  // {
-  //   return x.normal_ < y.normal_;
-  // }
-
-  // friend bool operator>=(const reverse_iterator& x, const reverse_iterator&
-  // y) {
-  //   return !(x < y);
-  // }
 };
 
 template <class Itr1, class Itr2>
