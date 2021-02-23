@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 21:11:44 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 18:10:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 09:00:43 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void test_list(int& test_no);
 void test_map(int& test_no);
 void test_stack(int& test_no);
 void test_queue(int& test_no);
+void test_vector_bool(int& test_no);
 
 template <typename T>
 void divByTwo(T& n) {

@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:39:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 10:24:09 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,8 +160,7 @@ class vector_const_iterator_ {
   vector_const_iterator_() : ptr_(NULL){};
   vector_const_iterator_(pointer ptr) : ptr_(ptr){};
 
-  vector_const_iterator_(
-      const vector_iterator_<Type, DifferenceType>& x)
+  vector_const_iterator_(const vector_iterator_<Type, DifferenceType>& x)
       : ptr_(x.ptr_) {}
 
   vector_const_iterator_(const vector_const_iterator_& x) : ptr_(x.ptr_) {}
@@ -287,8 +286,7 @@ class vector {
   /*** iterators ***/
  public:
   typedef vector_iterator_<value_type, difference_type> iterator;
-  typedef vector_const_iterator_<value_type, difference_type>
-      const_iterator;
+  typedef vector_const_iterator_<value_type, difference_type> const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -731,6 +729,95 @@ template <class T, class Allocator>
 void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
   a.swap(b);
 }
+
+template <class Allocator>
+class vector<bool, Allocator> {
+  /*** public member types ***/
+ public:
+  typedef bool value_type;
+  typedef Allocator allocator_type;
+  typedef typename allocator_type::size_type size_type;
+  typedef typename allocator_type::difference_type difference_type;
+  // typedef __bit_iterator<vector, false>            pointer;
+  // typedef __bit_iterator<vector, true>             const_pointer;
+  // typedef pointer                                  iterator;
+  // typedef const_pointer                            const_iterator;
+  // typedef _VSTD::reverse_iterator<iterator>         reverse_iterator;
+  // typedef _VSTD::reverse_iterator<const_iterator>   const_reverse_iterator;
+
+  // below are original types
+  typedef size_type storage_type_;  // types of storage of bool
+  typedef std::allocator<storage_type_>
+      storage_allocator_type_;  // allocator of storage
+
+  /*** private member variables ***/
+ private:
+  storage_type_* storage_;
+  size_type storage_size_;
+  size_type capacity_;
+  allocator_type alloc_;
+  storage_allocator_type_ storage_alloc_;
+
+ public:
+  /*** constructors ***/
+  // default constructor
+  explicit vector(const allocator_type& alloc = allocator_type()) {
+    alloc_ = alloc;
+    storage_alloc_ = storage_allocator_type_();
+    storage_ = NULL;
+    storage_size_ = 0;
+    capacity_ = 0;
+  }
+
+  // fill constructor
+  explicit vector(size_type n, const value_type& val = value_type(),
+                  const allocator_type& alloc = allocator_type()) {
+    alloc_ = alloc;
+    storage_alloc_ = storage_allocator_type_();
+    storage_ = NULL;
+    storage_size_ = 0;
+    capacity_ = 0;
+    assign(n, val);
+    // assign(n, val);
+  }
+
+  size_type size() const { return storage_size_; }
+  size_type max_size() const { return (alloc_.max_size() / 2); }
+  size_type capacity() const {
+    return storage_size_ * sizeof(storage_size_) * CHAR_BIT;
+  }
+  bool empty() const { return (storage_size_ == 0); }
+
+  void assign(size_type n, const value_type& val) {
+    storage_size_ = n / CHAR_BIT + 1;
+    storage_ = storage_alloc_.allocate(storage_size_);
+    if (val) {
+      for (size_type idx = 0; idx < storage_size_; ++idx) {
+        storage_[idx] = ~(static_cast<storage_type_>(0));
+      }
+    }
+    // if (n > capacity_) {
+    //   allClear_();
+    //   values_ = alloc_.allocate(n);
+    //   capacity_ = n;
+    //   for (size_type idx = 0; idx < n; ++idx) {
+    //     alloc_.construct(values_ + idx, val);
+    //   }
+    // } else {
+    //   for (size_type idx = n; idx < size_; ++idx) {
+    //     alloc_.destroy(&values_[idx]);
+    //   }
+    //   for (size_type idx = 0; idx < n; ++idx) {
+    //     if (idx < size_) {
+    //       values_[idx] = val;
+    //     } else {
+    //       alloc_.construct(values_ + idx, val);
+    //     }
+    //   }
+    // }
+    // size_ = n;
+  }
+};
 
 }  // namespace ft
 
