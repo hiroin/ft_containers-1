@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/23 18:55:21 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 21:07:15 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -361,6 +361,9 @@ void test_vector_bool(int& test_no) {
         for (size_t idx = 0; idx < size_ary[i]; ++idx) {
           val[idx] = rand() % 2;
         }
+
+        // std::vector<bool>::iterator::
+        // std::vector<bool>::iterator::reference
 
         std::vector<bool> std_vec(size_ary[j]);
         ft::vector<bool> ft_vec(size_ary[j]);

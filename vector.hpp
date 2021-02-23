@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/23 18:53:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 22:40:42 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -730,14 +730,124 @@ void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
   a.swap(b);
 }
 
+// class vector_bool_iterator_ {
+//   typedef bool value_type;
+//   typedef ptrdiff_t difference_type;
+//   typedef vector_bool_iterator_ pointer;
+//   // typedef vector<bool>::reference
+// };
+
+// class bit_storage_wrapper_ {
+//  public:
+//   typedef size_t size_type;
+//   typedef size_t storage_type;
+//   typedef size_t* storage_pointer;
+//   typedef ptrdiff_t difference_type;
+
+//  private:
+//   storage_pointer storage_;
+
+//  public:
+//   bit_storage_wrapper_() : storage_(NULL){};
+//   bit_storage_wrapper_(storage_type* ptr) : storage_(ptr){};
+//   bit_storage_wrapper_(const bit_storage_wrapper_& x) :
+//   storage_(x.storage_){}; virtual ~bit_storage_wrapper_();
+
+//   bit_storage_wrapper_& operator=(const bit_storage_wrapper_ rhs) {
+//     storage_ = rhs.storage_;
+//   }
+
+//   bool operator[](size_type n) {
+//     return storage_[n / (sizeof(storage_type) * CHAR_BIT)] &
+//            ((storage_type)(1) << n % (sizeof(storage_type) * CHAR_BIT));
+//   }
+// };
+
+class bit_reference_ {
+  friend class vector<bool>;
+  friend class bit_iterator_;
+
+ public:
+  typedef size_t size_type;
+  typedef size_t storage_type;
+  typedef size_t* storage_pointer;
+  typedef ptrdiff_t difference_type;
+
+ private:
+  storage_pointer storage_;
+  size_type idx_;
+  bit_reference_() : storage_(NULL), idx_(0) {}
+  bit_reference_(const bit_reference_& x) : storage_(NULL), idx_(x.idx_) {}
+  bit_reference_(storage_pointer ptr, size_type idx)
+      : storage_(ptr), idx_(idx) {}
+
+ public:
+  ~bit_reference_() {}
+
+  operator bool() const {
+    return storage_[idx_ / (sizeof(storage_type) * CHAR_BIT)] &
+           (1ULL << idx_ % (sizeof(storage_type) * CHAR_BIT));
+  }
+
+  bit_reference_& operator=(const bool x) {
+    if (x) {
+      storage_[idx_ / (sizeof(storage_type) * CHAR_BIT)] |=
+          (1ULL << idx_ % (sizeof(storage_type) * CHAR_BIT));
+    } else {
+      storage_[idx_ / (sizeof(storage_type) * CHAR_BIT)] &=
+          ~(1ULL << idx_ % (sizeof(storage_type) * CHAR_BIT));
+    }
+    return *this;
+  }
+
+  bit_reference_& operator=(const bit_reference_& x) {
+    if (bool(x)) {
+      storage_[idx_ / (sizeof(storage_type) * CHAR_BIT)] |=
+          (1ULL << idx_ % (sizeof(storage_type) * CHAR_BIT));
+    } else {
+      storage_[idx_ / (sizeof(storage_type) * CHAR_BIT)] &=
+          ~(1ULL << idx_ % (sizeof(storage_type) * CHAR_BIT));
+    }
+    return *this;
+  }
+
+  void flip() {
+    if (*this) {
+      *this = false;
+    } else {
+      *this = true;
+    }
+  }
+};
+
+class bit_iterator_ {
+ public:
+  typedef bool value_type;
+  typedef bit_reference_::difference_type difference_type;
+  typedef bit_iterator_ pointer;
+  typedef bit_reference_ reference;
+  typedef ft::random_access_iterator_tag iterator_category;
+
+  typedef bit_reference_::storage_pointer storage_ponter;
+  typedef bit_reference_::size_type size_type;
+
+ private:
+  bit_reference_ ref_;
+
+ public:
+  bit_iterator_(storage_ponter ptr, size_type idx) : ref_(ptr, idx) {}
+  bit_iterator_(bit_reference_ ref) : ref_(ref.storage_, ref.idx_) {}
+  bit_iterator_(const bit_iterator_& x) : ref_(x.ref_) {}
+};
+
 template <class Allocator>
 class vector<bool, Allocator> {
   /*** public member types ***/
  public:
   typedef bool value_type;
   typedef Allocator allocator_type;
-  typedef typename allocator_type::size_type size_type;
-  typedef typename allocator_type::difference_type difference_type;
+  typedef bit_reference_::size_type size_type;
+  typedef bit_reference_::difference_type difference_type;
   // typedef __bit_iterator<vector, false>            pointer;
   // typedef __bit_iterator<vector, true>             const_pointer;
   // typedef pointer                                  iterator;
@@ -745,82 +855,26 @@ class vector<bool, Allocator> {
   // typedef _VSTD::reverse_iterator<iterator> reverse_iterator;
   // typedef _VSTD::reverse_iterator<const_iterator>   const_reverse_iterator;
 
-  // below are original types
-  typedef size_type storage_type_;  // types of storage of bool
-  typedef std::allocator<storage_type_>
-      storage_allocator_type_;  // allocator of storage
+  typedef bit_reference_::storage_type storage_type;
+  typedef bit_reference_::storage_pointer storage_pointer;
+  typedef std::allocator<storage_type> storage_allocator_type;
 
-  /*** public member class ***/
-  class reference {
-    friend class vector;
-
-   private:
-    typedef typename vector::size_type size_type_;
-    typedef typename vector::storage_type_ storage_type_;
-
-    storage_type_* storage_;
-    size_type_ idx_;
-
-    reference();
-    reference(storage_type_* storage, size_type_ idx)
-        : storage_(storage), idx_(idx) {}
-
-   public:
-    ~reference() {}
-
-    operator bool() const {
-      return storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &
-             (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
-    }
-
-    reference& operator=(const bool x) {
-      if (x) {
-        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] |=
-            (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
-      } else {
-        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &=
-            ~(1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
-      }
-      return *this;
-    }
-
-    reference& operator=(const reference& x) {
-      if (bool(x)) {
-        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] |=
-            (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
-      } else {
-        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &=
-            ~(1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
-      }
-      return *this;
-    }
-
-    void flip() {
-      if (*this) {
-        *this = false;
-      } else {
-        *this = true;
-      }
-    }
-  };
-
+  typedef bit_reference_ reference;
   typedef const reference const_reference;
 
   /*** private member variables ***/
  private:
-  storage_type_* storage_;
+  storage_pointer storage_;
   size_type size_;
   size_type storage_size_;
   size_type capacity_;
   allocator_type alloc_;
-  storage_allocator_type_ storage_alloc_;
+  storage_allocator_type storage_alloc_;
 
   /*** private functions ***/
   size_type getNewCapacity_(size_type cap_prev, size_type cap_req) {
     if (cap_prev == 0) {
       return cap_req;
-    // } else if (cap_prev + 1 >= cap_req) {
-    //   return cap_prev + 1;
     } else if (cap_prev * 2 >= cap_req) {
       return cap_prev * 2;
     } else {
@@ -843,9 +897,9 @@ class vector<bool, Allocator> {
   }
 
   size_type getStorageSize(size_type size) {
-    size_type storage_size = size / (CHAR_BIT * sizeof(storage_type_));
-    return (size % (CHAR_BIT * sizeof(storage_type_))) ? storage_size + 1
-                                                       : storage_size;
+    size_type storage_size = size / (CHAR_BIT * sizeof(storage_type));
+    return (size % (CHAR_BIT * sizeof(storage_type))) ? storage_size + 1
+                                                      : storage_size;
   }
 
  public:
@@ -853,7 +907,7 @@ class vector<bool, Allocator> {
   // default constructor
   explicit vector(const allocator_type& alloc = allocator_type()) {
     alloc_ = alloc;
-    storage_alloc_ = storage_allocator_type_();
+    storage_alloc_ = storage_allocator_type();
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
@@ -864,7 +918,7 @@ class vector<bool, Allocator> {
   explicit vector(size_type n, const value_type& val = value_type(),
                   const allocator_type& alloc = allocator_type()) {
     alloc_ = alloc;
-    storage_alloc_ = storage_allocator_type_();
+    storage_alloc_ = storage_allocator_type();
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
@@ -879,7 +933,7 @@ class vector<bool, Allocator> {
                                 InputIterator>::type last,
          const allocator_type& alloc = allocator_type()) {
     alloc_ = alloc;
-    storage_alloc_ = storage_allocator_type_();
+    storage_alloc_ = storage_allocator_type();
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
@@ -919,11 +973,11 @@ class vector<bool, Allocator> {
     }
     if (val) {
       for (size_type idx = 0; idx < storage_size_; ++idx) {
-        storage_[idx] = ~(static_cast<storage_type_>(0));
+        storage_[idx] = ~(static_cast<storage_type>(0));
       }
     } else {
       for (size_type idx = 0; idx < storage_size_; ++idx) {
-        storage_[idx] = static_cast<storage_type_>(0);
+        storage_[idx] = static_cast<storage_type>(0);
       }
     }
   }
@@ -946,11 +1000,11 @@ class vector<bool, Allocator> {
     InputIterator iter;
     for (iter = first, idx = 0; iter != last; ++iter, ++idx) {
       if (*iter) {
-        storage_[idx / (sizeof(storage_type_) * CHAR_BIT)] |=
-            (1ULL << idx % (sizeof(storage_type_) * CHAR_BIT));
+        storage_[idx / (sizeof(storage_type) * CHAR_BIT)] |=
+            (1ULL << idx % (sizeof(storage_type) * CHAR_BIT));
       } else {
-        storage_[idx / (sizeof(storage_type_) * CHAR_BIT)] &=
-            ~(1ULL << idx % (sizeof(storage_type_) * CHAR_BIT));
+        storage_[idx / (sizeof(storage_type) * CHAR_BIT)] &=
+            ~(1ULL << idx % (sizeof(storage_type) * CHAR_BIT));
       }
     }
   }
