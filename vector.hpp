@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/23 13:59:48 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 15:01:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -813,6 +813,17 @@ class vector<bool, Allocator> {
   allocator_type alloc_;
   storage_allocator_type_ storage_alloc_;
 
+  /*** private functions ***/
+  size_type getNewCapacity_(size_type cap_prev, size_type cap_req) {
+    if (cap_prev == 0) {
+      return cap_req;
+    } else if (cap_prev * 2 >= cap_req) {
+      return cap_prev * 2;
+    } else {
+      return cap_req;
+    }
+  }
+
  public:
   /*** constructors ***/
   // default constructor
@@ -854,11 +865,19 @@ class vector<bool, Allocator> {
 
   void assign(size_type n, const value_type& val) {
     size_ = n;
-    storage_size_ = n / (CHAR_BIT * sizeof(storage_type_));
+    size_type new_storage_size = size_ / (CHAR_BIT * sizeof(storage_type_));
     if (n % (CHAR_BIT * sizeof(storage_type_))) {
-      storage_size_++;
+      new_storage_size++;
     }
-    storage_ = storage_alloc_.allocate(storage_size_);
+
+    if (storage_size_ < new_storage_size) {
+      if (storage_) {
+        storage_alloc_.deallocate(storage_, storage_size_);
+      }
+      new_storage_size = getNewCapacity_(storage_size_, new_storage_size);
+      storage_ = storage_alloc_.allocate(new_storage_size);
+      storage_size_ = new_storage_size;
+    }
     if (val) {
       for (size_type idx = 0; idx < storage_size_; ++idx) {
         storage_[idx] = ~(static_cast<storage_type_>(0));
