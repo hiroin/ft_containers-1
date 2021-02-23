@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/23 10:24:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/23 13:59:48 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -750,9 +750,64 @@ class vector<bool, Allocator> {
   typedef std::allocator<storage_type_>
       storage_allocator_type_;  // allocator of storage
 
+  /*** public member class ***/
+  class reference {
+    friend class vector;
+
+   private:
+    typedef typename vector::size_type size_type_;
+    typedef typename vector::storage_type_ storage_type_;
+
+    storage_type_* storage_;
+    size_type_ idx_;
+
+    reference();
+    reference(storage_type_* storage, size_type_ idx)
+        : storage_(storage), idx_(idx) {}
+
+   public:
+    ~reference() {}
+
+    operator bool() const {
+      return storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &
+             (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
+    }
+
+    reference& operator=(const bool x) {
+      if (x) {
+        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] |=
+            (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
+      } else {
+        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &=
+            ~(1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
+      }
+      return *this;
+    }
+
+    reference& operator=(const reference& x) {
+      if (bool(x)) {
+        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] |=
+            (1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
+      } else {
+        storage_[idx_ / (sizeof(storage_type_) * CHAR_BIT)] &=
+            ~(1ULL << idx_ % (sizeof(storage_type_) * CHAR_BIT));
+      }
+      return *this;
+    }
+
+    void flip() {
+      if (*this) {
+        *this = false;
+      } else {
+        *this = true;
+      }
+    }
+  };
+
   /*** private member variables ***/
  private:
   storage_type_* storage_;
+  size_type size_;
   size_type storage_size_;
   size_type capacity_;
   allocator_type alloc_;
@@ -765,6 +820,7 @@ class vector<bool, Allocator> {
     alloc_ = alloc;
     storage_alloc_ = storage_allocator_type_();
     storage_ = NULL;
+    size_ = 0;
     storage_size_ = 0;
     capacity_ = 0;
   }
@@ -775,47 +831,49 @@ class vector<bool, Allocator> {
     alloc_ = alloc;
     storage_alloc_ = storage_allocator_type_();
     storage_ = NULL;
+    size_ = 0;
     storage_size_ = 0;
     capacity_ = 0;
     assign(n, val);
-    // assign(n, val);
   }
 
-  size_type size() const { return storage_size_; }
+  // destructor
+  ~vector() { storage_alloc_.deallocate(storage_, storage_size_); }
+
+  size_type size() const { return size_; }
   size_type max_size() const { return (alloc_.max_size() / 2); }
   size_type capacity() const {
     return storage_size_ * sizeof(storage_size_) * CHAR_BIT;
   }
-  bool empty() const { return (storage_size_ == 0); }
+
+  reference operator[](size_type n) { return reference(storage_, n); }
+
+  // const_reference operator[](size_type n) const { return values_[n]; }
+
+  bool empty() const { return (size_ == 0); }
 
   void assign(size_type n, const value_type& val) {
-    storage_size_ = n / CHAR_BIT + 1;
+    size_ = n;
+    storage_size_ = n / (CHAR_BIT * sizeof(storage_type_));
+    if (n % (CHAR_BIT * sizeof(storage_type_))) {
+      storage_size_++;
+    }
     storage_ = storage_alloc_.allocate(storage_size_);
     if (val) {
       for (size_type idx = 0; idx < storage_size_; ++idx) {
         storage_[idx] = ~(static_cast<storage_type_>(0));
       }
+    } else {
+      for (size_type idx = 0; idx < storage_size_; ++idx) {
+        storage_[idx] = static_cast<storage_type_>(0);
+      }
     }
-    // if (n > capacity_) {
-    //   allClear_();
-    //   values_ = alloc_.allocate(n);
-    //   capacity_ = n;
-    //   for (size_type idx = 0; idx < n; ++idx) {
-    //     alloc_.construct(values_ + idx, val);
-    //   }
-    // } else {
-    //   for (size_type idx = n; idx < size_; ++idx) {
-    //     alloc_.destroy(&values_[idx]);
-    //   }
-    //   for (size_type idx = 0; idx < n; ++idx) {
-    //     if (idx < size_) {
-    //       values_[idx] = val;
-    //     } else {
-    //       alloc_.construct(values_ + idx, val);
-    //     }
-    //   }
-    // }
-    // size_ = n;
+  }
+
+  void flip() {
+    for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
+      storage_[cnt] = ~storage_[cnt];
+    }
   }
 };
 
