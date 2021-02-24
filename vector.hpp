@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/24 11:07:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/24 13:15:42 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -776,7 +776,8 @@ class bit_reference_ {
   storage_pointer storage_;
   size_type idx_;
   bit_reference_() : storage_(NULL), idx_(0) {}
-  bit_reference_(const bit_reference_& x) : storage_(x.storage_), idx_(x.idx_) {}
+  bit_reference_(const bit_reference_& x)
+      : storage_(x.storage_), idx_(x.idx_) {}
   bit_reference_(storage_pointer ptr, size_type idx)
       : storage_(ptr), idx_(idx) {}
 
@@ -1022,6 +1023,10 @@ class vector<bool, Allocator> {
     return (size % (CHAR_BIT * sizeof(storage_type))) ? storage_size + 1
                                                       : storage_size;
   }
+  // create bit mask
+  // size = 4 11...1110000
+  storage_type createMask_(size_type size) { return ~((1UL << size) - 1UL); }
+
 
  public:
   /*** constructors ***/
@@ -1101,7 +1106,6 @@ class vector<bool, Allocator> {
     if (n <= capacity()) {
       return;
     }
-    // size_type new_storage_size = getNewCapacity_(storage_size_, getStorageSize(n));
     size_type new_storage_size = getStorageSize(n);
     storage_pointer new_storage = storage_alloc_.allocate(new_storage_size);
     if (storage_) {
@@ -1112,6 +1116,37 @@ class vector<bool, Allocator> {
     }
     storage_ = new_storage;
     storage_size_ = new_storage_size;
+  }
+
+  void resize(size_type n, value_type val = value_type()) {
+    if (n <= size_) {
+      size_ = n;
+      return;
+    }
+    if (n > capacity()) {
+      reserve(getNewCapacity_(storage_size_, getStorageSize(n)) *
+              sizeof(storage_type) * CHAR_BIT);
+    }
+    size_type bit_to_save = size_ % (sizeof(storage_type) * CHAR_BIT);
+    size_type idx_to_bitfill = size_ / (sizeof(storage_type) * CHAR_BIT);
+    if (bit_to_save < sizeof(storage_type) * CHAR_BIT) {
+      storage_type mask = createMask_(bit_to_save);
+      if (val == true) {
+        storage_[idx_to_bitfill] |= mask;
+      } else {
+        storage_[idx_to_bitfill] &= ~mask;
+      }
+    }
+    if (val) {
+      for (size_type idx = idx_to_bitfill + 1; idx < storage_size_; ++idx) {
+        storage_[idx] = ~(static_cast<storage_type>(0));
+      }
+    } else {
+      for (size_type idx = idx_to_bitfill + 1; idx < storage_size_; ++idx) {
+        storage_[idx] = static_cast<storage_type>(0);
+      }
+    }
+    size_ = n;
   }
 
   /*** Element access ***/
