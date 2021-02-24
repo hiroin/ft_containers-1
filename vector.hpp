@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/23 22:40:42 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/24 10:39:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ class vector_iterator_ {
     return vector_iterator_(rhs.ptr_ - lhs);
   }
 
-  friend void swap(const vector_iterator_& x, const vector_iterator_& y) {
+  friend void swap(vector_iterator_& x, vector_iterator_& y) {
     vector_iterator_ tmp(x);
     x = y;
     y = tmp;
@@ -232,8 +232,7 @@ class vector_const_iterator_ {
     return vector_const_iterator_(rhs.ptr_ - lhs);
   }
 
-  friend void swap(const vector_const_iterator_& x,
-                   const vector_const_iterator_& y) {
+  friend void swap(vector_const_iterator_& x, vector_const_iterator_& y) {
     vector_const_iterator_ tmp(x);
     x = y;
     y = tmp;
@@ -777,7 +776,7 @@ class bit_reference_ {
   storage_pointer storage_;
   size_type idx_;
   bit_reference_() : storage_(NULL), idx_(0) {}
-  bit_reference_(const bit_reference_& x) : storage_(NULL), idx_(x.idx_) {}
+  bit_reference_(const bit_reference_& x) : storage_(x.storage_), idx_(x.idx_) {}
   bit_reference_(storage_pointer ptr, size_type idx)
       : storage_(ptr), idx_(idx) {}
 
@@ -818,6 +817,10 @@ class bit_reference_ {
       *this = true;
     }
   }
+
+  void moveIdx_(difference_type x) { idx_ += x; }
+  size_type getIdx_() const { return idx_; }
+  storage_pointer getStorage_() const { return storage_; }
 };
 
 class bit_iterator_ {
@@ -835,9 +838,127 @@ class bit_iterator_ {
   bit_reference_ ref_;
 
  public:
+  bit_iterator_(){};
   bit_iterator_(storage_ponter ptr, size_type idx) : ref_(ptr, idx) {}
-  bit_iterator_(bit_reference_ ref) : ref_(ref.storage_, ref.idx_) {}
+  bit_iterator_(const bit_reference_& ref) : ref_(ref.storage_, ref.idx_) {}
   bit_iterator_(const bit_iterator_& x) : ref_(x.ref_) {}
+
+  bit_iterator_& operator=(const bit_iterator_& rhs) {
+    ref_.storage_ = rhs.ref_.storage_;
+    ref_.idx_ = rhs.ref_.idx_;
+    return *this;
+  }
+
+  reference operator*() const { return ref_; }
+  pointer operator->() const { return *this; }
+
+  reference operator[](difference_type idx) const {
+    return bit_reference_(ref_.storage_, ref_.idx_ + idx);
+  }
+
+  bit_iterator_ operator++() {
+    ++(ref_.idx_);
+    return *this;
+  }
+
+  bit_iterator_ operator++(int) {
+    bit_iterator_ tmp(*this);
+    ++(ref_.idx_);
+    return tmp;
+  }
+
+  bit_iterator_ operator--() {
+    ++(ref_.idx_);
+    return *this;
+  }
+
+  bit_iterator_ operator--(int) {
+    bit_iterator_ tmp(*this);
+    --(ref_.idx_);
+    return tmp;
+  }
+
+  bit_iterator_& operator+=(difference_type diff) {
+    ref_.idx_ += diff;
+    return *this;
+  }
+
+  bit_iterator_& operator-=(difference_type diff) {
+    ref_.idx_ -= diff;
+    return *this;
+  }
+
+  friend bit_iterator_ operator+(const bit_iterator_& lhs,
+                                 difference_type rhs) {
+    bit_reference_ tmp(*lhs);
+    tmp.moveIdx_(rhs);
+    return bit_iterator_(tmp);
+  }
+
+  friend bit_iterator_ operator+(difference_type lhs,
+                                 const bit_iterator_& rhs) {
+    bit_reference_ tmp(*rhs);
+    tmp.moveIdx_(lhs);
+    return bit_iterator_(tmp);
+  }
+
+  friend difference_type operator-(const bit_iterator_& lhs,
+                                   const bit_iterator_& rhs) {
+    if (lhs.ref_.getIdx_() < rhs.ref_.getIdx_()) {
+      return -static_cast<difference_type>(rhs.ref_.getIdx_() -
+                                           lhs.ref_.getIdx_());
+    }
+    return lhs.ref_.getIdx_() - rhs.ref_.getIdx_();
+  }
+
+  friend bit_iterator_ operator-(const bit_iterator_& lhs,
+                                 difference_type rhs) {
+    bit_reference_ tmp(*lhs);
+    tmp.moveIdx_(-rhs);
+    return bit_iterator_(tmp);
+  }
+
+  friend bit_iterator_ operator-(difference_type lhs,
+                                 const bit_iterator_& rhs) {
+    bit_reference_ tmp(*rhs);
+    tmp.moveIdx_(lhs);
+    return bit_iterator_(tmp);
+  }
+
+  friend void swap(bit_iterator_& x, bit_iterator_& y) {
+    bit_iterator_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const bit_iterator_& x, const bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() == y.ref_.getIdx_());
+  }
+
+  friend bool operator!=(const bit_iterator_& x, const bit_iterator_& y) {
+    return !(x == y);
+  }
+
+  friend bool operator<(const bit_iterator_& x, const bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() < y.ref_.getIdx_()) ||
+           (x.ref_.getStorage_() < y.ref_.getStorage_());
+  }
+
+  friend bool operator<=(const bit_iterator_& x, const bit_iterator_& y) {
+    return !(x > y);
+  }
+
+  friend bool operator>(const bit_iterator_& x, const bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() > y.ref_.getIdx_()) ||
+           (x.ref_.getStorage_() > y.ref_.getStorage_());
+  }
+
+  friend bool operator>=(const bit_iterator_& x, const bit_iterator_& y) {
+    return !(x < y);
+  }
 };
 
 template <class Allocator>
@@ -848,9 +969,9 @@ class vector<bool, Allocator> {
   typedef Allocator allocator_type;
   typedef bit_reference_::size_type size_type;
   typedef bit_reference_::difference_type difference_type;
-  // typedef __bit_iterator<vector, false>            pointer;
-  // typedef __bit_iterator<vector, true>             const_pointer;
-  // typedef pointer                                  iterator;
+  typedef bit_iterator_ pointer;
+  // typedef bit_iterator_ const_pointer;
+  typedef pointer iterator;
   // typedef const_pointer                            const_iterator;
   // typedef _VSTD::reverse_iterator<iterator> reverse_iterator;
   // typedef _VSTD::reverse_iterator<const_iterator>   const_reverse_iterator;
@@ -944,6 +1065,22 @@ class vector<bool, Allocator> {
   // destructor
   ~vector() { storage_alloc_.deallocate(storage_, storage_size_); }
 
+  /*** iterators ***/
+  iterator begin() { return iterator(storage_, 0); }
+  iterator end() { return iterator(storage_, size_); }
+  // const_iterator begin() const { return const_iterator(values_); }
+  // const_iterator end() const { return const_iterator(values_ + size_); }
+  // reverse_iterator rbegin() { return reverse_iterator(end()); }
+  // reverse_iterator rend() { return reverse_iterator(begin()); }
+
+  // const_reverse_iterator rbegin() const {
+  //   return ft::reverse_iterator<const_iterator>(end());
+  // }
+
+  // const_reverse_iterator rend() const {
+  //   return ft::reverse_iterator<const_iterator>(begin());
+  // }
+
   /*** capacity ***/
   size_type size() const { return size_; }
   size_type max_size() const { return (alloc_.max_size() / 2); }
@@ -959,6 +1096,23 @@ class vector<bool, Allocator> {
 
   bool empty() const { return (size_ == 0); }
 
+  /*** Element access ***/
+  reference at(size_type n) {
+    if (n >= size_) {
+      throw std::out_of_range("vector");
+    }
+    return reference(storage_, n);
+  }
+
+  const_reference at(size_type n) const;
+
+  reference front() { return reference(storage_, 0); }
+  // const_reference front() const { return values_[0]; }
+
+  reference back() { return reference(storage_, size_ - 1); }
+  // const_reference back() const { return values_[size_ - 1]; }
+
+  /*** modifiers ***/
   void assign(size_type n, const value_type& val) {
     size_ = n;
     size_type new_storage_size = getStorageSize(size_);
@@ -1007,6 +1161,20 @@ class vector<bool, Allocator> {
             ~(1ULL << idx % (sizeof(storage_type) * CHAR_BIT));
       }
     }
+  }
+
+  void push_back(const value_type& val) {
+    if (size_ + 1 > capacity_) {
+      reserve(getNewCapacity_(capacity_, size_ + 1));
+    }
+    alloc_.construct(values_ + size_++, val);
+  }
+
+  void pop_back() {
+    if (size_ > 0) {
+      alloc_.destroy(values_ + size_ - 1);
+    }
+    --size_;
   }
 
   void flip() {
