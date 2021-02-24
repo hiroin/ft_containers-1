@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/24 13:15:42 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/24 13:39:05 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1216,19 +1216,13 @@ class vector<bool, Allocator> {
     }
   }
 
-  // void push_back(const value_type& val) {
-  //   if (size_ + 1 > capacity_) {
-  //     reserve(getNewCapacity_(capacity_, size_ + 1));
-  //   }
-  //   alloc_.construct(values_ + size_++, val);
-  // }
+  void push_back(const value_type& val) {
+    resize(size_ + 1, val);
+  }
 
-  // void pop_back() {
-  //   if (size_ > 0) {
-  //     alloc_.destroy(values_ + size_ - 1);
-  //   }
-  //   --size_;
-  // }
+  void pop_back() {
+    --size_;
+  }
 
   void flip() {
     for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
