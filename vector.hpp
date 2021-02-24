@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/24 10:39:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/02/24 11:07:16 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1065,6 +1065,12 @@ class vector<bool, Allocator> {
   // destructor
   ~vector() { storage_alloc_.deallocate(storage_, storage_size_); }
 
+  reference operator[](size_type n) { return reference(storage_, n); }
+
+  const_reference operator[](size_type n) const {
+    return reference(storage_, n);
+  }
+
   /*** iterators ***/
   iterator begin() { return iterator(storage_, 0); }
   iterator end() { return iterator(storage_, size_); }
@@ -1088,13 +1094,25 @@ class vector<bool, Allocator> {
     return storage_size_ * sizeof(storage_size_) * CHAR_BIT;
   }
 
-  reference operator[](size_type n) { return reference(storage_, n); }
-
-  const_reference operator[](size_type n) const {
-    return reference(storage_, n);
-  }
-
   bool empty() const { return (size_ == 0); }
+
+  void reserve(size_type n) {
+    // no need to reserve
+    if (n <= capacity()) {
+      return;
+    }
+    // size_type new_storage_size = getNewCapacity_(storage_size_, getStorageSize(n));
+    size_type new_storage_size = getStorageSize(n);
+    storage_pointer new_storage = storage_alloc_.allocate(new_storage_size);
+    if (storage_) {
+      for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
+        new_storage[cnt] = storage_[cnt];
+      }
+      storage_alloc_.deallocate(storage_, storage_size_);
+    }
+    storage_ = new_storage;
+    storage_size_ = new_storage_size;
+  }
 
   /*** Element access ***/
   reference at(size_type n) {
@@ -1163,19 +1181,19 @@ class vector<bool, Allocator> {
     }
   }
 
-  void push_back(const value_type& val) {
-    if (size_ + 1 > capacity_) {
-      reserve(getNewCapacity_(capacity_, size_ + 1));
-    }
-    alloc_.construct(values_ + size_++, val);
-  }
+  // void push_back(const value_type& val) {
+  //   if (size_ + 1 > capacity_) {
+  //     reserve(getNewCapacity_(capacity_, size_ + 1));
+  //   }
+  //   alloc_.construct(values_ + size_++, val);
+  // }
 
-  void pop_back() {
-    if (size_ > 0) {
-      alloc_.destroy(values_ + size_ - 1);
-    }
-    --size_;
-  }
+  // void pop_back() {
+  //   if (size_ > 0) {
+  //     alloc_.destroy(values_ + size_ - 1);
+  //   }
+  //   --size_;
+  // }
 
   void flip() {
     for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
