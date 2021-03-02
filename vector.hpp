@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 18:56:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 19:11:21 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1292,6 +1292,62 @@ class vector<bool, Allocator> {
       for (size_t bitidx = posidx; bitidx < posidx + n; ++bitidx) {
         storage_[bitidx / storage_width] &= ~(1ULL << bitidx % storage_width);
       }
+    }
+
+    size_ += n;
+    return;
+  }
+
+  template <class InputIterator>
+  typename ft::enable_if<ft::is_input_iterator<InputIterator>::value,
+                         void>::type
+  insert(iterator position, InputIterator first, InputIterator last) {
+    size_type n = getSizeFromIterator(first, last);
+    if (n == 0) {
+      return;
+    }
+    if (storage_ == NULL && position == end()) {
+      assign(first, last);
+      return;
+    }
+    if (size_ + n > capacity()) {
+      reserve(getNewCapacity_(storage_size_, getStorageSize(size_ + n)) *
+              sizeof(storage_type) * CHAR_BIT);
+    }
+
+    const size_type storage_width = sizeof(storage_type) * CHAR_BIT;
+    size_type shift_width = n % storage_width;
+
+    size_type posidx = (*position).getIdx_();
+    size_type storageidx = posidx / (storage_width);
+    storage_type mask =
+        createMask_(posidx % (storage_width));  // 111...111000...000
+    storage_type bits_no_move = storage_[storageidx] & ~mask;
+
+    // left shift
+    for (size_t idx = storage_size_; idx > storageidx; --idx) {
+      if (idx  > n / storage_width) {
+        storage_[idx - 1] = storage_[idx - n / storage_width - 1]
+                            << shift_width;
+      } else {
+        storage_[idx - 1] = 0ULL;
+      }
+      if (idx > n / storage_width + 1 && shift_width != 0) {
+          storage_[idx - 1] |= storage_[idx - n / storage_width - 2] >>
+                              (storage_width - shift_width);
+      }
+    }
+
+    // storage_[storageidx] |= bits_no_move;
+    storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
+
+    for (size_t bitidx = posidx; bitidx < posidx + n; ++bitidx) {
+      if (*first) {
+        storage_[bitidx / storage_width] |= (1ULL << bitidx % storage_width);
+      } else {
+        storage_[bitidx / storage_width] &= ~(1ULL << bitidx % storage_width);
+      }
+      ++first;
     }
 
     size_ += n;
