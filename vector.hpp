@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 20:05:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 20:31:27 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -869,7 +869,7 @@ class bit_iterator_ {
   }
 
   bit_iterator_ operator--() {
-    ++(ref_.idx_);
+    --(ref_.idx_);
     return *this;
   }
 
@@ -1372,6 +1372,36 @@ class vector<bool, Allocator> {
 
     --size_;
     return position;
+  }
+
+  iterator erase(iterator first, iterator last) {
+    const size_type n = last - first;
+    if (n == 0) {
+      return first;
+    }
+    const size_type storage_width = sizeof(storage_type) * CHAR_BIT;
+    const size_type shift_width = n % storage_width;
+    size_type posidx = (*first).getIdx_();
+    size_type storageidx = posidx / (storage_width);
+    storage_type mask =
+        createMask_(posidx % (storage_width));  // 111...111000...000
+    storage_type bits_no_move = storage_[storageidx] & ~mask;
+
+    // right shift
+    for (size_t idx = storageidx; idx < storage_size_; ++idx) {
+      if (n / storage_width < storage_size_) {
+        storage_[idx] = storage_[idx + n / storage_width] >> shift_width;
+      }
+      if (n / storage_width + 1 < storage_size_ && shift_width != 0) {
+        storage_[idx] |= storage_[idx + n / storage_width + 1]
+                         << (storage_width - shift_width);
+      }
+    }
+
+    storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
+
+    size_ -= n;
+    return first;
   }
 
   void pop_back() { --size_; }
