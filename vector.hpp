@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 22:59:53 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:40:44 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -762,10 +762,15 @@ void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
 //   }
 // };
 
+class bit_iterator_;
+class const_bit_iterator_;
+
 class bit_reference_ {
   friend class vector<bool>;
   friend class bit_iterator_;
   friend class const_bit_iterator_;
+  friend class ft::reverse_iterator<ft::bit_iterator_>;
+  friend class ft::reverse_iterator<ft::const_bit_iterator_>;
 
  public:
   typedef size_t size_type;
@@ -969,7 +974,7 @@ class const_bit_iterator_ {
   typedef bool value_type;
   typedef bit_reference_::difference_type difference_type;
   typedef const_bit_iterator_ pointer;
-  typedef bit_reference_ reference;
+  typedef const bit_reference_ reference;
   typedef ft::random_access_iterator_tag iterator_category;
 
   typedef bit_reference_::storage_pointer storage_ponter;
@@ -1122,8 +1127,8 @@ class vector<bool, Allocator> {
   typedef const_bit_iterator_ const_pointer;
   typedef pointer iterator;
   typedef const_pointer const_iterator;
-  // typedef _VSTD::reverse_iterator<iterator> reverse_iterator;
-  // typedef _VSTD::reverse_iterator<const_iterator>   const_reverse_iterator;
+  typedef ft::reverse_iterator<iterator> reverse_iterator;
+  typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
   typedef bit_reference_::storage_type storage_type;
   typedef bit_reference_::storage_pointer storage_pointer;
@@ -1225,10 +1230,10 @@ class vector<bool, Allocator> {
   /*** iterators ***/
   iterator begin() { return iterator(storage_, 0); }
   iterator end() { return iterator(storage_, size_); }
-  // const_iterator begin() const { return const_iterator(values_); }
-  // const_iterator end() const { return const_iterator(values_ + size_); }
-  // reverse_iterator rbegin() { return reverse_iterator(end()); }
-  // reverse_iterator rend() { return reverse_iterator(begin()); }
+  const_iterator begin() const { return const_iterator(storage_); }
+  const_iterator end() const { return const_iterator(storage_, size_); }
+  reverse_iterator rbegin() { return reverse_iterator(end()); }
+  reverse_iterator rend() { return reverse_iterator(begin()); }
 
   // const_reverse_iterator rbegin() const {
   //   return ft::reverse_iterator<const_iterator>(end());

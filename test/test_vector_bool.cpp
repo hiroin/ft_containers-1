@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 23:01:16 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:39:51 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1657,6 +1657,47 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("nomal itr");
     }
 
+    std::vector<bool>::reverse_iterator std_ritr;
+    ft::vector<bool>::reverse_iterator ft_ritr;
+    for (std_ritr = std_vec.rbegin(), ft_ritr = ft_vec.rbegin();
+         std_ritr != std_vec.rend(); ++std_ritr, ++ft_ritr) {
+      if (*std_ritr != *ft_ritr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_ritr != ft_vec.rend()) {
+      throw std::runtime_error("nomal itr");
+    }
+    for (std_ritr = --std_vec.rend(), ft_ritr = --ft_vec.rend();
+         std_ritr != std_vec.rbegin(); --std_ritr, --ft_ritr) {
+      if (*std_ritr != *ft_ritr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_ritr != ft_vec.rbegin()) {
+      throw std::runtime_error("nomal itr");
+    }
+
+    std::vector<bool>::const_reverse_iterator std_critr;
+    ft::vector<bool>::const_reverse_iterator ft_critr;
+    for (std_critr = std_vec.rbegin(), ft_critr = ft_vec.rbegin();
+         std_critr != std_vec.rend(); ++std_critr, ++ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_critr != ft_vec.rend()) {
+      throw std::runtime_error("nomal itr");
+    }
+    for (std_critr = --std_vec.rend(), ft_critr = --ft_vec.rend();
+         std_critr != std_vec.rbegin(); --std_critr, --ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_critr != ft_vec.rbegin()) {
+      throw std::runtime_error("nomal itr");
+    }
 
   } catch (std::runtime_error& e) {
     throw e;
