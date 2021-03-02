@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 23:52:41 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 08:12:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -783,12 +783,13 @@ class bit_reference_ {
   size_type idx_;
 
   bit_reference_() : storage_(NULL), idx_(0) {}
-  bit_reference_(const bit_reference_& x)
-      : storage_(x.storage_), idx_(x.idx_) {}
   bit_reference_(storage_pointer ptr, size_type idx)
       : storage_(ptr), idx_(idx) {}
 
  public:
+  bit_reference_(const bit_reference_& x)
+      : storage_(x.storage_), idx_(x.idx_) {}
+
   ~bit_reference_() {}
 
   operator bool() const {
@@ -830,6 +831,14 @@ class bit_reference_ {
   size_type getIdx_() const { return idx_; }
   storage_pointer getStorage_() const { return storage_; }
 };
+
+// void swap(bit_reference_ ref1, bit_reference_ ref2) {
+//   if (ref1 == ref2) {
+//     return;
+//   }
+//   ref1.flip();
+//   ref2.flip();
+// }
 
 class bit_iterator_ {
  public:
@@ -1175,6 +1184,7 @@ class vector<bool, Allocator> {
     return (size % (CHAR_BIT * sizeof(storage_type))) ? storage_size + 1
                                                       : storage_size;
   }
+
   // create bit mask
   // size = 4 11...1110000
   storage_type createMask_(size_type size) { return ~((1UL << size) - 1UL); }
@@ -1571,6 +1581,14 @@ class vector<bool, Allocator> {
     x.storage_ = tmp_storage;
     x.size_ = tmp_size;
     x.storage_size_ = tmp_storage_size;
+  }
+
+  static void swap (reference ref1, reference ref2) {
+    if (ref1 == ref2) {
+      return ;
+    }
+    ref1.flip();
+    ref2.flip();
   }
 
   void pop_back() { --size_; }

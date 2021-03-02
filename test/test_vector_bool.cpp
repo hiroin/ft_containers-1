@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 23:51:28 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 08:12:47 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1512,6 +1512,47 @@ void test_vector_bool(int& test_no) {
       std::cout << " => OK :)" << std::endl;
     }
   }
+
+  putTestInfo(test_no, "Vector<bool>: swap reference");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+
+    for (size_t i = 0; i < size; i++) {
+      std_vec.swap(std_vec[i], std_vec[size - i - 1]);
+      ft_vec.swap(ft_vec[i], ft_vec[size - i - 1]);
+    }
+
+    std::vector<bool>::iterator std_itr;
+    ft::vector<bool>::iterator ft_itr;
+    for (std_itr = std_vec.begin(), ft_itr = ft_vec.begin();
+         std_itr != std_vec.end(); ++std_itr, ++ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_itr != ft_vec.end()) {
+      throw std::runtime_error("nomal itr");
+    }
+    for (std_itr = --std_vec.end(), ft_itr = --ft_vec.end();
+         std_itr != std_vec.begin(); --std_itr, --ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_itr != ft_vec.begin()) {
+      throw std::runtime_error("nomal itr");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
 
   for (size_t i = 1; i < 15; i++) {
     for (size_t j = 0; j < 15; j++) {
