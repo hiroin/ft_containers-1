@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 18:53:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 18:56:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1262,20 +1262,12 @@ class vector<bool, Allocator> {
     size_type shift_width = n % storage_width;
 
     size_type posidx = (*position).getIdx_();
-    // size_type idx = posidx % (sizeof(storage_type) * CHAR_BIT);
     size_type storageidx = posidx / (storage_width);
     storage_type mask =
         createMask_(posidx % (storage_width));  // 111...111000...000
-    printf("\nstorage_[0] = %#zx\n", storage_[0]);
-    printf("storageidx = %zu\n", storageidx);
     storage_type bits_no_move = storage_[storageidx] & ~mask;
-    printf("~mask = %#zx\n", ~mask);
 
     // left shift
-    printf("\nshiftwidth = %zu\n", shift_width);
-    printf("posidx = %zu\n", posidx);
-    printf("bits_no_move = %#zx\n", bits_no_move);
-    printf("storage_[0] = %#zx\n", storage_[0]);
     for (size_t idx = storage_size_; idx > storageidx; --idx) {
       if (idx  > n / storage_width) {
         storage_[idx - 1] = storage_[idx - n / storage_width - 1]
@@ -1284,16 +1276,10 @@ class vector<bool, Allocator> {
         storage_[idx - 1] = 0ULL;
       }
       if (idx > n / storage_width + 1 && shift_width != 0) {
-        // if (shift_width != 0) {
           storage_[idx - 1] |= storage_[idx - n / storage_width - 2] >>
                               (storage_width - shift_width);
-        // }
-        // } else {
-
-        // }
       }
     }
-    printf("storage_[0] = %#zx\n", storage_[0]);
 
     // storage_[storageidx] |= bits_no_move;
     storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
@@ -1310,42 +1296,6 @@ class vector<bool, Allocator> {
 
     size_ += n;
     return;
-
-    // left shift
-    size_type idx_left;
-    for (size_t i = storage_size_ - 1; i >= storageidx; --i) {
-      printf("i = %zu\n", i);
-      if (i < sizeof(storage_type) * CHAR_BIT / n) {
-        storage_[i] = 0;
-        continue;
-      }
-      idx_left = i - sizeof(storage_type) * CHAR_BIT / n;
-      storage_[i] = storage_[idx_left]
-                    << (n % (sizeof(storage_type) * CHAR_BIT / n));
-      if (i <= sizeof(storage_type) * CHAR_BIT / n) {
-        continue;
-      }
-      storage_[i] =
-          storage_[idx_left - 1] >> (sizeof(storage_type) * CHAR_BIT -
-                                     n % (sizeof(storage_type) * CHAR_BIT));
-    }
-    storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
-
-    // insert new value
-    if (val) {
-      for (size_t i = posidx; i < posidx + n; i++) {
-        storage_[i / (sizeof(storage_type) * CHAR_BIT)] |=
-            (1ULL << i % (sizeof(storage_type) * CHAR_BIT));
-      }
-    } else {
-      for (size_t i = posidx; i < posidx + n; i++) {
-        storage_[i / (sizeof(storage_type) * CHAR_BIT)] &=
-            ~(1ULL << i % (sizeof(storage_type) * CHAR_BIT));
-      }
-    }
-
-    // storage_type overflowbit =
-    //     storage_[storageidx] >> (sizeof(storage_type) * CHAR_BIT - 1);
   }
 
   void pop_back() { --size_; }
