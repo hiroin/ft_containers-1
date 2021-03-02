@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 22:26:35 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 22:59:53 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -765,6 +765,7 @@ void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
 class bit_reference_ {
   friend class vector<bool>;
   friend class bit_iterator_;
+  friend class const_bit_iterator_;
 
  public:
   typedef size_t size_type;
@@ -963,6 +964,152 @@ class bit_iterator_ {
   }
 };
 
+class const_bit_iterator_ {
+ public:
+  typedef bool value_type;
+  typedef bit_reference_::difference_type difference_type;
+  typedef const_bit_iterator_ pointer;
+  typedef bit_reference_ reference;
+  typedef ft::random_access_iterator_tag iterator_category;
+
+  typedef bit_reference_::storage_pointer storage_ponter;
+  typedef bit_reference_::size_type size_type;
+
+ private:
+  bit_reference_ ref_;
+
+ public:
+  const_bit_iterator_(){};
+  const_bit_iterator_(storage_ponter ptr, size_type idx) : ref_(ptr, idx) {}
+  const_bit_iterator_(const bit_reference_& ref)
+      : ref_(ref.storage_, ref.idx_) {}
+  const_bit_iterator_(const bit_iterator_& x) : ref_(*x) {}
+  const_bit_iterator_(const const_bit_iterator_& x) : ref_(x.ref_) {}
+
+  const_bit_iterator_& operator=(const const_bit_iterator_& rhs) {
+    ref_.storage_ = rhs.ref_.storage_;
+    ref_.idx_ = rhs.ref_.idx_;
+    return *this;
+  }
+
+  const reference operator*() const { return ref_; }
+  pointer operator->() const { return *this; }
+
+  reference operator[](difference_type idx) const {
+    return bit_reference_(ref_.storage_, ref_.idx_ + idx);
+  }
+
+  const_bit_iterator_ operator++() {
+    ++(ref_.idx_);
+    return *this;
+  }
+
+  const_bit_iterator_ operator++(int) {
+    const_bit_iterator_ tmp(*this);
+    ++(ref_.idx_);
+    return tmp;
+  }
+
+  const_bit_iterator_ operator--() {
+    --(ref_.idx_);
+    return *this;
+  }
+
+  const_bit_iterator_ operator--(int) {
+    const_bit_iterator_ tmp(*this);
+    --(ref_.idx_);
+    return tmp;
+  }
+
+  const_bit_iterator_& operator+=(difference_type diff) {
+    ref_.idx_ += diff;
+    return *this;
+  }
+
+  const_bit_iterator_& operator-=(difference_type diff) {
+    ref_.idx_ -= diff;
+    return *this;
+  }
+
+  friend const_bit_iterator_ operator+(const const_bit_iterator_& lhs,
+                                       difference_type rhs) {
+    bit_reference_ tmp(*lhs);
+    tmp.moveIdx_(rhs);
+    return const_bit_iterator_(tmp);
+  }
+
+  friend const_bit_iterator_ operator+(difference_type lhs,
+                                       const const_bit_iterator_& rhs) {
+    bit_reference_ tmp(*rhs);
+    tmp.moveIdx_(lhs);
+    return const_bit_iterator_(tmp);
+  }
+
+  friend difference_type operator-(const const_bit_iterator_& lhs,
+                                   const const_bit_iterator_& rhs) {
+    if (lhs.ref_.getIdx_() < rhs.ref_.getIdx_()) {
+      return -static_cast<difference_type>(rhs.ref_.getIdx_() -
+                                           lhs.ref_.getIdx_());
+    }
+    return lhs.ref_.getIdx_() - rhs.ref_.getIdx_();
+  }
+
+  friend const_bit_iterator_ operator-(const const_bit_iterator_& lhs,
+                                       difference_type rhs) {
+    bit_reference_ tmp(*lhs);
+    tmp.moveIdx_(-rhs);
+    return const_bit_iterator_(tmp);
+  }
+
+  friend const_bit_iterator_ operator-(difference_type lhs,
+                                       const const_bit_iterator_& rhs) {
+    bit_reference_ tmp(*rhs);
+    tmp.moveIdx_(lhs);
+    return const_bit_iterator_(tmp);
+  }
+
+  friend void swap(const_bit_iterator_& x, const_bit_iterator_& y) {
+    const_bit_iterator_ tmp(x);
+    x = y;
+    y = tmp;
+  }
+
+  friend bool operator==(const const_bit_iterator_& x,
+                         const const_bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() == y.ref_.getIdx_());
+  }
+
+  friend bool operator!=(const const_bit_iterator_& x,
+                         const const_bit_iterator_& y) {
+    return !(x == y);
+  }
+
+  friend bool operator<(const const_bit_iterator_& x,
+                        const const_bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() < y.ref_.getIdx_()) ||
+           (x.ref_.getStorage_() < y.ref_.getStorage_());
+  }
+
+  friend bool operator<=(const const_bit_iterator_& x,
+                         const const_bit_iterator_& y) {
+    return !(x > y);
+  }
+
+  friend bool operator>(const const_bit_iterator_& x,
+                        const const_bit_iterator_& y) {
+    return (x.ref_.getStorage_() == y.ref_.getStorage_() &&
+            x.ref_.getIdx_() > y.ref_.getIdx_()) ||
+           (x.ref_.getStorage_() > y.ref_.getStorage_());
+  }
+
+  friend bool operator>=(const const_bit_iterator_& x,
+                         const const_bit_iterator_& y) {
+    return !(x < y);
+  }
+};
+
 template <class Allocator>
 class vector<bool, Allocator> {
   /*** public member types ***/
@@ -972,9 +1119,9 @@ class vector<bool, Allocator> {
   typedef bit_reference_::size_type size_type;
   typedef bit_reference_::difference_type difference_type;
   typedef bit_iterator_ pointer;
-  // typedef bit_iterator_ const_pointer;
+  typedef const_bit_iterator_ const_pointer;
   typedef pointer iterator;
-  // typedef const_pointer                            const_iterator;
+  typedef const_pointer const_iterator;
   // typedef _VSTD::reverse_iterator<iterator> reverse_iterator;
   // typedef _VSTD::reverse_iterator<const_iterator>   const_reverse_iterator;
 

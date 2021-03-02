@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 22:29:36 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:01:16 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1602,6 +1602,66 @@ void test_vector_bool(int& test_no) {
       std::cout << " => OK :)" << std::endl;
     }
   }
+
+  // test iterators
+  putTestInfo(test_no, "Vector<bool>: check iterators");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+
+    std::vector<bool>::iterator std_itr;
+    ft::vector<bool>::iterator ft_itr;
+    for (std_itr = std_vec.begin(), ft_itr = ft_vec.begin();
+         std_itr != std_vec.end(); ++std_itr, ++ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_itr != ft_vec.end()) {
+      throw std::runtime_error("nomal itr");
+    }
+    for (std_itr = --std_vec.end(), ft_itr = --ft_vec.end();
+         std_itr != std_vec.begin(); --std_itr, --ft_itr) {
+      if (*std_itr != *ft_itr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_itr != ft_vec.begin()) {
+      throw std::runtime_error("nomal itr");
+    }
+
+    std::vector<bool>::const_iterator std_citr;
+    ft::vector<bool>::const_iterator ft_citr;
+    for (std_citr = std_vec.begin(), ft_citr = ft_vec.begin();
+         std_citr != std_vec.end(); ++std_citr, ++ft_citr) {
+      if (*std_citr != *ft_citr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_citr != ft_vec.end()) {
+      throw std::runtime_error("nomal itr");
+    }
+    for (std_citr = --std_vec.end(), ft_citr = --ft_vec.end();
+         std_citr != std_vec.begin(); --std_citr, --ft_citr) {
+      if (*std_citr != *ft_citr) {
+        throw std::runtime_error("nomal itr");
+      }
+    }
+    if (ft_citr != ft_vec.begin()) {
+      throw std::runtime_error("nomal itr");
+    }
+
+
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
 
   std::cout << std::noboolalpha;
 }
