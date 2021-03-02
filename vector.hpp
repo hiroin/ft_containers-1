@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/24 13:39:05 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 14:19:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -989,7 +989,6 @@ class vector<bool, Allocator> {
   storage_pointer storage_;
   size_type size_;
   size_type storage_size_;
-  size_type capacity_;
   allocator_type alloc_;
   storage_allocator_type storage_alloc_;
 
@@ -1027,7 +1026,6 @@ class vector<bool, Allocator> {
   // size = 4 11...1110000
   storage_type createMask_(size_type size) { return ~((1UL << size) - 1UL); }
 
-
  public:
   /*** constructors ***/
   // default constructor
@@ -1037,7 +1035,6 @@ class vector<bool, Allocator> {
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
-    capacity_ = 0;
   }
 
   // fill constructor
@@ -1048,7 +1045,6 @@ class vector<bool, Allocator> {
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
-    capacity_ = 0;
     assign(n, val);
   }
 
@@ -1063,7 +1059,6 @@ class vector<bool, Allocator> {
     storage_ = NULL;
     size_ = 0;
     storage_size_ = 0;
-    capacity_ = 0;
     assign(first, last);
   }
 
@@ -1216,13 +1211,30 @@ class vector<bool, Allocator> {
     }
   }
 
-  void push_back(const value_type& val) {
-    resize(size_ + 1, val);
+  void push_back(const value_type& val) { resize(size_ + 1, val); }
+
+  iterator insert(iterator position, const value_type& val) {
+    if (size_ + 1 > capacity()) {
+      reserve(size_ + 1);
+    }
+    // size_type posidx = position.ref_.getIdx_();
+    size_type posidx = (*position).getIdx_();
+    size_type idx = posidx % (sizeof(storage_type) * CHAR_BIT);
+    size_type storageidx = posidx / (sizeof(storage_type) * CHAR_BIT);
+    storage_type mask = createMask_(idx);  // 111...111000...000
+    storage_type bits_no_move = storage_[storageidx] & ~mask;
+    storage_[storageidx] = ((storage_[storageidx] << 1) & mask) | bits_no_move;
+    // move
+    if (val) {
+      storage_[storageidx] |= (1ULL << idx);
+    } else {
+      storage_[storageidx] &= ~(1ULL << idx);
+    }
+    size_++;
+    return position;
   }
 
-  void pop_back() {
-    --size_;
-  }
+  void pop_back() { --size_; }
 
   void flip() {
     for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
