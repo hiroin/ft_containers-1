@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 23:40:44 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:52:41 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1230,18 +1230,18 @@ class vector<bool, Allocator> {
   /*** iterators ***/
   iterator begin() { return iterator(storage_, 0); }
   iterator end() { return iterator(storage_, size_); }
-  const_iterator begin() const { return const_iterator(storage_); }
+  const_iterator begin() const { return const_iterator(storage_, 0); }
   const_iterator end() const { return const_iterator(storage_, size_); }
   reverse_iterator rbegin() { return reverse_iterator(end()); }
   reverse_iterator rend() { return reverse_iterator(begin()); }
 
-  // const_reverse_iterator rbegin() const {
-  //   return ft::reverse_iterator<const_iterator>(end());
-  // }
+  const_reverse_iterator rbegin() const {
+    return ft::reverse_iterator<const_iterator>(end());
+  }
 
-  // const_reverse_iterator rend() const {
-  //   return ft::reverse_iterator<const_iterator>(begin());
-  // }
+  const_reverse_iterator rend() const {
+    return ft::reverse_iterator<const_iterator>(begin());
+  }
 
   /*** capacity ***/
   size_type size() const { return size_; }
@@ -1309,10 +1309,10 @@ class vector<bool, Allocator> {
   const_reference at(size_type n) const;
 
   reference front() { return reference(storage_, 0); }
-  // const_reference front() const { return values_[0]; }
+  const_reference front() const { return const_reference(storage_, 0); }
 
   reference back() { return reference(storage_, size_ - 1); }
-  // const_reference back() const { return values_[size_ - 1]; }
+  const_reference back() const { return const_reference(storage_, size_ - 1); }
 
   /*** modifiers ***/
   void assign(size_type n, const value_type& val) {
@@ -1493,7 +1493,6 @@ class vector<bool, Allocator> {
       }
     }
 
-    // storage_[storageidx] |= bits_no_move;
     storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
 
     for (size_t bitidx = posidx; bitidx < posidx + n; ++bitidx) {

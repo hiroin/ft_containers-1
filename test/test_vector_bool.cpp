@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 23:39:51 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 23:51:28 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1641,6 +1641,94 @@ void test_vector_bool(int& test_no) {
     for (std_citr = std_vec.begin(), ft_citr = ft_vec.begin();
          std_citr != std_vec.end(); ++std_citr, ++ft_citr) {
       if (*std_citr != *ft_citr) {
+        throw std::runtime_error("const itr");
+      }
+    }
+    if (ft_citr != ft_vec.end()) {
+      throw std::runtime_error("const itr");
+    }
+    for (std_citr = --std_vec.end(), ft_citr = --ft_vec.end();
+         std_citr != std_vec.begin(); --std_citr, --ft_citr) {
+      if (*std_citr != *ft_citr) {
+        throw std::runtime_error("const itr");
+      }
+    }
+    if (ft_citr != ft_vec.begin()) {
+      throw std::runtime_error("const itr");
+    }
+
+    std::vector<bool>::reverse_iterator std_ritr;
+    ft::vector<bool>::reverse_iterator ft_ritr;
+    for (std_ritr = std_vec.rbegin(), ft_ritr = ft_vec.rbegin();
+         std_ritr != std_vec.rend(); ++std_ritr, ++ft_ritr) {
+      if (*std_ritr != *ft_ritr) {
+        throw std::runtime_error("reverse itr");
+      }
+    }
+    if (ft_ritr != ft_vec.rend()) {
+      throw std::runtime_error("reverse itr");
+    }
+    for (std_ritr = --std_vec.rend(), ft_ritr = --ft_vec.rend();
+         std_ritr != std_vec.rbegin(); --std_ritr, --ft_ritr) {
+      if (*std_ritr != *ft_ritr) {
+        throw std::runtime_error("reverse itr");
+      }
+    }
+    if (ft_ritr != ft_vec.rbegin()) {
+      throw std::runtime_error("reverse itr");
+    }
+
+    std::vector<bool>::const_reverse_iterator std_critr;
+    ft::vector<bool>::const_reverse_iterator ft_critr;
+    for (std_critr = std_vec.rbegin(), ft_critr = ft_vec.rbegin();
+         std_critr != std_vec.rend(); ++std_critr, ++ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("const reverse itr");
+      }
+    }
+    if (ft_critr != ft_vec.rend()) {
+      throw std::runtime_error("const reverse itr");
+    }
+    for (std_critr = --std_vec.rend(), ft_critr = --ft_vec.rend();
+         std_critr != std_vec.rbegin(); --std_critr, --ft_critr) {
+      if (*std_critr != *ft_critr) {
+        throw std::runtime_error("const reverse itr");
+      }
+    }
+    if (ft_critr != ft_vec.rbegin()) {
+      throw std::runtime_error("const reverse itr");
+    }
+
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  // test iterators
+  putTestInfo(test_no, "Vector<bool>: const iterators");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    const std::vector<bool> std_vec(val, &val[size]);
+    const ft::vector<bool> ft_vec(val, &val[size]);
+
+    if (std_vec.front() != ft_vec.front()) {
+      throw std::runtime_error("front");
+    }
+
+    if (std_vec.back() != ft_vec.back()) {
+      throw std::runtime_error("back");
+    }
+
+    std::vector<bool>::const_iterator std_citr;
+    ft::vector<bool>::const_iterator ft_citr;
+    for (std_citr = std_vec.begin(), ft_citr = ft_vec.begin();
+         std_citr != std_vec.end(); ++std_citr, ++ft_citr) {
+      if (*std_citr != *ft_citr) {
         throw std::runtime_error("nomal itr");
       }
     }
@@ -1657,46 +1745,25 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("nomal itr");
     }
 
-    std::vector<bool>::reverse_iterator std_ritr;
-    ft::vector<bool>::reverse_iterator ft_ritr;
-    for (std_ritr = std_vec.rbegin(), ft_ritr = ft_vec.rbegin();
-         std_ritr != std_vec.rend(); ++std_ritr, ++ft_ritr) {
-      if (*std_ritr != *ft_ritr) {
-        throw std::runtime_error("nomal itr");
-      }
-    }
-    if (ft_ritr != ft_vec.rend()) {
-      throw std::runtime_error("nomal itr");
-    }
-    for (std_ritr = --std_vec.rend(), ft_ritr = --ft_vec.rend();
-         std_ritr != std_vec.rbegin(); --std_ritr, --ft_ritr) {
-      if (*std_ritr != *ft_ritr) {
-        throw std::runtime_error("nomal itr");
-      }
-    }
-    if (ft_ritr != ft_vec.rbegin()) {
-      throw std::runtime_error("nomal itr");
-    }
-
     std::vector<bool>::const_reverse_iterator std_critr;
     ft::vector<bool>::const_reverse_iterator ft_critr;
     for (std_critr = std_vec.rbegin(), ft_critr = ft_vec.rbegin();
          std_critr != std_vec.rend(); ++std_critr, ++ft_critr) {
       if (*std_critr != *ft_critr) {
-        throw std::runtime_error("nomal itr");
+        throw std::runtime_error("reverse itr");
       }
     }
     if (ft_critr != ft_vec.rend()) {
-      throw std::runtime_error("nomal itr");
+      throw std::runtime_error("reverse itr");
     }
     for (std_critr = --std_vec.rend(), ft_critr = --ft_vec.rend();
          std_critr != std_vec.rbegin(); --std_critr, --ft_critr) {
       if (*std_critr != *ft_critr) {
-        throw std::runtime_error("nomal itr");
+        throw std::runtime_error("reverse itr");
       }
     }
     if (ft_critr != ft_vec.rbegin()) {
-      throw std::runtime_error("nomal itr");
+      throw std::runtime_error("reverse itr");
     }
 
   } catch (std::runtime_error& e) {
