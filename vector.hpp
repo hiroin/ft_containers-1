@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 20:31:27 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 21:05:45 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1405,6 +1405,8 @@ class vector<bool, Allocator> {
   }
 
   void pop_back() { --size_; }
+
+  void clear() { size_ = 0; }
 
   void flip() {
     for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
