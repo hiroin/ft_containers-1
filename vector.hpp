@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 21:05:45 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 22:26:35 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -775,6 +775,7 @@ class bit_reference_ {
  private:
   storage_pointer storage_;
   size_type idx_;
+
   bit_reference_() : storage_(NULL), idx_(0) {}
   bit_reference_(const bit_reference_& x)
       : storage_(x.storage_), idx_(x.idx_) {}
@@ -1064,6 +1065,9 @@ class vector<bool, Allocator> {
 
   // destructor
   ~vector() { storage_alloc_.deallocate(storage_, storage_size_); }
+
+  /*** operator overload ***/
+  vector& operator=(const vector& x);
 
   reference operator[](size_type n) { return reference(storage_, n); }
 
@@ -1402,6 +1406,20 @@ class vector<bool, Allocator> {
 
     size_ -= n;
     return first;
+  }
+
+  void swap(vector& x) {
+    storage_pointer tmp_storage = storage_;
+    size_type tmp_size = size_;
+    size_type tmp_storage_size = storage_size_;
+
+    storage_ = x.storage_;
+    size_ = x.size_;
+    storage_size_ = x.storage_size_;
+
+    x.storage_ = tmp_storage;
+    x.size_ = tmp_size;
+    x.storage_size_ = tmp_storage_size;
   }
 
   void pop_back() { --size_; }
