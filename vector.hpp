@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/02 14:19:24 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/02 15:09:18 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1104,9 +1104,7 @@ class vector<bool, Allocator> {
     size_type new_storage_size = getStorageSize(n);
     storage_pointer new_storage = storage_alloc_.allocate(new_storage_size);
     if (storage_) {
-      for (size_type cnt = 0; cnt < storage_size_; ++cnt) {
-        new_storage[cnt] = storage_[cnt];
-      }
+      memcpy(new_storage, storage_, sizeof(storage_type) * storage_size_);
       storage_alloc_.deallocate(storage_, storage_size_);
     }
     storage_ = new_storage;
@@ -1191,6 +1189,7 @@ class vector<bool, Allocator> {
     size_ = getSizeFromIterator(first, last);
     size_type new_storage_size = getStorageSize(size_);
 
+    // allocate memory
     if (storage_size_ < new_storage_size) {
       if (storage_) {
         storage_alloc_.deallocate(storage_, storage_size_);
@@ -1198,6 +1197,8 @@ class vector<bool, Allocator> {
       storage_ = storage_alloc_.allocate(new_storage_size);
       storage_size_ = new_storage_size;
     }
+
+    // assign
     size_type idx;
     InputIterator iter;
     for (iter = first, idx = 0; iter != last; ++iter, ++idx) {
@@ -1215,23 +1216,31 @@ class vector<bool, Allocator> {
 
   iterator insert(iterator position, const value_type& val) {
     if (size_ + 1 > capacity()) {
-      reserve(size_ + 1);
+      reserve(getNewCapacity_(storage_size_, getStorageSize(size_ + 1)) *
+              sizeof(storage_type) * CHAR_BIT);
     }
-    // size_type posidx = position.ref_.getIdx_();
     size_type posidx = (*position).getIdx_();
     size_type idx = posidx % (sizeof(storage_type) * CHAR_BIT);
     size_type storageidx = posidx / (sizeof(storage_type) * CHAR_BIT);
     storage_type mask = createMask_(idx);  // 111...111000...000
     storage_type bits_no_move = storage_[storageidx] & ~mask;
+    storage_type overflowbit =
+        storage_[storageidx] >> (sizeof(storage_type) * CHAR_BIT - 1);
     storage_[storageidx] = ((storage_[storageidx] << 1) & mask) | bits_no_move;
-    // move
     if (val) {
       storage_[storageidx] |= (1ULL << idx);
     } else {
       storage_[storageidx] &= ~(1ULL << idx);
     }
-    size_++;
-    return position;
+    storage_type newval;
+    while (++storageidx < storage_size_) {
+      newval = (storage_[storageidx] << 1) | overflowbit;
+      overflowbit =
+          storage_[storageidx] >> (sizeof(storage_type) * CHAR_BIT - 1);
+      storage_[storageidx] = newval;
+    }
+    ++size_;
+    return iterator(storage_, posidx);
   }
 
   void pop_back() { --size_; }
