@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 23:18:30 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 08:21:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #include <iterator>
 #include <memory>
 
-// self-made headers (rekkaban copy)
 #include "algorithm.hpp"
 #include "iterator.hpp"
 #include "type_traits.hpp"
@@ -225,11 +224,6 @@ class vector_const_iterator_ {
   friend vector_const_iterator_ operator-(const vector_const_iterator_& lhs,
                                           difference_type rhs) {
     return vector_const_iterator_(lhs.ptr_ - rhs);
-  }
-
-  friend vector_const_iterator_ operator-(difference_type lhs,
-                                          const vector_const_iterator_& rhs) {
-    return vector_const_iterator_(rhs.ptr_ - lhs);
   }
 
   friend void swap(vector_const_iterator_& x, vector_const_iterator_& y) {
@@ -729,43 +723,11 @@ void swap(vector<T, Allocator>& a, vector<T, Allocator>& b) {
   a.swap(b);
 }
 
-// class vector_bool_iterator_ {
-//   typedef bool value_type;
-//   typedef ptrdiff_t difference_type;
-//   typedef vector_bool_iterator_ pointer;
-//   // typedef vector<bool>::reference
-// };
-
-// class bit_storage_wrapper_ {
-//  public:
-//   typedef size_t size_type;
-//   typedef size_t storage_type;
-//   typedef size_t* storage_pointer;
-//   typedef ptrdiff_t difference_type;
-
-//  private:
-//   storage_pointer storage_;
-
-//  public:
-//   bit_storage_wrapper_() : storage_(NULL){};
-//   bit_storage_wrapper_(storage_type* ptr) : storage_(ptr){};
-//   bit_storage_wrapper_(const bit_storage_wrapper_& x) :
-//   storage_(x.storage_){}; virtual ~bit_storage_wrapper_();
-
-//   bit_storage_wrapper_& operator=(const bit_storage_wrapper_ rhs) {
-//     storage_ = rhs.storage_;
-//   }
-
-//   bool operator[](size_type n) {
-//     return storage_[n / (sizeof(storage_type) * CHAR_BIT)] &
-//            ((storage_type)(1) << n % (sizeof(storage_type) * CHAR_BIT));
-//   }
-// };
-
 class bit_iterator_;
 class const_bit_iterator_;
 
 class bit_reference_ {
+  // vector bool and relative classes should be friend to use constructors
   friend class vector<bool>;
   friend class bit_iterator_;
   friend class const_bit_iterator_;
@@ -831,14 +793,6 @@ class bit_reference_ {
   size_type getIdx_() const { return idx_; }
   storage_pointer getStorage_() const { return storage_; }
 };
-
-// void swap(bit_reference_ ref1, bit_reference_ ref2) {
-//   if (ref1 == ref2) {
-//     return;
-//   }
-//   ref1.flip();
-//   ref2.flip();
-// }
 
 class bit_iterator_ {
  public:
@@ -932,13 +886,6 @@ class bit_iterator_ {
                                  difference_type rhs) {
     bit_reference_ tmp(*lhs);
     tmp.moveIdx_(-rhs);
-    return bit_iterator_(tmp);
-  }
-
-  friend bit_iterator_ operator-(difference_type lhs,
-                                 const bit_iterator_& rhs) {
-    bit_reference_ tmp(*rhs);
-    tmp.moveIdx_(lhs);
     return bit_iterator_(tmp);
   }
 
@@ -1476,7 +1423,6 @@ class vector<bool, Allocator> {
       }
     }
 
-    // storage_[storageidx] |= bits_no_move;
     storage_[storageidx] = (storage_[storageidx] & mask) | bits_no_move;
 
     if (val) {

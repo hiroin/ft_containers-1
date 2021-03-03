@@ -6,9 +6,20 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 20:37:22 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 08:25:46 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** This file is re-impremantation of std::map<const T1, T2> as
+** ft::map<const T1, T2>.
+** Supports only C++98 features.
+**
+** References
+** - 42 cursus subject
+** - http://www.cplusplus.com/reference/map/map/
+** - https://cpprefjp.github.io/reference/map/map.html
+*/
 
 #ifndef MAP_HPP
 #define MAP_HPP
@@ -672,7 +683,6 @@ class map {
     } else {
       return findUpperBound_(node->right_, k);
     }
-    // return NULL;
   }
 
   // This tries to insert new node with val_ptr (pointer to newly allocated

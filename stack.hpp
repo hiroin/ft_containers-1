@@ -6,9 +6,19 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 16:11:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 22:18:20 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 08:27:33 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** This file is re-impremantation of std::stack<T> as ft::stack<T>.
+** Supports only C++98 features.
+**
+** References
+** - 42 cursus subject
+** - http://www.cplusplus.com/reference/stack/stack/
+** - https://cpprefjp.github.io/reference/stack/stack.html
+*/
 
 #ifndef STACK_HPP
 #define STACK_HPP
@@ -53,7 +63,7 @@ class stack {
   }
 
   friend bool operator<(const stack<T, Container>& lhs,
-                         const stack<T, Container>& rhs) {
+                        const stack<T, Container>& rhs) {
     return lhs.c < rhs.c;
   }
 
@@ -63,7 +73,7 @@ class stack {
   }
 
   friend bool operator>(const stack<T, Container>& lhs,
-                         const stack<T, Container>& rhs) {
+                        const stack<T, Container>& rhs) {
     return lhs.c > rhs.c;
   }
 

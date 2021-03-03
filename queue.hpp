@@ -6,9 +6,19 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:46:07 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/17 18:03:18 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 08:27:13 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** This file is re-impremantation of std::queue<T> as ft::queue<T>.
+** Supports only C++98 features.
+**
+** References
+** - 42 cursus subject
+** - http://www.cplusplus.com/reference/queue/queue/
+** - https://cpprefjp.github.io/reference/queue/queue.html
+*/
 
 #ifndef QUEUE_HPP
 #define QUEUE_HPP
