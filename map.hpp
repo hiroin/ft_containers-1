@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 15:09:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 18:39:55 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -735,10 +735,12 @@ class map {
       if (parent == NULL) {
         root_ = node->left_;
       }
-      if (node == parent->left_) {
-        parent->left_ = node->left_;
-      } else {
-        parent->right_ = node->left_;
+      else {
+        if (node == parent->left_) {
+          parent->left_ = node->left_;
+        } else {
+          parent->right_ = node->left_;
+        }
       }
     } else {  // means if (node->right != NULL || node->right == NULL)
       if (parent == NULL) {
