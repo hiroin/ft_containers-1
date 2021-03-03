@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 09:02:51 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 09:24:08 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -2006,6 +2006,321 @@ void test_vector_bool(int& test_no) {
       std::cout << "max_size(std) = " << std_vec.max_size() << std::endl;
       std::cout << "max_size(ft)  = " << ft_vec.max_size() << std::endl;
       throw std::runtime_error("max_size");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(4242) and vec(4242)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+    std::vector<bool> std_vec2(val, &val[size]);
+    ft::vector<bool> ft_vec2(val, &val[size]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no,
+              "Vector<bool>: relational: vec(4242) and vec(4242) diff");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+    std::vector<bool> std_vec2(val, &val[size]);
+    ft::vector<bool> ft_vec2(val, &val[size]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(4242) and vec(2424)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+    std::vector<bool> std_vec2(val + 1212, &val[3636]);
+    ft::vector<bool> ft_vec2(val + 1212, &val[3636]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(4242) and vec(2424)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+    std::vector<bool> std_vec2(val, &val[2424]);
+    ft::vector<bool> ft_vec2(val, &val[2424]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(2424) and vec(4242)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val + 1212, &val[3636]);
+    ft::vector<bool> ft_vec(val + 1212, &val[3636]);
+    std::vector<bool> std_vec2(val, &val[size]);
+    ft::vector<bool> ft_vec2(val, &val[size]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(2424) and vec(4242)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[2424]);
+    ft::vector<bool> ft_vec(val, &val[2424]);
+    std::vector<bool> std_vec2(val, &val[size]);
+    ft::vector<bool> ft_vec2(val, &val[size]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec(4242) and vec()");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec(val, &val[size]);
+    ft::vector<bool> ft_vec(val, &val[size]);
+    std::vector<bool> std_vec2;
+    ft::vector<bool> ft_vec2;
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
+    }
+  } catch (std::runtime_error& e) {
+    throw e;
+  }
+  std::cout << " => OK :)" << std::endl;
+
+  putTestInfo(test_no, "Vector<bool>: relational: vec() and vec(4242)");
+  try {
+    const size_t size = 4242;
+    bool val[size];
+    for (size_t i = 0; i < size; i++) {
+      val[i] = rand() % 2;
+    }
+
+    std::vector<bool> std_vec;
+    ft::vector<bool> ft_vec;
+    std::vector<bool> std_vec2(val, &val[size]);
+    ft::vector<bool> ft_vec2(val, &val[size]);
+
+    std_vec = std_vec2;
+    ft_vec = ft_vec2;
+
+    if ((std_vec == std_vec2) != (ft_vec == ft_vec2)) {
+      throw std::runtime_error("==");
+    }
+    if ((std_vec != std_vec2) != (ft_vec != ft_vec2)) {
+      throw std::runtime_error("!=");
+    }
+    if ((std_vec < std_vec2) != (ft_vec < ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec > std_vec2) != (ft_vec > ft_vec2)) {
+      throw std::runtime_error("<");
+    }
+    if ((std_vec <= std_vec2) != (ft_vec <= ft_vec2)) {
+      throw std::runtime_error("<=");
+    }
+    if ((std_vec >= std_vec2) != (ft_vec >= ft_vec2)) {
+      throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
     throw e;

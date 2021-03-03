@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 09:03:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 09:19:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1233,6 +1233,34 @@ class vector<bool, Allocator> {
     assign(x.begin(), x.end());
     return *this;
   }
+
+  friend bool operator==(const vector& x, const vector& y) {
+    if ((x.size_ != y.size_)) {
+      return false;
+    }
+    for (size_type idx = 0; idx < x.size_; ++idx) {
+      if (x[idx] != y[idx]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  friend bool operator!=(const vector& x, const vector& y) { return !(x == y); }
+
+  friend bool operator<(const vector& x, const vector& y) {
+    return (
+        ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+  }
+
+  friend bool operator>(const vector& x, const vector& y) {
+    return (
+        ft::lexicographical_compare(y.begin(), y.end(), x.begin(), x.end()));
+  }
+
+  friend bool operator<=(const vector& x, const vector& y) { return !(x > y); }
+  friend bool operator>=(const vector& x, const vector& y) { return !(x < y); }
 
   reference operator[](size_type n) { return reference(storage_, n); }
 
