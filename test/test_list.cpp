@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:01:31 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:51:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 20:41:07 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -7212,7 +7212,6 @@ void test_list(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-
   // merge(list)
   putTestInfo(test_no, "list<Hoge>: list(6).marge(list(6))");
   try {
@@ -8221,6 +8220,51 @@ void test_list(int& test_no) {
     throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
+
+  /*
+  putTestInfo(test_no, "list<int>: list(1).sort.unique");
+  try {
+    std::list<int> lst_std;
+    ft::list<int> lst_ft;
+    std::list<int>::const_iterator itr_std;
+    ft::list<int>::const_iterator itr_ft;
+
+    lst_std.push_back(5);
+    lst_std.push_back(42);
+    lst_std.push_back(44);
+    lst_std.push_back(43);
+    lst_std.push_back(44);
+    lst_std.push_back(5);
+    lst_std.push_back(45);
+    lst_ft.push_back(5);
+    lst_ft.push_back(42);
+    lst_ft.push_back(44);
+    lst_ft.push_back(43);
+    lst_ft.push_back(44);
+    lst_ft.push_back(5);
+    lst_ft.push_back(45);
+    lst_std.unique(&lesser_than_rhs<int>);
+    lst_ft.unique(&lesser_than_rhs<int>);
+    for (itr_ft = lst_ft.begin(); itr_ft != lst_ft.end(); ++itr_ft) {
+      std::cout << *itr_ft << std::endl;
+    }
+    for (itr_std = lst_std.begin(), itr_ft = lst_ft.begin();
+         itr_std != lst_std.end(); ++itr_std, ++itr_ft) {
+      if (*itr_std != *itr_ft) {
+        throw std::runtime_error("value");
+      }
+    }
+    if (itr_ft != lst_ft.end()) {
+      throw std::runtime_error("iter");
+    }
+    if (lst_std.empty() != lst_ft.empty() || lst_std.size() != lst_ft.size()) {
+      throw std::runtime_error("size");
+    }
+  } catch (std::exception& e) {
+    throw std::runtime_error(e.what());
+  }
+  std::cout << " => OK :)" << std::endl;
+  */
 
   putTestInfo(test_no, "list<Hoge>: list(1).sort.unique");
   try {

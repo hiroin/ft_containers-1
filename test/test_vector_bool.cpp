@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 09:24:08 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 10:32:32 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1700,6 +1700,8 @@ void test_vector_bool(int& test_no) {
 
     std::vector<bool>::reverse_iterator std_ritr;
     ft::vector<bool>::reverse_iterator ft_ritr;
+    // ft_ritr = ft_vec.begin();
+    // std_ritr = std_vec.begin();
     for (std_ritr = std_vec.rbegin(), ft_ritr = ft_vec.rbegin();
          std_ritr != std_vec.rend(); ++std_ritr, ++ft_ritr) {
       if (*std_ritr != *ft_ritr) {

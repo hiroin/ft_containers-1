@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 09:19:07 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 10:19:11 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1243,7 +1243,6 @@ class vector<bool, Allocator> {
         return false;
       }
     }
-
     return true;
   }
 

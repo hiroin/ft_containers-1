@@ -6,15 +6,14 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/14 13:39:34 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 18:39:55 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 20:37:22 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <stack>
-
+#include <limits>
 #include "iterator.hpp"
 #include "list.hpp"
 #include "stack.hpp"
@@ -734,8 +733,7 @@ class map {
     } else if (node->left_ != NULL) {
       if (parent == NULL) {
         root_ = node->left_;
-      }
-      else {
+      } else {
         if (node == parent->left_) {
           parent->left_ = node->left_;
         } else {
@@ -846,7 +844,12 @@ class map {
     return root_ ? static_cast<size_type>(root_->size()) : 0;
   }
 
-  size_type max_size() const { return alloc_.max_size() / 2; }
+  size_type max_size() const {
+    return std::min(
+        std::numeric_limits<size_type>::max() /
+            (sizeof(value_type) + sizeof(node_pointer) * 4),
+        std::numeric_limits<size_type>::max() / (sizeof(value_type) * 2));
+  }
 
   /*** modifiers ***/
   std::pair<iterator, bool> insert(const value_type& val) {

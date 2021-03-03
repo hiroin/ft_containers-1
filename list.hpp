@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/02/21 12:39:39 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 20:35:40 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #define LIST_HPP
 
 #include <iterator>
+#include <limits>
 #include <memory>
 
 #include "algorithm.hpp"
@@ -486,8 +487,11 @@ class list {
   bool empty() const { return head_ == head_->next_; }
 
   size_type max_size() const {
-    // I don't know why "/2"
-    return alloc_.max_size() / 2;
+    size_type typesize = sizeof(value_type) + sizeof(value_type) % 8;
+    return std::min(std::numeric_limits<size_type>::max() /
+                        (typesize + sizeof(node_pointer)),
+                    std::numeric_limits<size_type>::max() /
+                        (typesize + sizeof(size_type) * 2));
   }
 
   /*** Element access ***/
@@ -695,7 +699,7 @@ class list {
 
     node_pointer node = head_->next_->next_;
     while (node != head_) {
-      if (binary_pred(*node->value_, *node->prev_->value_)) {
+      if ((*binary_pred)(*node->prev_->value_, *node->value_)) {
         // erase a node
         node->next_->prev_ = node->prev_;
         node->prev_->next_ = node->next_;
