@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 08:12:35 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/03 09:03:39 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1229,7 +1229,10 @@ class vector<bool, Allocator> {
   ~vector() { storage_alloc_.deallocate(storage_, storage_size_); }
 
   /*** operator overload ***/
-  vector& operator=(const vector& x);
+  vector& operator=(const vector& x) {
+    assign(x.begin(), x.end());
+    return *this;
+  }
 
   reference operator[](size_type n) { return reference(storage_, n); }
 
@@ -1583,9 +1586,9 @@ class vector<bool, Allocator> {
     x.storage_size_ = tmp_storage_size;
   }
 
-  static void swap (reference ref1, reference ref2) {
+  static void swap(reference ref1, reference ref2) {
     if (ref1 == ref2) {
-      return ;
+      return;
     }
     ref1.flip();
     ref2.flip();
