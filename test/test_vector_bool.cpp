@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/04 08:20:26 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 09:30:12 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void test_vector_bool(int& test_no) {
       std::vector<bool> std_vec(size);
       ft::vector<bool> ft_vec(size);
 
-      printf("hoge\n");
       for (size_t idx = 0; idx < size; ++idx) {
         if (std_vec[idx] != ft_vec[idx]) {
           std::cout << std::endl << "idx = " << idx << std::endl;
@@ -1756,6 +1755,15 @@ void test_vector_bool(int& test_no) {
 
     const std::vector<bool> std_vec(val, &val[size]);
     const ft::vector<bool> ft_vec(val, &val[size]);
+
+    for (size_t i = 0; i < size; i++) {
+      if (std_vec[i] != ft_vec[i]) {
+        throw std::runtime_error("operator[]");
+      }
+      if (std_vec.at(i) != ft_vec.at(i)) {
+        throw std::runtime_error("at");
+      }
+    }
 
     if (std_vec.front() != ft_vec.front()) {
       throw std::runtime_error("front");

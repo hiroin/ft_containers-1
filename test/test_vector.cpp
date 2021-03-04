@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/04 08:20:09 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/04 09:20:10 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -10685,7 +10685,7 @@ void test_vector(int& test_no) {
   }
   std::cout << " => OK :)" << std::endl;
 
-  putTestInfo(test_no, "construct using ft::iterator");
+  putTestInfo(test_no, "vector<int>: const");
   try {
     int num[10] = {0, 1, 2, 3, 42, 5, 6, 7, 8, 9};
     const std::vector<int> std_vec(num, num + 10);
@@ -10694,6 +10694,12 @@ void test_vector(int& test_no) {
     ft::vector<int>::const_iterator ft_citr;
     std::vector<int>::const_reverse_iterator std_critr;
     ft::vector<int>::const_reverse_iterator ft_critr;
+
+    for (int i = 0; i < 10; i++) {
+      if (std_vec[i] != ft_vec[i]) {
+        throw std::runtime_error("reference");
+      }
+    }
 
     for (std_citr = std_vec.begin(), ft_citr = ft_vec.begin();
          std_citr != std_vec.end(); ++std_citr, ++ft_citr) {
