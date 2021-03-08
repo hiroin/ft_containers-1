@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/10 08:11:53 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/03 20:35:40 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/08 12:18:24 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -635,6 +635,9 @@ class list {
 
   /*** Operations ***/
   void splice(iterator position, list& x) {
+    if (x.empty()) {
+      return;
+    }
     spliceNode_(findNodeFromIterator_(position), x.head_->next_,
                 x.head_->prev_);
   }
@@ -642,6 +645,15 @@ class list {
   void splice(iterator position, list& x, iterator i) {
     node_pointer x_node = x.findNodeFromIterator_(i);
     spliceNode_(findNodeFromIterator_(position), x_node, x_node);
+  }
+
+  void splice (iterator position, list& x, iterator first, iterator last) {
+    node_pointer x_node_first = x.findNodeFromIterator_(first);
+    node_pointer x_node_last = x.findNodeFromIterator_(last);
+    if (x_node_first == x_node_last) {
+      return ;
+    }
+    spliceNode_(findNodeFromIterator_(position), x_node_first, x_node_last->prev_);
   }
 
   void remove(const value_type& val) {
