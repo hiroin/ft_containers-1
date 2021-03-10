@@ -6,7 +6,7 @@
 /*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/27 10:19:40 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/04 09:34:56 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/03/10 16:59:00 by dnakano          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,7 +367,7 @@ class vector {
   }
 
   // destructor
-  virtual ~vector() { allClear_(); }
+  ~vector() { allClear_(); }
 
   /*** operator overload ***/
   vector& operator=(const vector& x) {
