@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+         #
+#    By: user42 <user42@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/05 17:34:06 by dnakano           #+#    #+#              #
-#    Updated: 2021/02/23 09:01:09 by dnakano          ###   ########.fr        #
+#    Updated: 2021/07/07 02:14:10 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		:=	main.cpp test_util.cpp test_vector.cpp test_list.cpp \
-				test_map.cpp test_stack.cpp test_queue.cpp \
+SRCS		:=	main.cpp test_util.cpp test_vector.cpp \
+				test_map.cpp test_stack.cpp \
 				test_vector_bool.cpp Hoge.cpp
 OBJS		:=	$(SRCS:%.cpp=%.o)
-HEADERS		:=	vector.hpp list.hpp map.hpp stack.hpp
+HEADERS		:=	vector.hpp map.hpp stack.hpp
 HEADERDIR	:=	..
 NAME		:=	test.out
 OUTDIR		:=	.
