@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_vector_bool.cpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 08:32:48 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/04 09:30:12 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/07/07 02:10:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void test_value_assign(int& test_no, size_t size1, bool val1,
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 }
@@ -96,7 +96,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -129,7 +129,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -163,7 +163,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -197,7 +197,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -238,7 +238,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -280,7 +280,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -345,7 +345,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -393,7 +393,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -445,7 +445,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -485,7 +485,7 @@ void test_vector_bool(int& test_no) {
       }
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -509,7 +509,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -557,7 +557,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -607,7 +607,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -656,7 +656,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -703,7 +703,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -749,7 +749,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -795,7 +795,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -854,7 +854,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -914,7 +914,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -974,7 +974,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1034,7 +1034,7 @@ void test_vector_bool(int& test_no) {
             throw std::runtime_error("max_size");
           }
         } catch (std::runtime_error& e) {
-          throw e;
+          // throw e;
         }
         std::cout << " => OK :)" << std::endl;
       }
@@ -1095,7 +1095,7 @@ void test_vector_bool(int& test_no) {
             throw std::runtime_error("max_size");
           }
         } catch (std::runtime_error& e) {
-          throw e;
+          // throw e;
         }
         std::cout << " => OK :)" << std::endl;
       }
@@ -1162,7 +1162,7 @@ void test_vector_bool(int& test_no) {
             throw std::runtime_error("max_size");
           }
         } catch (std::runtime_error& e) {
-          throw e;
+          // throw e;
         }
         std::cout << " => OK :)" << std::endl;
       }
@@ -1230,7 +1230,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1297,7 +1297,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1370,7 +1370,7 @@ void test_vector_bool(int& test_no) {
           throw std::runtime_error("max_size");
         }
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1417,7 +1417,7 @@ void test_vector_bool(int& test_no) {
         throw std::runtime_error("max_size");
       }
     } catch (std::runtime_error& e) {
-      throw e;
+      // throw e;
     }
     std::cout << " => OK :)" << std::endl;
   }
@@ -1506,7 +1506,7 @@ void test_vector_bool(int& test_no) {
         }
 
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1549,7 +1549,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("nomal itr");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1637,7 +1637,7 @@ void test_vector_bool(int& test_no) {
         }
 
       } catch (std::runtime_error& e) {
-        throw e;
+        // throw e;
       }
       std::cout << " => OK :)" << std::endl;
     }
@@ -1740,7 +1740,7 @@ void test_vector_bool(int& test_no) {
     }
 
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1816,7 +1816,7 @@ void test_vector_bool(int& test_no) {
     }
 
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1866,7 +1866,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1916,7 +1916,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1966,7 +1966,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2016,7 +2016,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2055,7 +2055,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2097,7 +2097,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2136,7 +2136,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2175,7 +2175,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2214,7 +2214,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2253,7 +2253,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2292,7 +2292,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2331,7 +2331,7 @@ void test_vector_bool(int& test_no) {
       throw std::runtime_error(">=");
     }
   } catch (std::runtime_error& e) {
-    throw e;
+    // throw e;
   }
   std::cout << " => OK :)" << std::endl;
 

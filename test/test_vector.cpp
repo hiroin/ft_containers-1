@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_vector.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dnakano <dnakano@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: user42 <user42@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 20:50:10 by dnakano           #+#    #+#             */
-/*   Updated: 2021/03/04 09:20:10 by dnakano          ###   ########.fr       */
+/*   Updated: 2021/07/07 02:11:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("should be true");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -284,7 +284,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("should be true");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -296,7 +296,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("should not be true");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -308,7 +308,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("should not be true");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -324,7 +324,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("should be true");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -483,7 +483,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -499,7 +499,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -515,7 +515,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::out_of_range& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -533,7 +533,7 @@ void test_vector(int& test_no) {
       }
     }
   } catch (std::out_of_range& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -549,7 +549,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -565,7 +565,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -581,7 +581,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -609,7 +609,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -622,7 +622,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -636,7 +636,7 @@ void test_vector(int& test_no) {
     }
   } catch (std::out_of_range& e) {
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -661,7 +661,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -683,7 +683,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -710,7 +710,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -732,7 +732,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -756,7 +756,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -773,7 +773,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -790,7 +790,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -811,7 +811,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -832,7 +832,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -855,7 +855,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -879,7 +879,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -903,7 +903,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -927,7 +927,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -943,7 +943,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -958,7 +958,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -971,7 +971,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -986,7 +986,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1002,7 +1002,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1017,7 +1017,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1030,7 +1030,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1046,7 +1046,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1061,7 +1061,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1082,7 +1082,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1103,7 +1103,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
 
   putTestInfo(test_no, "push_back(42) to vec(1, 1)");
@@ -1123,7 +1123,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1144,7 +1144,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1169,7 +1169,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1193,7 +1193,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1216,7 +1216,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1238,7 +1238,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1259,7 +1259,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1282,7 +1282,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
   /**/
@@ -1321,7 +1321,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1351,7 +1351,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1381,7 +1381,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
   /* */
@@ -1400,7 +1400,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1419,7 +1419,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1435,7 +1435,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1454,7 +1454,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1476,7 +1476,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1498,7 +1498,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1536,7 +1536,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1564,7 +1564,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1592,7 +1592,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1616,7 +1616,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1640,7 +1640,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1664,7 +1664,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1693,7 +1693,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 #endif /* ALLOW_USE_CPP03 */
@@ -1716,7 +1716,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("riter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1738,7 +1738,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("riter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1777,7 +1777,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("riter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1814,7 +1814,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("riter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1839,7 +1839,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.end not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 #endif /* ALLOW_USE_CPP03 */
@@ -1869,7 +1869,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.rend not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1897,7 +1897,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.rend not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1921,7 +1921,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.rend not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1945,7 +1945,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.rend not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1969,7 +1969,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("iter.rend not match");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -1990,7 +1990,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2011,7 +2011,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2034,7 +2034,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2058,7 +2058,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2082,7 +2082,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2106,7 +2106,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2130,7 +2130,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2154,7 +2154,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2177,7 +2177,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2200,7 +2200,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2225,7 +2225,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2250,7 +2250,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2275,7 +2275,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2300,7 +2300,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2325,7 +2325,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2350,7 +2350,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2375,7 +2375,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2400,7 +2400,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2425,7 +2425,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2450,7 +2450,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2475,7 +2475,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2496,7 +2496,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2517,7 +2517,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("failed");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2540,7 +2540,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2563,7 +2563,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2586,7 +2586,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2607,7 +2607,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2628,7 +2628,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2649,7 +2649,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2672,7 +2672,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2695,7 +2695,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2718,7 +2718,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2742,7 +2742,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2766,7 +2766,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2790,7 +2790,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2816,7 +2816,7 @@ void test_vector(int& test_no) {
   //     throw std::runtime_error("size or capacity");
   //   }
   // } catch (std::exception& e) {
-  //   throw std::runtime_error(e.what());
+  //   // throw std::runtime_error(e.what());
   // }
   // std::cout << " => OK :)" << std::endl;
 
@@ -2840,7 +2840,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2864,7 +2864,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2889,7 +2889,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2915,7 +2915,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2939,7 +2939,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2963,7 +2963,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -2987,7 +2987,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3011,7 +3011,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3035,7 +3035,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3059,7 +3059,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3082,7 +3082,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3105,7 +3105,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3128,7 +3128,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3151,7 +3151,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3174,7 +3174,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3197,7 +3197,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3220,7 +3220,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3243,7 +3243,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3266,7 +3266,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3290,7 +3290,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3313,7 +3313,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3344,7 +3344,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3362,7 +3362,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3383,7 +3383,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3404,7 +3404,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3425,7 +3425,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3446,7 +3446,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3467,7 +3467,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3488,7 +3488,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3509,7 +3509,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3530,7 +3530,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3551,7 +3551,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3575,7 +3575,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3599,7 +3599,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3623,7 +3623,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3649,7 +3649,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3680,7 +3680,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3711,7 +3711,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3742,7 +3742,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3773,7 +3773,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3804,7 +3804,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3831,7 +3831,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3858,7 +3858,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3885,7 +3885,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3910,7 +3910,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3936,7 +3936,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3962,7 +3962,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -3988,7 +3988,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4014,7 +4014,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4040,7 +4040,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4066,7 +4066,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4091,7 +4091,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4116,7 +4116,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4141,7 +4141,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4168,7 +4168,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4195,7 +4195,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4222,7 +4222,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4249,7 +4249,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4276,7 +4276,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4303,7 +4303,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4330,7 +4330,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4357,7 +4357,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4384,7 +4384,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4411,7 +4411,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4438,7 +4438,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4465,7 +4465,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4492,7 +4492,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4515,7 +4515,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4532,7 +4532,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("caught no exception");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4549,7 +4549,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("caught no exception");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4566,7 +4566,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("caught no exception");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4591,7 +4591,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4616,7 +4616,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4641,7 +4641,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4666,7 +4666,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4691,7 +4691,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4716,7 +4716,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4741,7 +4741,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4766,7 +4766,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4791,7 +4791,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4816,7 +4816,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4841,7 +4841,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4866,7 +4866,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4891,7 +4891,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4916,7 +4916,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4941,7 +4941,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4966,7 +4966,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -4991,7 +4991,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5018,7 +5018,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5045,7 +5045,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5071,7 +5071,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5096,7 +5096,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5123,7 +5123,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5150,7 +5150,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5177,7 +5177,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5204,7 +5204,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5231,7 +5231,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5258,7 +5258,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5285,7 +5285,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5315,7 +5315,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5346,7 +5346,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5380,7 +5380,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5410,7 +5410,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5441,7 +5441,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5475,7 +5475,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5500,7 +5500,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5525,7 +5525,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5550,7 +5550,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5575,7 +5575,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5600,7 +5600,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5626,7 +5626,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5651,7 +5651,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5680,7 +5680,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5705,7 +5705,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5730,7 +5730,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5755,7 +5755,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5780,7 +5780,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5806,7 +5806,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5831,7 +5831,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5860,7 +5860,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5889,7 +5889,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5914,7 +5914,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5939,7 +5939,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5964,7 +5964,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -5989,7 +5989,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6015,7 +6015,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6041,7 +6041,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6066,7 +6066,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6095,7 +6095,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6120,7 +6120,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6145,7 +6145,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6170,7 +6170,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6196,7 +6196,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6222,7 +6222,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6247,7 +6247,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6276,7 +6276,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6305,7 +6305,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6330,7 +6330,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6355,7 +6355,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6380,7 +6380,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6405,7 +6405,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6430,7 +6430,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6456,7 +6456,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6481,7 +6481,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6510,7 +6510,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6535,7 +6535,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6560,7 +6560,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6585,7 +6585,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6610,7 +6610,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6636,7 +6636,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6661,7 +6661,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6686,7 +6686,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6711,7 +6711,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6736,7 +6736,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6761,7 +6761,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6786,7 +6786,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6812,7 +6812,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6837,7 +6837,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6866,7 +6866,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6891,7 +6891,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6916,7 +6916,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6941,7 +6941,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6966,7 +6966,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -6992,7 +6992,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7017,7 +7017,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7046,7 +7046,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7072,7 +7072,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7101,7 +7101,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7126,7 +7126,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7154,7 +7154,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7179,7 +7179,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7208,7 +7208,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7233,7 +7233,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7261,7 +7261,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7286,7 +7286,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7315,7 +7315,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7340,7 +7340,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7368,7 +7368,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7394,7 +7394,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7423,7 +7423,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7448,7 +7448,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7477,7 +7477,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7502,7 +7502,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7531,7 +7531,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7556,7 +7556,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7589,7 +7589,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7614,7 +7614,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7643,7 +7643,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7668,7 +7668,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7697,7 +7697,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7723,7 +7723,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7752,7 +7752,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7777,7 +7777,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7806,7 +7806,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7831,7 +7831,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7860,7 +7860,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7885,7 +7885,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7912,7 +7912,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7937,7 +7937,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7967,7 +7967,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -7992,7 +7992,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8025,7 +8025,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8050,7 +8050,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8079,7 +8079,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8105,7 +8105,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8134,7 +8134,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8162,7 +8162,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8191,7 +8191,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8219,7 +8219,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8245,7 +8245,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8272,7 +8272,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8299,7 +8299,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8326,7 +8326,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8353,7 +8353,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8380,7 +8380,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8410,7 +8410,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8437,7 +8437,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8464,7 +8464,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8491,7 +8491,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8522,7 +8522,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8553,7 +8553,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8582,7 +8582,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8612,7 +8612,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8644,7 +8644,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("max_size");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8672,7 +8672,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8699,7 +8699,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8726,7 +8726,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8766,7 +8766,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8805,7 +8805,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8844,7 +8844,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8884,7 +8884,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8925,7 +8925,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -8966,7 +8966,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9005,7 +9005,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9044,7 +9044,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9085,7 +9085,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9124,7 +9124,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9163,7 +9163,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9203,7 +9203,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9242,7 +9242,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9281,7 +9281,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9320,7 +9320,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9361,7 +9361,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9402,7 +9402,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9441,7 +9441,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9480,7 +9480,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9521,7 +9521,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9560,7 +9560,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9599,7 +9599,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9646,7 +9646,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9687,7 +9687,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9734,7 +9734,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9775,7 +9775,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9816,7 +9816,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9857,7 +9857,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9898,7 +9898,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9939,7 +9939,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -9980,7 +9980,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10021,7 +10021,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10062,7 +10062,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10103,7 +10103,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10144,7 +10144,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10185,7 +10185,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10227,7 +10227,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10269,7 +10269,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("size or capacity 2");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10296,7 +10296,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10323,7 +10323,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10350,7 +10350,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10378,7 +10378,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10406,7 +10406,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10434,7 +10434,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10462,7 +10462,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10490,7 +10490,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10520,7 +10520,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10550,7 +10550,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10580,7 +10580,7 @@ void test_vector(int& test_no) {
       throw std::runtime_error("operator<=");
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10598,7 +10598,7 @@ void test_vector(int& test_no) {
       }
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10616,7 +10616,7 @@ void test_vector(int& test_no) {
       }
     }
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10681,7 +10681,7 @@ void test_vector(int& test_no) {
     }
 
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
@@ -10722,7 +10722,7 @@ void test_vector(int& test_no) {
     }
 
   } catch (std::exception& e) {
-    throw std::runtime_error(e.what());
+    // throw std::runtime_error(e.what());
   }
   std::cout << " => OK :)" << std::endl;
 
